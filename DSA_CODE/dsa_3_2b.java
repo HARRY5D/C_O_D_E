@@ -4,9 +4,13 @@ class ListNode
 {
     int val;
     ListNode next;
-    ListNode(int x) 
+    ListNode(int x, ListNode list1) 
 
     { val = x; }
+
+    ListNode(int val, ListNode list1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }
 
@@ -76,17 +80,17 @@ public class dsa_3_2b
             int val = sc.nextInt();
             if (head == null) 
             {
-                head = new ListNode(val);
+                head = new ListNode(val, list1);
                 current = head;
             } 
             else 
             {
-                current.next = new ListNode(val);
+                current.next = new ListNode(val, list1);
                 current = current.next;
             }
         }
         sc.close();
-        
+
         set s = new set();
 
         boolean isPalindrome = s.isPalindrome(head);
