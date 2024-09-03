@@ -132,7 +132,7 @@ public class p3_3
 
         System.out.print("Type in the volume of the bottle: ");
         double volume = sc.nextDouble();
-
+        sc.close();
         SodaBottle sb = new SodaBottle(name, volume);
 
         System.out.println(sb.toString());

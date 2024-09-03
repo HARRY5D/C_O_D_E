@@ -84,7 +84,7 @@ public class dsa2_3
                 System.out.print("ENTER ELEMENT No. "+ (i+1) +" : ");
                 arr[i] = sc.nextInt();
             }
-            
+            sc.close();
             rearrangeArray(n, arr);
             for (int i = 0; i < n; i++) 
             {
