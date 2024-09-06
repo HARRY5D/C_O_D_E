@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class bubble_sort
+ class bubble_sort
  {
     public static void main(String[] args)
      {
@@ -22,7 +22,7 @@ public class bubble_sort
        }
 
         insertionSort(ar);
-        
+        sc.close();
        // System.out.println("ARRAY : {3, 8, 6, 7, 5, 9}");
        
         System.out.println(Arrays.toString(ar));
