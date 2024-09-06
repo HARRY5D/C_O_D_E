@@ -72,7 +72,7 @@ public class p3_2
             System.out.print("CHOOSE A No. : ");
 
             int x = sc.nextInt();
-
+            sc.close();
             switch (x) 
             {
                 case 1:
