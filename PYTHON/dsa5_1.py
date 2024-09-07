@@ -8,14 +8,14 @@ class Stack:
 
     def push(self, value):
         if self.top >= self.max_size - 1:
-            print("Stack is full. Can't push", value)
+            print("STACK IS FULL", value)
             return
         self.stack_array[self.top + 1] = value
         self.top += 1
 
     def pop(self):
         if self.top < 0:
-            print("Stack is empty. Can't pop.")
+            print("STACK IS EMPTY,CAN'T POP.")
             return -1
         value = self.stack_array[self.top]
         self.stack_array[self.top] = None
@@ -28,12 +28,12 @@ stack.push(2)
 stack.push(3)
 stack.push(4)
 
-print("ELEMENTS IN STACK(BEFORE POP OPERATION) : \n")
-print(stack.stack_array)
+print("ELEMENTS IN STACK(BEFORE POP OPERATION) : ",stack.stack_array)
+#print(stack.stack_array)
 
 stack.pop()
-print("ELEMENTS IN STACK(AFTER POP OPERATION) : \n")
-print(stack.stack_array)
+print("ELEMENTS IN STACK(AFTER POP OPERATION)  : ",stack.stack_array)
+#print(stack.stack_array)
 
 
 
