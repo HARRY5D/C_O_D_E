@@ -9,7 +9,7 @@ public class p3_4
         Scanner sc = new Scanner(System.in);
         System.out.print("ENTER No. OF TERMS : ");
         int n = sc.nextInt();
-
+        sc.close();
         Harmonic hc = new Harmonic();
         double sum = hc.calculate(n);
 
