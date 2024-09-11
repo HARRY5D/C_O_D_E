@@ -3,33 +3,35 @@ Salary must be incremented by 5% through the thread. After every increment threa
 should be sleeping for around 2000 milliseconds. */
 import java.util.Scanner;
 
-class SalaryIncrementThread extends Thread 
+class incrementor extends Thread 
 {
-   public double[] salaries;
-   public int index;
+    public double[] salaries;
+    public int num;
 
-    public SalaryIncrementThread(double[] salaries, int index) 
+    public incrementor(double[] salaries, int num) 
     {
         this.salaries = salaries;
-        this.index = index;
+        this.num = num;
     }
 
-  //  @Override
+    @Override
     public void run() 
     {
         try 
         {
-            while (true) 
-            {
-                salaries[in
-                
-                dex] = salaries[index] * 1.05;
-                System.out.println("SALARY OF EMPLOYEE " + (inPRACICAL 6.1+ 1) + " IS INCREMENTED TO : " + salaries[index]);
+            for (int i = 0; i < 10; i++) 
+            { 
                 Thread.sleep(2000);
+                synchronized (salaries) 
+                {
+                    salaries[num] = salaries[num] * 1.05;
+                    System.out.println("SALARY OF EMPLOYEE " + (num + 1) + " IS INCREMENTED TO : " + salaries[num]);
+                }
             }
         } 
         catch (InterruptedException e) 
         {
+            Thread.currentThread().interrupt();
             System.out.println("THREAD INTERUPTED.");
         }
     }
@@ -37,22 +39,21 @@ class SalaryIncrementThread extends Thread
 
 public class p6_2 
 {
-    public static void main (String[] args) 
+    public static void main(String[] args) 
     {
         double[] salaries = new double[5];
-        Scanner sc = new  Scanner(System.in); 
-       
-        for (int i = 0; i < 5; i++) 
+        try (Scanner sc = new Scanner(System.in)) 
         {
-            System.out.print("ENTER SALARY OF EMPLOYEE No." + (i + 1) + ": ");
-            salaries[i]=sc.nextDouble(); 
-            
-        }
-
-        for (int i = 0; i < 5; i++) 
-        {
-            SalaryIncrementThread thread = new SalaryIncrementThread(salaries, i);
-            thread.start();
+            for (int i = 0; i < 5; i++) 
+            {
+                System.out.print("ENTER SALARY OF EMPLOYEE No." + (i + 1) + ": ");
+                salaries[i] = sc.nextDouble();
+            }
+            for (int i = 0; i < 5; i++) 
+            {
+                incrementor inc = new incrementor(salaries, i);
+                inc.start();
+            }
         }
     }
 }
