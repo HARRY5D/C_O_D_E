@@ -1,28 +1,35 @@
 
 import java.util.Scanner;
 
-class ListNode {
+class ListNode 
+{
     int val;
     ListNode next;
 
-    ListNode(int x) {
+    ListNode(int x) 
+    {
         val = x;
     }
 }
 
-class set {
-    public ListNode endOfFirstHalf(ListNode head) {
+class set 
+{
+    public ListNode endOfFirstHalf(ListNode head) 
+    {
         ListNode start = head, end = head;
-        while (end.next != null && end.next.next != null) {
+        while (end.next != null && end.next.next != null) 
+        {
             start = start.next;
             end = end.next.next;
         }
         return start;
     }
 
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList(ListNode head) 
+    {
         ListNode prev = null, curr = head;
-        while (curr != null) {
+        while (curr != null) 
+        {
             ListNode next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -84,11 +91,7 @@ public class dsa_3_2b
 
         boolean isPalindrome = s.isPalindrome(head);
     
-        //if(isPalindrome == true) {
-          //  System.out.println("ITS A PALINDROME.");
-        //} else {
-          //  System.out.println("ITS NOT A PALINDROME.");
-        //}
+        
          System.out.println(isPalindrome);
     }
 }
