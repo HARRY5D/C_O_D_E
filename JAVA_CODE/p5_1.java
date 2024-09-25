@@ -23,13 +23,11 @@ import java.util.Scanner;
  
 class Person 
 {
-    public String info;
-    
+    public String info;   
     public Person(String info) 
     {
      this.info = info;
     }
- 
     @Override
     public String toString() 
     {
@@ -66,7 +64,6 @@ class ClientsInFile
         }
     }
 }
- 
 class p5_1
 {
      public static void main(String[] args) 

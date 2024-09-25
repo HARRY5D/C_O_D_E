@@ -7,7 +7,7 @@ Output: -4
 Explanation: If the expression is converted into an infix expression, it will be 2 + (3 * 1) – 9 = 5 – 9 = -4.
 
 '''
-def evaluate_postfix(expression):
+def evaluate(expression):
    
     stack = []
 
@@ -31,15 +31,15 @@ def evaluate_postfix(expression):
                 result = operand1 * operand2
             elif token == "/":
                 if operand2 == 0:
-                    raise ZeroDivisionError("DIVISION BY ZERO.")
+                    raise ZeroDivisionError("UNDEFINED BECAUSE DIVISION BY ZERO.")
                 result = operand1 / operand2
             stack.append(result)
 
     if len(stack) != 1:
-        raise ValueError("INVALID EXPRESSION")
+     raise ValueError("INVALID EXPRESSION")
 
     return stack[0]
 expression = "2 3 1 * + 9 -"
 print("INPUT : ",expression)
-result = evaluate_postfix(expression)
+result = evaluate(expression)
 print("OUTPUT :",result) 
