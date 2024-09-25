@@ -1,7 +1,5 @@
 package harmonic;
 
-import java.util.*;
-
 public class Harmonic 
 {
     public double calculate(int n) 

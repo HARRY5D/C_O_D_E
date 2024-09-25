@@ -134,6 +134,7 @@ public class convert {
         System.out.println("ENTER A STRING :");
         String input = sc.nextLine();
         overloadMethod(input);
+        sc.close();
     }
 
     public static void overloadMethod(String str) 
