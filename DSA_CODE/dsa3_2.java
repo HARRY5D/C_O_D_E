@@ -122,6 +122,7 @@ public class dsa3_2
             System.out.print(rev.val + " ");
             rev = rev.next;
         }
+        sc.close();
     }
 }
 

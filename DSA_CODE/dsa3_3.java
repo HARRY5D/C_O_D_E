@@ -96,5 +96,6 @@ public class dsa3_3
             System.out.print(MERGER.val + " ");
             MERGER = MERGER.next;
         }
+        sc.close();
     }
 }
