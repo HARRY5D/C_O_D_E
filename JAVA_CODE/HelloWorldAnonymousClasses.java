@@ -19,6 +19,7 @@ public class HelloWorldAnonymousClasses {
         HelloWorld englishGreeting = new EnglishGreeting();
         HelloWorld frenchGreeting = new HelloWorld() {
             String name = "Bonjour";
+            @Override
             public void greet() {
                 greetSomeone("Bonjour");
             }
