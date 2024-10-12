@@ -9,8 +9,8 @@ Implement below operations on Binary Tree
 Note: for (a) and (b) , First node will be the root node. Display the content of Binary Tree as per Inorder, Preorder, Postorder and Level Order Traversal.
 
 '''
-
 from collections import deque
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -41,15 +41,13 @@ class BinaryTree:
             while current.right:
                 parent = current
                 current = current.right
-        parent.right = current.left
-        if current.left:
-                current.left.prev = parent
+            parent.right = current.left
 
     def inorder_traversal(self, node):
-         if node:
-            self.inorder_traversal(node.right)
-            print(node.value, end=' ')
+        if node:
             self.inorder_traversal(node.left)
+            print(node.value, end=' ')
+            self.inorder_traversal(node.right)
 
     def preorder_traversal(self, node):
         if node:
@@ -68,12 +66,11 @@ class BinaryTree:
             queue = deque([node])
             while queue:
                 current_node = queue.popleft()
-                print(current_node.val, end=" ")  
-            if current_node.left:
-                queue.append(current_node.left)
-            if current_node.right:
-                queue.append(current_node.right)
-           
+                print(current_node.value, end=" ")
+                if current_node.left:
+                    queue.append(current_node.left)
+                if current_node.right:
+                    queue.append(current_node.right)
 
 def main():
     tree = BinaryTree()
@@ -94,21 +91,25 @@ def main():
             tree.delete_right()
             print("RIGHTMOST NODE DELETED.")
         elif choice == '3':
-            print("Inorder TRAVERSAL:")
+            print("Inorder TRAVERSAL: ", end='')
             tree.inorder_traversal(tree.root)
+            print()
         elif choice == '4':
-            print("Preorder TRAVERSAL:")
+            print("Preorder TRAVERSAL: ", end='')
             tree.preorder_traversal(tree.root)
+            print()
         elif choice == '5':
-            print("Postorder TRAVERSAL:")
+            print("Postorder TRAVERSAL: ", end='')
             tree.postorder_traversal(tree.root)
+            print()
         elif choice == '6':
-            print("LEVEL ORDER TRAVERSAL:")
+            print("LEVEL ORDER TRAVERSAL: ", end='')
             tree.levelorder_traversal(tree.root)
+            print()
         elif choice == '7':
             break
         else:
-            print("INVALID CHOICE,TRY AGAIN.")
+            print("INVALID CHOICE, TRY AGAIN.")
 
 if __name__ == "__main__":
     main()
