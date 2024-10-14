@@ -20,14 +20,13 @@ def search(root, val):
         return search(root.left, val)
     return search(root.right, val)
 
-# Example usage
 root = None
 values = [4, 2, 7, 1, 3]
 for val in values:
     root = insert(root, val)
 
 result = search(root, 2)
-if result: # Output: [2, 1, 3]
+if result: 
     print(result.val, end=' ')
     if result.left:
         print(result.left.val, end=' ')

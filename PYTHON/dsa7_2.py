@@ -17,10 +17,9 @@ def kthSmallest(root, k):
         root = root.right
     return None
 
-# Example usage
 root = TreeNode(3)
 root.left = TreeNode(1)
 root.right = TreeNode(4)
 root.left.right = TreeNode(2)
 
-print(kthSmallest(root, 1))  # Output: 1
+print(kthSmallest(root, 1))  
