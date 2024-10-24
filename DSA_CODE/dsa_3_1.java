@@ -56,23 +56,25 @@ class LinkedList
         dummy.next = head;
         Node first = dummy;
         Node second = dummy;
-
+    
+        // Move first pointer n steps ahead
         for (int i = 0; i <= n; i++) 
         {
-            if (first == null) 
-            {
-                System.out.println("N IS LARGER THEN LIST'S LENGTH.");
+            if (first == null) {
+                System.out.println("N is larger than list's length.");
                 return;
             }
             first = first.next;
         }
-        
+    
+        // Move both pointers until first reaches the end
         while (first != null) 
         {
             first = first.next;
             second = second.next;
         }
-
+    
+        // Delete the nth node from the end
         second.next = second.next.next;
         head = dummy.next;
         display();
@@ -140,4 +142,3 @@ class LinkedList
         }
     }
 }
-//*/
