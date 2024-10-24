@@ -19,8 +19,7 @@ class LinkedList
 {
     Node head;
 
-    public
-     void insertAtFront(int data) 
+    public void insertAtFront(int data) 
     {
         Node newNode = new Node(data);
         newNode.next = head;
