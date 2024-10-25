@@ -1,8 +1,11 @@
-public class dsa4_1 {
+//doubly linked list
+public class dsa4_1 
+{
         Node head;
         Node tail;
     
-        class Node {
+        class Node
+        {
             int data;
             Node prev;
             Node next;
@@ -14,9 +17,11 @@ public class dsa4_1 {
             }
         }
     
-        public void insertAtFront(int data) {
+        public void insertAtFront(int data) 
+        {
             Node newNode = new Node(data);
-            if (head == null) {
+            if (head == null) 
+            {
                 head = newNode;
                 tail = newNode;
             } else {
