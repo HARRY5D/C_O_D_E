@@ -77,12 +77,8 @@ s = Stack()
 s.push(2)
 s.push(3)
 s.push(4)
-
-
 print("ELEMENTS IN STACK: ", end="")
 s.print_stack()
-
 print("REMOVED ELEMENT : ", s.pop()) 
-
 print("ELEMENTS IN STACK: ", end="")
 s.print_stack()
