@@ -221,11 +221,14 @@ relationship.
      /*
       I'll help you with each question.
 
-Question 1 The correct answers are: (a) In Java, the extends clause is used to specify the inheritance relationship. (b) The subclass of a non-abstract class can be declared abstract.
+Question 1 The correct answers are: (a) In Java, the extends clause is used to specify the inheritance relationship. 
+(b) The subclass of a non-abstract class can be declared abstract.
 
-Question 2 The correct answers are: (a) A class can only be extended by one class. (e) A non-final class can be extended by any number of classes is false, so this option is correct.
+Question 2 The correct answers are: (a) A class can only be extended by one class. 
+(e) A non-final class can be extended by any number of classes is false, so this option is correct.
 
-Question 3 The correct answers are: (a) The Bar class is a subclass of Foo. (b) The statement b.f(); is legal. (d) The statement a.g(); is legal.
+Question 3 The correct answers are: (a) The Bar class is a subclass of Foo.
+ (b) The statement b.f(); is legal. (d) The statement a.g(); is legal.
 
 Question 4 The correct answer is: (a) Private methods cannot be overridden in subclasses.
 
@@ -239,7 +242,8 @@ Question 8 The correct answers are: (a) public int step1(int i) { return 1; } (e
 
 Question 9 The correct answer is: (e) MySub(int count) { this(count, count); }
 
-Question 10 The correct answer is: (b) If both a subclass and its superclass do not have any declared constructors, the implicit default constructor of the subclass will call super() when run.
+Question 10 The correct answer is: (b) If both a subclass and its superclass do not have any declared constructors, 
+the implicit default constructor of the subclass will call super() when run.
 
 Question 11 Here is the design for the classes:
 
@@ -514,4 +518,169 @@ JAVA Exception Handling
 • BDE
 • BCDE
 JAVA Exception Handling
-       */
+
+Let's analyze each of your questions one by one:
+
+Q-01: Output of the program
+java
+Insert Code
+Edit
+Copy code
+class exception_handling {
+    public static void main(String args[]) {
+        try {
+            System.out.print("Hello" + " " + 1 / 0);
+        } catch (ArithmeticException e) {
+            System.out.print("World");
+        }
+    }
+}
+Output: Hello followed by an ArithmeticException will occur due to division by zero. The catch block will handle this exception, so the output will be:
+
+Insert Code
+Edit
+Copy code
+Hello World
+Q-02: Appropriate catch block for Integer.parseInt("two")
+The Integer.parseInt("two") will throw a NumberFormatException because "two" is not a valid integer. The appropriate catch blocks are:
+
+C. NumberFormatException
+D. IllegalArgumentException (since NumberFormatException is a subclass of IllegalArgumentException)
+Correct Options: C, D
+
+Q-03: Keyword to manually throw an exception
+The keyword used to manually throw an exception in Java is:
+
+c) throw
+Q-04: Output of the program
+java
+Insert Code
+Edit
+Copy code
+class exception_handling {
+    public static void main(String args[]) {
+        try {
+            int a, b;
+            b = 0;
+            a = 5 / b;
+            System.out.print("A");
+        } catch (ArithmeticException e) {
+            System.out.print("B");
+        }
+    }
+}
+Output: The program will throw an ArithmeticException due to division by zero, and the catch block will handle it. Therefore, the output will be:
+
+Insert Code
+Edit
+Copy code
+B
+Q-05: Output of the program with finally block
+java
+Insert Code
+Edit
+Copy code
+class exception_handling {
+    public static void main(String args[]) {
+        try {
+            int a, b;
+            b = 0;
+            a = 5 / b;
+            System.out.print("A");
+        } catch (ArithmeticException e) {
+            System.out.print("B");
+        } finally {
+            System.out.print("C");
+        }
+    }
+}
+Output: Similar to the previous case, the ArithmeticException will be caught, and "B" will be printed. The finally block will execute regardless of whether an exception occurred or not, so "C" will also be printed. Thus, the output will be:
+
+Insert Code
+Edit
+Copy code
+BC
+Q-06: Output of the program
+java
+Insert Code
+Edit
+Copy code
+try {
+    int x = 0;
+    int y = 5 / x;
+} catch (Exception e) {
+    System.out.println("Exception");
+} catch (ArithmeticException ae) {
+    System.out.println("Arithmetic Exception");
+}
+System.out.println("finished");
+Output: The catch (Exception e) block will catch the ArithmeticException, as Exception is the superclass of ArithmeticException. Therefore, "Exception" will be printed, followed by "finished":
+
+Insert Code
+Edit
+Copy code
+Exception
+finished
+Q-07: Output of the program with Error
+java
+Insert Code
+Edit
+Copy code
+public class X {
+    public static void main(String [] args) {
+        try {
+            badMethod();
+            System.out.print("A");
+        } catch (Exception ex) {
+            System.out.print("B");
+        } finally {
+            System.out.print("C");
+        }
+        System.out.print("D");
+    }
+    
+    public static void badMethod() {
+        throw new Error(); // Line 22
+    }
+}
+Output: An Error is thrown which is not caught by the catch (Exception ex) block. The finally block will execute, printing "C", but the program will terminate with an error before printing "D". Therefore, the output will be:
+
+Insert Code
+Edit
+Copy code
+C
+(Note: "D" is not printed because the error causes the program to terminate.)
+
+Q-08: Output of the program with RuntimeException
+java
+Insert Code
+Edit
+Copy code
+public class X {
+    public static void main(String [] args) {
+        try {
+            badMethod();
+            System.out.print("A");
+        } catch (RuntimeException ex) { // Line 10
+            System.out.print("B");
+        } catch (Exception ex1) {
+            System.out.print("C");
+        } finally {
+            System.out.print("D");
+        }
+        System.out.print("E");
+    }
+    
+    public static void badMethod() {
+        throw new RuntimeException();
+    }
+}
+Output: The badMethod throws a RuntimeException, which will be caught by the catch (RuntimeException ex) block, printing "B". The finally block will execute, printing "D", and then "E" will be printed. Therefore, the output will be:
+
+Insert Code
+Edit
+Copy code
+BDE
+Feel free to ask if you
+
+*/
