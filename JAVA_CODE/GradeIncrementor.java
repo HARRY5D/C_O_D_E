@@ -11,18 +11,31 @@ class GradeIncrementor
     {
       
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(grades.txt));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(results.txt))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(grades.txt));BufferedWriter writer = new BufferedWriter(new FileWriter(results.txt))) 
+             {
 
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) 
+            {
                 int grade = Integer.parseInt(line);
-                int incrementedGrade = grade == 10 ? grade : grade + 1;
+                int incrementedGrade;
+
+                if (grade == 10)
+                {
+                    incrementedGrade = grade;
+                }
+                else
+                {
+                    incrementedGrade = grade + 1;
+                }
+                
                 writer.write(String.valueOf(incrementedGrade) + "\n");
                 System.out.println("Incremented grade: " + incrementedGrade);
             }
 
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             System.err.println("Error reading or writing file: " + e.getMessage());
         }
     

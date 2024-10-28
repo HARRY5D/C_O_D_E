@@ -114,23 +114,27 @@ class GasMeter
 */
 import java.util.Scanner;
 
-class GasMeter {
+class GasMeter 
+{
     public double totalFuel;
     public double fuel95;
     public double fuel98;
     public double diesel;
 
-    public GasMeter() {
+    public GasMeter() 
+    {
         totalFuel = 0;
         fuel95 = 0;
         fuel98 = 0;
         diesel = 0;
     }
 
-    public void refuel(String substance, double amount) {
+    public void refuel(String substance, double amount) 
+    {
         totalFuel += amount;
 
-        switch (substance.toLowerCase()) {
+        switch (substance.toLowerCase()) 
+        {
             case "95":
                 fuel95 += amount;
                 break;
@@ -159,16 +163,19 @@ class GasMeter {
         System.out.println("TOTAL DIESEL FUEL USED : " + p4.diesel + " LITRES");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         Scanner sc = new Scanner(System.in);
         GasMeter Gas = new GasMeter();
 
-        while (true) {
+        while (true) 
+        {
             System.out.print("WHAT DO YOU WANT : \n 1. FUEL 95 \n 2.FUEL 98 \n 3. DIESEL[TYPE ANY OTHER NO. TO QUIT ] \n");
             int choice = sc.nextInt();
             sc.nextLine();
 
-            if (choice < 1 || choice > 3) {
+            if (choice < 1 || choice > 3) 
+            {
                 break;
             }
 
@@ -176,7 +183,8 @@ class GasMeter {
             double amount = sc.nextDouble();
             sc.nextLine();
 
-            switch (choice) {
+            switch (choice) 
+            {
                 case 1:
                     Gas.refuel("95", amount);
                     break;
@@ -184,7 +192,7 @@ class GasMeter {
                     Gas.refuel("98", amount);
                     break;
                 case 3:
-                    Gas.refuel("diesel", amount); // Changed "DIESEL" to "diesel"
+                    Gas.refuel("diesel", amount); 
                     break;
             }
         }
