@@ -172,7 +172,8 @@ public class Account
         for (Account product : key) 
         
         {
-            if (product.getProductName().equalsIgnoreCase(searchProductName) && product.getProductNo() == searchProductNo) {
+            if (product.getProductName().equalsIgnoreCase(searchProductName) && product.getProductNo() == searchProductNo) 
+            {
                 product.display();
                 break;
             }
