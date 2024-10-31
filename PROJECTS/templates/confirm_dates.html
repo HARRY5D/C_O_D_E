@@ -1,0 +1,38 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Dates</title>
+</head>
+<body>
+    <h1>Confirm Policy End Dates</h1>
+    <form action="/confirm" method="post">
+        {% for date in dates %}
+            <div>
+                <label>Date: </label>
+                <input type="text" name="dates" value="{{ date }}">
+            </div>
+        {% endfor %}
+        <button type="submit">Confirm Dates</button>
+    </form>
+</body>
+</html>
+-->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Confirm Policy End Dates</h1>
+    <form action="/confirm" method="post">
+        {% for date in dates %}
+            <div class="form-group">
+                <label>Date: </label>
+                <input type="text" name="dates" value="{{ date }}" readonly>
+            </div>
+        {% endfor %}
+        <button type="submit">Confirm Dates</button>
+    </form>
+</div>
+{% endblock %}
