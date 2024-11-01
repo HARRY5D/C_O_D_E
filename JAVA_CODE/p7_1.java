@@ -63,7 +63,8 @@ of the menu options to give functionality to the program.
      public static void displayTasks() 
      {
          System.out.println("TO-DO LIST:");
-         for (int i = 0; i < todoList.size(); i++) {
+         for (int i = 0; i < todoList.size(); i++) 
+         {
              System.out.println((i + 1) + ". " + todoList.get(i));
          }
      }

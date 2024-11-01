@@ -102,6 +102,7 @@ public class p_3
         System.out.println(wind.what());
         wind.play();
         wind.adjust();
+        
         Percussion percussion = new Percussion();
         
         System.out.println(percussion.what());
