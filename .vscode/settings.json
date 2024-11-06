@@ -3,5 +3,7 @@
     "editor.tokenColorCustomizations": {
         "comments": "",
         "textMateRules": []
-    }
+    },
+    "java.debug.settings.onBuildFailureProceed": true,
+    "python.analysis.typeCheckingMode": "basic"
 }

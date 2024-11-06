@@ -6,9 +6,12 @@ class ListNode
     ListNode next;
     ListNode(int val) 
     { this.val = val; }
+
     ListNode(int val, ListNode next) 
+
     { this.val = val; 
-        this.next = next; }
+        this.next = next; 
+    }
 }
 
 class MERGE 
