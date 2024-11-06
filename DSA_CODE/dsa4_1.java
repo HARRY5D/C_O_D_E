@@ -10,7 +10,8 @@ public class dsa4_1
             Node prev;
             Node next;
     
-            Node(int d) {
+            Node(int d) 
+            {
                 data = d;
                 prev = null;
                 next = null;
@@ -24,7 +25,9 @@ public class dsa4_1
             {
                 head = newNode;
                 tail = newNode;
-            } else {
+            } 
+            else 
+            {
                 newNode.next = head;
                 head.prev = newNode;
                 head = newNode;
@@ -32,10 +35,14 @@ public class dsa4_1
             DISPLAYCONTENT();
         }
     
-        public void deleteAtLast() {
-            if (head == null) {
+        public void deleteAtLast() 
+        {
+            if (head == null) 
+            {
                 System.out.println("LIST IS EMPTY");
-            } else if (head == tail) {
+            } 
+            else if (head == tail) 
+            {
                 head = null;
                 tail = null;
             } else {
