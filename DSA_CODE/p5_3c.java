@@ -10,10 +10,16 @@ class p5_3c
     String[] tokens = expression.split("\\s+");
     
     for (String token : tokens) {
-        if (token.matches("\\d+")) {
-            stack.push(Integer.parseInt(token));
-        } else if ("+-*/".contains(token)) {
-            if (stack.size() < 2) {
+        if (token.matches("\\d+")) 
+        {
+        
+            stack.push(Integer.valueOf(token));
+        
+        } 
+        else if ("+-*/".contains(token)) 
+        {
+            if (stack.size() < 2) 
+            {
                 throw new IllegalArgumentException("INVALID EXPRESSION.");
             }
             

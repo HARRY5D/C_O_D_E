@@ -1,9 +1,9 @@
 /*
  Design a class named Account that contains:
- A private int data field named id for the account (default 0).
- A private double data field named balance for the account (default 500₹).
- A private double data field named annualInterestRate that stores the current interest rate (default 7%). Assume all accounts have the same interest rate.
- A private Date data field named dateCreated that stores the date when the account was created.
+ A public int data field named id for the account (default 0).
+ A public double data field named balance for the account (default 500₹).
+ A public double data field named annualInterestRate that stores the current interest rate (default 7%). Assume all accounts have the same interest rate.
+ A public Date data field named dateCreated that stores the date when the account was created.
  A no-arg constructor that creates a default account.
  A constructor that creates an account with the specified id and initial balance.
  The accessor and mutator methods for id, balance, and annualInterestRate.
@@ -19,10 +19,10 @@
  import java.util.Date;
 
 public class Account {
-    private int id;
-    private double balance;
-    private double annualInterestRate;
-    private Date dateCreated;
+    public int id;
+    public double balance;
+    public double annualInterestRate;
+    public Date dateCreated;
 
     public Account() {
         id = 0;
@@ -108,12 +108,13 @@ import java.util.Scanner;
 
 public class Account
  {
-    private float productNo;
-    private String productName;
-    private String activationKey;
-    private float priceofProduct;
+    public float productNo;
+    public String productName;
+    public String activationKey;
+    public float priceofProduct;
 
-    public Account(float productNo, String productName, String activationKey, float priceofProduct) {
+    public Account(float productNo, String productName, String activationKey, float priceofProduct) 
+    {
         this.productNo = productNo;
         this.productName = productName;
         this.activationKey = activationKey;
