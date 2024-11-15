@@ -73,7 +73,7 @@ import java.util.Scanner;
 public class bubble_sort
  {
     public static void main(String[] args)
-     {
+    {
         
         Scanner sc=new Scanner(System.in);
       
@@ -142,6 +142,7 @@ public class bubble_sort
     }
 }
     */
+    
     //selection sort
 //2.1 C
 

@@ -1,6 +1,7 @@
 /*Create a Recyclable Interface with the default method with the message “Give proper
 input”. Create three different classes (Fabric, Bottle & Paper), which implement a
-Recyclable interface. Class requires toString methods which return the name of the recyclable materials. The toString method of the Fabric class returns the text “Febric” etc.
+Recyclable interface. Class requires toString methods which return the name of the 
+recyclable materials. The toString method of the Fabric class returns the text “Febric” etc.
 Expected output:
 What do you want to recycle? Choose a number.
 1 - Clothes
