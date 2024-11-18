@@ -69,10 +69,10 @@ class P4_2
                 {
                     break;
                 }
-         int value = Integer.parseInt(input);
-         obj.testValue(value);
+                int value = Integer.parseInt(input);
+                obj.testValue(value);
     
-    } 
+            } 
           catch (NumberFormatException e) 
          {    System.out.println("INVALID INPUT.ENTER A VALID INTEGER..");          } 
             

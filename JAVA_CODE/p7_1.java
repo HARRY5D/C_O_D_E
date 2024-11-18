@@ -11,32 +11,32 @@ of the menu options to give functionality to the program.
  public class p7_1 
 {
      public static ArrayList<String> todoList = new ArrayList<>();
-     public static Scanner scanner = new Scanner(System.in);
- 
-     public static void main(String[] args) 
-     {
-        while (true) 
-        {
-             displayMenu();
-             int choice = getChoice();
-             performAction(choice);
-        }
-     }
- 
-     public static void displayMenu() 
-     {
-         System.out.println("TO-DO LIST MANAGER");
-         System.out.println("1. ADD NEW TASK");
-         System.out.println("2. DISPLAY TASKS");
-         System.out.println("3. EDIT TASK");
-         System.out.println("4. DELETE TASK");
-         System.out.println("5. EXIT");
-     }
- 
-     public static int getChoice() 
-     {
-         System.out.print("ENTER YOUR CHOICE: ");
-         return scanner.nextInt();
+      static Scanner scanner = new Scanner(System.in);
+       
+           public static void main(String[] args) 
+           {
+              while (true) 
+              {
+                   displayMenu();
+                   int choice = getChoice();
+                   performAction(choice);
+              }
+           }
+       
+           public static void displayMenu() 
+           {
+               System.out.println("TO-DO LIST MANAGER");
+               System.out.println("1. ADD NEW TASK");
+               System.out.println("2. DISPLAY TASKS");
+               System.out.println("3. EDIT TASK");
+               System.out.println("4. DELETE TASK");
+               System.out.println("5. EXIT");
+           }
+       
+           public static int getChoice() 
+           {
+               System.out.print("ENTER YOUR CHOICE: ");
+               return scanner.nextInt();
      }
  
      public static void performAction(int choice) 
