@@ -33,7 +33,7 @@ calculate the total cost
          {
              displayMenu();
              
-        System.out.println("ENTER YOUR CHOICE : ");
+           System.out.println("ENTER YOUR CHOICE : ");
              int choice = scanner.nextInt();
  
              switch (choice) 
@@ -89,7 +89,7 @@ calculate the total cost
          for (String bookId : cart) 
          {
             System.out.println(bookId + " - " + books.get(bookId)+" Rs");
-          totalCost += books.get(bookId);
+           totalCost += books.get(bookId);
          }
          System.out.println("TOTAL COST:" + totalCost+" Rs");
          System.out.println("THANK YOU FOR SHOPPING!");

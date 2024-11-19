@@ -25,6 +25,10 @@ class pdf {
 
     /*
      
+    multi threading code :  https://www.blackbox.ai/share/35ddca1d-5e87-4c87-bd68-8a5e2f714bbc 
+or see on date 9/11/24
+
+
         Which statements are true?
 Select the two correct answers.
 (a) In Java, the extends clause is used to specify the inheritance relationship. -true
