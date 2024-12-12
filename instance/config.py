@@ -4,13 +4,13 @@ class Config:
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = 'harnishdpatel@gmail.com'
-    MAIL_PASSWORD = 'Harnish123'
+    MAIL_USERNAME = 'your.email@gmail.com'
+    MAIL_PASSWORD = 'your-app-password'
 
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///policy_reminder.db'
-    SERVER_NAME = 'localhost:5500'
+    SERVER_NAME = 'localhost:5000'
 
 class ProductionConfig(Config):
     DEBUG = False
