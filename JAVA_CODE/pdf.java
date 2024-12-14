@@ -24,7 +24,468 @@ class pdf {
     }
 
     /*
-     
+     multi threading :
+
+     1. Which is the correct way to start a new thread?
+Select the one correct answer.
+(a) Just create a new Thread object. The thread will start automatically.
+(b) Create a new Thread object and call the method begin().
+(c) Create a new Thread object and call the method start().
+(d) Create a new Thread object and call the method run().
+(e) Create a new Thread object and call the method resume().
+ANSWER : (c)
+Create a new Thread object and call the method start(). The call to the start()
+method will return immediately and the thread will start executing the run()
+method asynchronously.
+2. When extending the Thread class to implement the code executed by a
+thread, which method should be overridden?
+Select the one correct answer.
+(a) begin()
+(b) start()
+(c) run()
+(d) resume()
+(e) behavior()
+ANSWER : (c)
+When extending the Thread class, the run() method should be overridden to
+provide the code executed by the thread. This is analogous to implementing the
+run()method of the Runnable interface
+3. Which statements are true?
+Select the two correct answers.
+(a) The class Thread is abstract.
+(b) The class Thread implements Runnable.
+(c) The Runnable interface has a single method named start.
+(d) Calling the method run() on an object implementing Runnable will create a
+new thread.
+(e) A program terminates when the last user thread finishes.
+ANSWER : (b) and (e)
+The Thread class implements the Runnable interface and is not abstract. A
+program terminates when the last user thread finishes. The Runnable interface
+has a single method named run. Calling the run() method on a Runnable object
+does not necessarily create a new thread; the run() method is executed by a
+thread. Instances of the Thread class must be created to spawn new threads.
+4. What will be the result of attempting to compile and run
+the following program?
+public class MyClass extends Thread {
+public MyClass(String s) { msg = s; }
+String msg;
+public void run() {
+System.out.println(msg);
+}
+public static void main(String[] args) {
+new MyClass("Hello");
+new MyClass("World");
+}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) The program will compile without errors and
+will print Hello and World, in
+that order, every time the program is run.
+(c) The program will compile without errors and
+will print a never-ending
+stream of Hello and World.
+(d) The program will compile without errors and
+will print Hello and World when
+run, but the order is unpredictable.
+(e) The program will compile without errors and
+will simply terminate without
+any output when run.
+ANSWER : (e)
+The program will compile without errors and will simply terminate without any
+output when run. Two thread objects will be created, but they will never be
+started. The start() method must be called on the thread objects to make the
+threads execute the run() method asynchronously.
+5. What will be the result of attempting to compile and run the following program?
+class Extender extends Thread {
+public Extender() { }
+public Extender(Runnable runnable) {super(runnable);}
+public void run() {System.out.print("|Extender|");}
+}
+public class Implementer implements Runnable {
+public void run() {System.out.print("|Implementer|");}
+public static void main(String[] args) {
+new Extender(new Implementer()).start(); // (1)
+new Extender().start(); // (2)
+new Thread(new Implementer()).start(); // (3)}}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) The program will compile without errors and will print |Extender| twice and | Implementer
+| once, in some order, every time the program is run.
+(c) The program will compile without errors and will print|Extender| once and|Implementer|
+twice, in some order, every time the program is run.
+(d) The program will compile without errors and will print |Extender| once and | Implementer
+| once, in some order, every time the program is run
+(e) The program will compile without errors and will simply terminate without any output
+when run.
+(f) The program will compile without errors, and will print |Extender| once and Implementer|
+once, in some order, and terminate because of an runtime error.
+ANSWER : (b)
+(1) results in the run() method of the Extender class being called, which
+overrides the method from the Thread class, as does (2). (3) results in the run()
+method of the Implementer class being called.
+Invoking the start() method on a subclass of the Thread class always results in
+the overridden run() method being called, regardless of whether a Runnable is
+passed in a constructor of the subclass.
+6. What will be the result of attempting to compile and run the following program?
+class R1 implements Runnable {
+public void run() {
+System.out.print(Thread.currentThread().getName());
+}}
+public class R2 implements Runnable {
+public void run() {
+new Thread(new R1(),"|R1a|").run();
+new Thread(new R1(),"|R1b|").start();
+System.out.print(Thread.currentThread().getName());
+}
+public static void main(String[] args) {
+new Thread(new R2(),"|R2|").start();
+}}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) The program will compile without errors and will print |R1a| twice and |R2|once, in some
+order, every time the program is run.
+(c) The program will compile without errors and will print|R1b| twice and |R2|once, in some
+order, every time the program is run.
+(d) The program will compile without errors and will print |R1b| once and |R2|twice, in some
+order, every time the program is run.
+(e) The program will compile without errors and will print |R1a| once, |R1b|once, and |R2|
+once, in some order, every time the program is run.
+ANSWER : (d)
+Note that calling the run() method on a Thread object does not start a thread.
+However, the run() method of the Thread class will invoke the run() method of
+the Runnable object that is passed as argument in the constructor call. In other
+words, the run() method of the R1 class is executed in the R2 thread, i.e., the
+thread that called the run() method of the Thread class.
+7. What will be the result of attempting to compile and run the following program?
+public class Threader extends Thread {
+Threader(String name) {
+super(name); }
+public void run() throws IllegalStateException {
+System.out.println(Thread.currentThread().getName());
+throw new IllegalStateException();
+}
+public static void main(String[] args) {
+new Threader("|T1|").start();
+}}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) The program will compile without errors, will print |T1|, and terminate normally every
+time the program is run.
+(c) The program will compile without errors, will print|T1|, and throw an
+IllegalStateException,
+every time the program is run.
+(d) None of the above.
+ANSWER : (c)
+Note that the complete signature of the run() method does not specify a throws
+clause, meaning it does not throw any checked exceptions. However, it can
+always be implemented with a throws clause containing unchecked exceptions,
+as is the case in the code above.
+8. What will be the result of attempting to compile and run the following
+program?
+public class Worker extends Thread {
+public void run() {
+System.out.print("|work|");
+}
+public static void main(String[] args) {
+Worker worker = new Worker();
+worker.start();
+worker.run();
+worker.start();
+}
+}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) The program will compile without errors, will print |work| twice, and terminate normally
+every time the program is run.
+(c) The program will compile without errors, will print|work| three times, and terminate
+normally every time the program is run.
+(d) The program will compile without errors, will print|work| twice, and throw an
+IllegalStateException, every time the program is run.
+(e) None of the above.
+ANSWER : (d)
+The call to the run() method just executes the method in the main thread. Once
+a thread has terminated, it cannot be started by calling the start() method as
+shown above. A new thread must be created and started.
+9. Given the following program, which statements are guaranteed to be
+true?
+public class ThreadedPrint {
+static Thread makeThread(final String id, boolean daemon) {
+Thread t = new Thread(id) {
+public void run() { System.out.println(id);
+}
+};
+t.setDaemon(daemon);
+t.start();
+return t;
+}
+public static void main(String[] args) {
+Thread a = makeThread("A", false);
+Thread b = makeThread("B", true);
+System.out.print("End\n");
+}
+}
+Select the two correct answers.
+(a) The letter A is always printed.
+(b) The letter B is always printed.
+(c) The letter A is never printed after End.
+(d) The letter B is never printed after End.
+(e) The program might print B, End, and A, in that order.
+ANSWER : (a) and (e)
+Because the exact behavior of the scheduler is undefined, the text A, B, and End
+can be printed in any order. The thread printing B is a daemon thread, which
+means that the program may terminate before the thread manages to print the
+letter. Thread A is not a daemon thread, so the letter A will always be printed
+10.Given the following program, which alternatives would make good choices to synchronize
+on at (1)?
+public class Preference {
+private int account1;
+private Integer account2;
+public void doIt() {
+final Double account3 = new Double(10e10);
+synchronized(/* ___(1)___ *//*) {
+System.out.print("doIt");
+}}}
+Select the two correct answers.
+(a) Synchronize on account1.
+(b) Synchronize on account2.
+(c) Synchronize on account3.
+(d) Synchronize on this.
+ANSWER : (b) and (d)
+We cannot synchronize on a primitive value. Synchronizing on a local object is
+useless, as each thread will create its own local object and it will not be a shared
+resource.
+11.Which statements are not true about the synchronized block?
+Select the three correct answers.
+(a) If the expression in a synchronized block evaluates to null, a NullPointer-
+Exception will be thrown.
+(b) The lock is only released if the execution of the block terminates normally.
+(c) A thread cannot hold more than one lock at a time.
+(d) Synchronized statements cannot be nested.
+(e) The braces cannot be omitted even if there is only a single statement to
+execute in the block.
+ANSWER : (b) , (c) and (d)
+The lock is also released when an uncaught exception occurs in the block.
+12.Which statement is true?
+Select the one correct answer.
+(a) No two threads can concurrently execute synchronized methods on the same
+object.
+(b) Methods declared synchronized should not be recursive, since the object lock
+will not allow new invocations of the method.
+(c) Synchronized methods can only call other synchronized methods directly.
+(d) Inside a synchronized method, one can assume that no other threads are
+currently executing any other methods in the same class.
+ANSWER : (a)
+No two threads can concurrently execute synchronized methods on the same
+object. This does not prevent one thread from executing a non-synchronized
+method while another thread executes a synchronized method on the same
+object. The synchronization mechanism in Java acts like recursive semaphores,
+which means that during the time a thread owns the lock, it may enter and
+re-enter any region of code associated with the lock, so there is nothing wrong
+with recursive synchronized calls. Synchronized methods can call other
+synchronized and nonsynchronized methods directly
+13.Given the following program, which statement is true?
+public class MyClass extends Thread {
+static Object lock1 = new Object();
+static Object lock2 = new Object();
+static volatile int i1, i2, j1, j2, k1, k2;
+public void run() { while (true) { doIt(); check(); } }
+void doIt() {
+synchronized(lock1) { i1++; }
+j1++;
+synchronized(lock2) { k1++; k2++; }
+j2++;
+synchronized(lock1) { i2++; } }
+void check() {
+if (i1 != i2) System.out.println("i");
+if (j1 != j2) System.out.println("j");
+if (k1 != k2) System.out.println("k");
+}
+public static void main(String[] args) {
+new MyClass().start();
+new MyClass().start();
+}}
+Select the one correct answer.
+(a) The program will fail to compile.
+(b) One cannot be certain whether any of the letters i, j, and k will be printed during
+execution.
+(c) One can be certain that none of the letters i, j, and k will ever be printed during execution.
+(d) One can be certain that the letters i and k will never be printed during execution.
+(e) One can be certain that the letter k will never be printed during execution.
+ANSWER : (b)
+One cannot be certain whether any of the letters i, j, and k will be printed
+during execution. For each invocation of the doIt() method, each variable pair is
+incremented and their values are always equal when the method returns. The
+only way a letter could be printed would be if the method check() was executed
+between the time the first and the second variable were incremented. Since the
+check() method does not depend on owning any lock, it can be executed at any
+time, and the method doIt() cannot protect the atomic nature of its operations
+by acquiring locks.
+14. Given the following program, which code
+modifications will result in both threads
+being able to participate in printing one smiley
+(:-)) per line continuously?
+public class Smiley extends Thread {
+pulic void run() { // (1)
+while(true) { // (2)
+try { // (3)
+System.out.print(":"); // (4)
+sleep(100); // (5)
+System.out.print("-"); // (6)
+sleep(100); // (7)
+System.out.println(")"); // (8)
+sleep(100); // (9)
+} catch (InterruptedException e) {
+e.printStackTrace();
+} } }
+public static void main(String[] args) {
+new Smiley().start();
+new Smiley().start();
+}
+}
+Select the two correct answers.
+(a) Synchronize the run() method with the keyword synchronized, (1).
+(b) Synchronize the while loop with a synchronized(Smiley.class) block, (2).
+(c) Synchronize the try-catch construct with a synchronized(Smiley.class) block,(3).
+(d) Synchronize the statements (4) to (9) with one synchronized(Smiley.class) block.
+(e) Synchronize each statement (4), (6), and (8) individually with a synchronized
+(Smiley.class) block.
+(f) None of the above will give the desired result.
+ANSWER : (c) and (d)
+First note that a call to sleep() does not release the lock on the Smiley.class
+object once a thread has acquired this lock. Even if a thread sleeps, it does not
+release any locks it might possess.
+(a) does not work, as run() is not called directly by the client code.
+(b) does not work, as the infinite while loop becomes the critical region and the
+lock will never be released. Once a thread has the lock, other threads cannot
+participatein printing smileys.
+(c) works, as the lock will be released between each iteration, giving other
+threads the chance to acquire the lock and print smileys.
+(d) works for the same reason as (c), since the three print statements will be
+executed as one atomic operation.
+(e) may not work, as the three print statements may not be executed as one
+atomic operation, since the lock will be released after each print statement.
+Synchronizing on this does not help, as the printout from each of the three print
+statements executed by each thread can be interspersed.
+15. Given:
+public static synchronized void main(String[] args) throws
+InterruptedException {
+Thread t = new Thread();
+t.start();
+System.out.print("X");
+t.wait(10000);
+System.out.print("Y");
+}
+What is the result of this code?
+A. It prints X and exits
+B. It prints X and never exits
+C. It prints XY and exits almost immediately
+D. It prints XY with a 10-second delay between X and Y
+E. It prints XY with a 10,000-second delay between X and Y
+F. The code does not compile
+G. An exception is thrown at runtime
+ANSWER : (G)
+The code does not acquire a lock on t before calling t.wait(), so it throws an
+IllegalMonitorStateException. The method is synchronized, but it's not
+synchronized on t so the exception will be thrown. If the wait were placed
+inside a synchronized(t) block, then D would be correct.
+16. Which are true? (Choose all that apply.)
+A. The notifyAll() method must be called from a synchronized context
+B. To call wait(), an object must own the lock on the thread
+C. The notify() method is defined in class java.lang.Thread
+D. When a thread is waiting as a result of wait(), it releases its lock
+E. The notify() method causes a thread to immediately release its lock
+F. The difference between notify() and notifyAll() is that notifyAll() notifies all
+waiting threads, regardless of the object they're waiting on
+ANSWER :
+A is correct because notifyAll() (and wait() and notify()) must be called from
+within a synchronized context. D is a correct statement.
+B is incorrect because to call wait(), the thread must own the lock on the object
+that wait() is being invoked on, not the other way around. C is incorrect because
+notify() is defined in java.lang.Object. E is incorrect because notify() will not
+cause a thread to release its locks. The thread can only release its locks by
+exiting the synchronized code. F is incorrect because notifyAll() notifies all the
+threads waiting on a particular locked object, not all threads waiting on any
+object.
+17. Given
+class MyThread extends Thread {
+MyThread() {
+System.out.print("MyThread ");
+}
+public void run() {
+System.out.print("bar ");
+}
+public void run(String s) {
+System.out.print("baz ");
+}
+}
+public class TestThreads {
+public static void main (String [] args) {
+Thread t = new MyThread() {
+public void run() {
+System.out.print("foo ");
+}
+};
+t.start();
+} }
+What is the result?
+A. foo
+B. MyThread foo
+C. MyThread bar
+D. foo bar
+E. foo bar baz
+F. bar foo
+G. Compilation fails
+H. An exception is thrown at runtime
+ANSWER : (B)
+B is correct. In the first line of main we're constructing an instance of an
+anonymous inner class extending from MyThread. So the MyThread constructor
+runs and prints MyThread. Next, main() invokes start() on the new thread
+instance, which causes the overridden run() method (the run() method in the
+anonymous inner class) to be invoked.
+18. public class Leader implements Runnable {
+public static void main(String[] args) {
+Thread t = new Thread(new Leader());
+t.start();
+System.out.print("m1 ");
+t.join();
+System.out.print("m2 ");
+}
+public void run() {
+System.out.print("r1 ");
+System.out.print("r2 ");
+} }
+Which are true? (Choose all that apply.)
+A. Compilation fails
+B. The output could be r1 r2 m1 m2
+C. The output could be m1 m2 r1 r2
+D. The output could be m1 r1 r2 m2
+E. The output could be m1 r1 m2 r2
+F. An exception is thrown at runtime
+ANSWER : (A)
+The join() must be placed in a try/catch block. If it were, answers B and D would
+be correct. The join() causes the main thread to pause and join the end of the
+other thread, meaning "m2" must come last.
+Programming Exercises
+1. Declare an interface called Function that has a method named evaluate
+that takes an int parameter and returns an int value. Create a class called Half
+that implements the Function interface. The implementation of the method
+evaluate() should return the value obtained by dividing the int argument by
+2. In a client, create a method that takes an arbitrary array of int values as a
+parameter, and returns an array that has the same length, but the value of an
+element in the new array is half that of the value in the corresponding
+element in the array passed as the parameter. Let the implementation of this
+method create an instance of Half, and use this instance to calculate values
+for the array that is returned.
+1. Implement three classes: Storage, Counter, and Printer. The Storage class
+should store an integer. The Counter class should create a thread that starts
+counting from 0 (0, 1, 2, 3, ...) and stores each value in the Storage class. The
+Printer class should create a thread that keeps reading the value in the
+Storage class and printing it.
+Write a program that creates an instance of the Storage class and sets up a
+Counter and a Printer object to operate on it.
+2. Modify the program from the previous exercise to ensure that each number is
+printed exactly once, by adding suitable synchronization.
+
+
     multi threading code :  https://www.blackbox.ai/share/35ddca1d-5e87-4c87-bd68-8a5e2f714bbc 
 or see on date 9/11/24
 
@@ -623,8 +1084,8 @@ Output: The catch (Exception e) block will catch the ArithmeticException, as Exc
 Insert Code
 Edit
 Copy code
-Exception
-finished
+compilation fails 
+
 Q-07: Output of the program with Error
 java
 Insert Code
