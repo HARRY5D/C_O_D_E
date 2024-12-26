@@ -5,12 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-enum Priority {
-    HIGH, MEDIUM, LOW;
-    
-}
+enum Priority { HIGH, MEDIUM, LOW;}
 
-class Task {
+class Task 
+{
     private static int nextId = 1;
     private int id;
     private String description;
@@ -26,29 +24,24 @@ class Task {
         this.completed = false;
     }
 
-    public Task(String taskName, String taskDescription, String dueDate2, String priority2) {
-        //TODO Auto-generated constructor stub
-    }
-
     // Getters and setters
     public int getId() { return id; }
     public String getDescription() { return description; }
     public LocalDate getDueDate() { return dueDate; }
     public Priority getPriority() { return priority; }
     public boolean isCompleted() { return completed; }
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public void setCompleted(boolean completed) 
+    { this.completed = completed; }
 }
 
-class TaskManager {
+class TaskManager 
+{
     private List<Task> tasks = new ArrayList<>();
         
     private Scanner scanner = new Scanner(System.in);
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    //public TaskManager() {
-       // scanner = new Scanner(System.in);
-       // dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    //}
+   
 
     public void addTask() {
         try {
