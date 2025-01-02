@@ -1,0 +1,572 @@
+<html><head><base href="." />
+    <meta charset="UTF-8">
+    <title>Policy Expiry Reminder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+    :root {
+      --primary: #2196F3;
+      --secondary: #4CAF50;
+      --success: #8BC34A;
+      --warning: #FFC107;
+      --danger: #F44336;
+      --text: #333333;
+      --background: #f5f5f5;
+      --card: #ffffff;
+      --input-bg: #ffffff;
+      --border: #e0e0e0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card);
+      color: var(--text);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1, h2, h3 {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      color: var(--text);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    }
+    
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: transform 0.2s, background 0.3s;
+    }
+    
+    button:hover {
+      background: #1976D2;
+      transform: translateY(-1px);
+    }
+    
+    .reminder-list {
+      margin-top: 30px;
+    }
+    
+    .reminder-item {
+      background: var(--card);
+      color: var(--text);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    
+    .reminder-item:hover {
+      transform: translateY(-2px);
+    }
+    
+    .reminder-item.warning {
+      border-left: 4px solid var(--warning);
+    }
+    
+    .reminder-item.expired {
+      border-left: 4px solid var(--danger);
+    }
+    
+    .file-upload {
+      border: 2px dashed var(--primary);
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      background: rgba(33, 150, 243, 0.05);
+      transition: border-color 0.3s;
+    }
+    
+    .file-upload:hover {
+      border-color: #1976D2;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      background: var(--success);
+      color: white;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .auth-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .auth-box {
+      background: var(--card);
+      color: var(--text);
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    
+    .auth-toggle {
+      text-align: center;
+      margin-top: 15px;
+      color: var(--secondary);
+      cursor: pointer;
+    }
+    
+    .user-info {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    
+    .delete-btn {
+      background: var(--danger);
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    .delete-btn:hover {
+      background: #D32F2F;
+    }
+    
+    .reminder-item p {
+      margin: 8px 0;
+    }
+    
+    .logout-btn:hover {
+      background: #D32F2F;
+    }
+    
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 15px;
+    }
+    
+    .forgot-password a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+    
+    .forgot-password-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    </style>
+    </head>
+    <body>
+    <div class="auth-container" id="authContainer">
+      <div class="auth-box">
+        <form id="authForm">
+          <h2 id="authTitle">Sign In</h2>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <div class="forgot-password">
+            <a href="#" onclick="showForgotPassword(event)">Forgot Password?</a>
+          </div>
+          <div id="nameField" style="display: none;" class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name">
+          </div>
+          <button type="submit">Submit</button>
+          <div class="auth-toggle" id="authToggle">
+            Don't have an account? Sign Up
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="forgot-password-container" id="forgotPasswordContainer" style="display: none;">
+      <div class="auth-box">
+        <h2>Reset Password</h2>
+        <form id="forgotPasswordForm">
+          <div class="form-group">
+            <label for="resetEmail">Email</label>
+            <input type="email" id="resetEmail" required>
+          </div>
+          <button type="submit">Reset Password</button>
+          <div class="auth-toggle" onclick="backToLogin()">
+            Back to Login
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="user-info" id="userInfo" style="display: none;">
+        <span id="userEmail"></span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    
+      <div class="file-upload">
+        <label for="excelFile">Upload Excel File</label>
+        <input type="file" id="excelFile" accept=".xlsx,.xls">
+        <p>or add manually below</p>
+      </div>
+    
+      <form id="reminderForm">
+        <div class="form-group">
+          <label for="policyName">Policy Name</label>
+          <input type="text" id="policyName" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="expiryDate">Expiry Date</label>
+          <input type="date" id="expiryDate" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="reminderDays">Remind Me Before (Days)</label>
+          <input type="number" id="reminderDays" min="1" required>
+        </div>
+    
+        <button type="submit">Add Reminder</button>
+      </form>
+    
+      <div class="reminder-list" id="reminderList"></div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script>
+    const reminderForm = document.getElementById('reminderForm');
+    const reminderList = document.getElementById('reminderList');
+    const notification = document.getElementById('notification');
+    const excelFile = document.getElementById('excelFile');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    
+    let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    const authContainer = document.getElementById('authContainer');
+    const authForm = document.getElementById('authForm');
+    const authToggle = document.getElementById('authToggle');
+    const authTitle = document.getElementById('authTitle');
+    const nameField = document.getElementById('nameField');
+    const userInfo = document.getElementById('userInfo');
+    const userEmailSpan = document.getElementById('userEmail');
+    let isLogin = true;
+    
+    function addReminder(policyName, expiryDate, reminderDays) {
+      const reminder = {
+        id: Date.now(),
+        policyName,
+        expiryDate,
+        reminderDays,
+        userEmail: currentUser?.email // Associate reminder with user
+      };
+      
+      reminders.push(reminder);
+      localStorage.setItem('reminders', JSON.stringify(reminders));
+      displayReminders();
+      
+      // Send confirmation email
+      if (currentUser) {
+        sendEmailNotification({
+          ...reminder,
+          type: 'new'
+        });
+      }
+      
+      showNotification('Reminder added successfully!');
+    }
+    
+    function displayReminders() {
+      reminderList.innerHTML = '';
+      
+      if (reminders.length === 0) {
+        reminderList.innerHTML = `
+          <div class="reminder-item" style="text-align: center;">
+            <p>No reminders added yet. Add your first reminder above!</p>
+          </div>
+        `;
+        return;
+      }
+      
+      reminders.forEach(reminder => {
+        const expiryDate = new Date(reminder.expiryDate);
+        const today = new Date();
+        const daysUntilExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+        
+        const reminderElement = document.createElement('div');
+        reminderElement.className = 'reminder-item';
+        
+        if (daysUntilExpiry < 0) {
+          reminderElement.classList.add('expired');
+        } else if (daysUntilExpiry <= reminder.reminderDays) {
+          reminderElement.classList.add('warning');
+        }
+        
+        reminderElement.innerHTML = `
+          <h3>${reminder.policyName}</h3>
+          <p>Expires on: ${new Date(reminder.expiryDate).toLocaleDateString()}</p>
+          <p>Reminder set for: ${reminder.reminderDays} days before expiry</p>
+          <p>${daysUntilExpiry < 0 ? 'Expired!' : `Days until expiry: ${daysUntilExpiry}`}</p>
+          <button onclick="deleteReminder(${reminder.id})" class="delete-btn">Delete</button>
+        `;
+        
+        reminderList.appendChild(reminderElement);
+      });
+    }
+    
+    function deleteReminder(id) {
+      reminders = reminders.filter(reminder => reminder.id !== id);
+      localStorage.setItem('reminders', JSON.stringify(reminders));
+      displayReminders();
+      showNotification('Reminder deleted!');
+    }
+    
+    function showNotification(message) {
+      notification.textContent = message;
+      notification.style.display = 'block';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+    
+    function handleExcelFile(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, {type: 'array'});
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+        
+        jsonData.forEach(row => {
+          if (row.policyName && row.expiryDate && row.reminderDays) {
+            const excelDate = new Date(Math.round((row.expiryDate - 25569)*86400*1000));
+            addReminder(
+              row.policyName,
+              excelDate.toISOString().split('T')[0],
+              parseInt(row.reminderDays)
+            );
+          }
+        });
+      };
+      
+      reader.readAsArrayBuffer(file);
+    }
+    
+    reminderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const policyName = document.getElementById('policyName').value;
+      const expiryDate = document.getElementById('expiryDate').value;
+      const reminderDays = parseInt(document.getElementById('reminderDays').value);
+      
+      addReminder(policyName, expiryDate, reminderDays);
+      reminderForm.reset();
+    });
+    
+    excelFile.addEventListener('change', handleExcelFile);
+    
+    function checkReminders() {
+      if (!currentUser) return; // Only check if user is logged in
+      
+      const today = new Date();
+      
+      reminders.forEach(reminder => {
+        const expiryDate = new Date(reminder.expiryDate);
+        const daysUntilExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+        
+        if (daysUntilExpiry === reminder.reminderDays) {
+          // Send both browser notification and email
+          if (Notification.permission === "granted") {
+            new Notification(`Policy Expiry Reminder`, {
+              body: `${reminder.policyName} will expire in ${daysUntilExpiry} days!`,
+            });
+          }
+          sendEmailNotification(reminder);
+        }
+      });
+    }
+    
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+    
+    setInterval(checkReminders, 86400000);
+    displayReminders();
+    
+    function toggleAuth() {
+      isLogin = !isLogin;
+      authTitle.textContent = isLogin ? 'Sign In' : 'Sign Up';
+      authToggle.textContent = isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign In";
+    }
+    
+    function handleAuth(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const name = document.getElementById('name').value;
+    
+      if (isLogin) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
+          currentUser = user;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          showNotification('Successfully logged in!');
+          authContainer.style.display = 'none';
+          updateUserInfo();
+        } else {
+          showNotification('Invalid credentials!');
+        }
+      } else {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.some(u => u.email === email)) {
+          showNotification('Email already registered!');
+          return;
+        }
+        const newUser = { email, password, name };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        currentUser = newUser;
+        localStorage.setItem('currentUser', JSON.stringify(newUser));
+        showNotification('Account created successfully!');
+        authContainer.style.display = 'none';
+        updateUserInfo();
+      }
+    }
+    
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      updateUserInfo();
+      authContainer.style.display = 'flex';
+    }
+    
+    function updateUserInfo() {
+      if (currentUser) {
+        userInfo.style.display = 'block';
+        userEmailSpan.textContent = currentUser.email;
+      } else {
+        userInfo.style.display = 'none';
+      }
+    }
+    
+    function sendEmailNotification(reminder) {
+      // In a real app, this would connect to a backend email service
+      // For now, we'll simulate email sending and show a notification
+      console.log(`Email notification sent to ${currentUser.email} for policy: ${reminder.policyName}`);
+      showNotification(`Email notification sent for policy: ${reminder.policyName}`);
+    }
+    
+    authToggle.addEventListener('click', toggleAuth);
+    authForm.addEventListener('submit', handleAuth);
+    
+    function showForgotPassword(e) {
+      e.preventDefault();
+      authContainer.style.display = 'none';
+      document.getElementById('forgotPasswordContainer').style.display = 'flex';
+    }
+    
+    function backToLogin() {
+      document.getElementById('forgotPasswordContainer').style.display = 'none';
+      authContainer.style.display = 'flex';
+    }
+    
+    function handlePasswordReset(e) {
+      e.preventDefault();
+      const email = document.getElementById('resetEmail').value;
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const user = users.find(u => u.email === email);
+      
+      if (user) {
+        const tempPassword = Math.random().toString(36).slice(-8);
+        user.password = tempPassword;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        console.log(`Password reset for ${email}. New password: ${tempPassword}`);
+        showNotification('Password reset successful! Check your email for the new password.');
+        backToLogin();
+      } else {
+        showNotification('Email not found!');
+      }
+    }
+    
+    forgotPasswordForm.addEventListener('submit', handlePasswordReset);
+    
+    if (!currentUser) {
+      authContainer.style.display = 'flex';
+    } else {
+      updateUserInfo();
+    }
+    
+    </script>
+    </body></html>
