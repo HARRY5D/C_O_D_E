@@ -28,7 +28,9 @@ class BinaryTree:
             current = self.root
             while current.left:
                 current = current.left
-            current.left = Node(value)
+            new_node = Node(value)
+            new_node.left = current.left
+            current.left = new_node # type: ignore
 
     def delete_right(self):
         if not self.root:
@@ -41,6 +43,7 @@ class BinaryTree:
             while current.right:
                 parent = current
                 current = current.right
+            # Disconnect the rightmost node
             parent.right = current.left
 
     def inorder_traversal(self, node):
@@ -86,7 +89,11 @@ def main():
 
         if choice == '1':
             value = input("ENTER VALUE TO INSERT : ")
-            tree.insert_left(value)
+            try:
+                value = int(value)  # Convert input to integer
+                tree.insert_left(value)
+            except ValueError:
+                print("Please enter a valid integer.")
         elif choice == '2':
             tree.delete_right()
             print("RIGHTMOST NODE DELETED.")
