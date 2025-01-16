@@ -1,10 +1,13 @@
 from collections import deque
 
 def bfs(graph, start):
+
     visited = set()
     traversal_order = []
     queue = deque([start])
+    
     visited.add(start)
+    
     while queue:
         node = queue.popleft()
         traversal_order.append(node)
@@ -12,6 +15,7 @@ def bfs(graph, start):
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
+    
     return traversal_order
 
 graph = {
