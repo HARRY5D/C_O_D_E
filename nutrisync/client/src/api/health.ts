@@ -143,3 +143,36 @@ export const getMentalHealthResources = () => {
     }, 500);
   });
 };
+
+// Description: Get crisis support hotlines
+// Endpoint: GET /api/health/crisis-support-hotlines
+// Request: {}
+// Response: { hotlines: Array<{ id: string, name: string, phone: string, description: string }> }
+export const getCrisisSupportHotlines = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        hotlines: [
+          {
+            _id: '1',
+            name: 'National Suicide Prevention Lifeline',
+            phone: '1-800-273-8255',
+            description: 'Provides 24/7, free and confidential support for people in distress, prevention and crisis resources for you or your loved ones, and best practices for professionals.',
+          },
+          {
+            _id: '2',
+            name: 'Crisis Text Line',
+            phone: 'Text HOME to 741741',
+            description: 'Provides free, 24/7 support via text message. Text HOME to 741741 to connect with a trained Crisis Counselor.',
+          },
+          {
+            _id: '3',
+            name: 'SAMHSA National Helpline',
+            phone: '1-800-662-HELP (4357)',
+            description: 'Provides 24/7, free and confidential treatment referral and information services (in English and Spanish) for individuals and families facing mental and/or substance use disorders.',
+          },
+        ],
+      });
+    }, 500);
+  });
+};

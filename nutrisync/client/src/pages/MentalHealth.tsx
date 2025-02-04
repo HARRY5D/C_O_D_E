@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { getMentalHealthResources, getMeditationSessions } from '@/api/health';
-import { PlayCircle, FileText, Video } from 'lucide-react';
+import { getMentalHealthResources, getMeditationSessions, getCrisisSupportHotlines } from '@/api/health';
+import { PlayCircle, FileText, Video, Phone } from 'lucide-react';
 
 export function MentalHealth() {
   const [resources, setResources] = useState([]);
   const [sessions, setSessions] = useState([]);
+  const [crisisSupportHotlines, setCrisisSupportHotlines] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [resourcesData, sessionsData] = await Promise.all([
+        const [resourcesData, sessionsData, hotlinesData] = await Promise.all([
           getMentalHealthResources(),
           getMeditationSessions(),
+          getCrisisSupportHotlines(),
         ]);
         setResources(resourcesData.resources);
         setSessions(sessionsData.sessions);
+        setCrisisSupportHotlines(hotlinesData.hotlines);
       } catch (error) {
         console.error('Error fetching mental health data:', error);
       } finally {
@@ -99,6 +102,35 @@ export function MentalHealth() {
                   >
                     Learn More →
                   </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Crisis Support Hotlines</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {crisisSupportHotlines.map((hotline) => (
+                <div
+                  key={hotline._id}
+                  className="p-4 border rounded-lg hover:bg-accent/50 transition-colors"
+                >
+                  <div className="flex items-center space-x-4 mb-2">
+                    <Phone className="h-5 w-5 text-brand-500" />
+                    <div>
+                      <p className="font-medium">{hotline.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {hotline.phone}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {hotline.description}
+                  </p>
                 </div>
               ))}
             </div>
