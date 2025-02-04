@@ -74,4 +74,24 @@ api.interceptors.response.use(
   }
 );
 
+// Function to check if Nutrisync is running properly
+export const checkNutrisyncStatus = async () => {
+  try {
+    const response = await api.get('/ping');
+    return response.data === 'pong';
+  } catch (error) {
+    return false;
+  }
+};
+
+// Function to check if authentication is working properly
+export const checkAuthStatus = async () => {
+  try {
+    const response = await api.get('/auth/me');
+    return response.status === 200;
+  } catch (error) {
+    return false;
+  }
+};
+
 export default api;

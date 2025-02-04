@@ -25,6 +25,7 @@ import { useToast } from "@/hooks/useToast"
 import { LogIn, Loader2, Phone } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
 import { phoneLogin, sendPhoneCode } from "@/api/auth"
+import { checkNutrisyncStatus, checkAuthStatus } from "@/api/api"
 
 type LoginForm = {
   email: string
@@ -49,7 +50,25 @@ export function Login() {
   const onSubmit = async (data: LoginForm) => {
     try {
       setLoading(true)
+      const isNutrisyncRunning = await checkNutrisyncStatus();
+      if (!isNutrisyncRunning) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Nutrisync server is not running",
+        })
+        return;
+      }
       await login(data.email, data.password);
+      const isAuthWorking = await checkAuthStatus();
+      if (!isAuthWorking) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Authentication is not working properly",
+        })
+        return;
+      }
       toast({
         title: "Success",
         description: "Logged in successfully",
