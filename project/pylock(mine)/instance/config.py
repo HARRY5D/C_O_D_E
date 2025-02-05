@@ -6,6 +6,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'your.email@gmail.com'
     MAIL_PASSWORD = 'your-app-password'
+    MAIL_DEFAULT_SENDER = 'your.email@gmail.com'  # Default sender for email notifications
 
 class DevelopmentConfig(Config):
     DEBUG = True

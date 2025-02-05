@@ -11,6 +11,12 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/passwords">Password Management</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="/logout">Logout</a></li>
+            {% else %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
     <div class="container">
