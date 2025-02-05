@@ -98,4 +98,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadPasswords();
+
+    // User Authentication and Registration Logic
+    const authForm = document.getElementById('auth-form');
+    const authToggle = document.getElementById('auth-toggle');
+    const authTitle = document.getElementById('auth-title');
+    const nameField = document.getElementById('name-field');
+    let isLogin = true;
+
+    authToggle.addEventListener('click', function() {
+        isLogin = !isLogin;
+        authTitle.textContent = isLogin ? 'Sign In' : 'Sign Up';
+        authToggle.textContent = isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign In";
+        nameField.style.display = isLogin ? 'none' : 'block';
+    });
+
+    authForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(authForm);
+        const data = {
+            email: formData.get('email'),
+            password: formData.get('password'),
+            name: formData.get('name')
+        };
+        const url = isLogin ? '/login' : '/register';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                window.location.href = '/';
+            }
+        });
+    });
+
+    // Email Notifications for Policy Reminders
+    function checkReminders() {
+        fetch('/check_reminders')
+        .then(response => response.json())
+        .then(data => {
+            data.reminders.forEach(reminder => {
+                if (Notification.permission === "granted") {
+                    new Notification(`Policy Expiry Reminder`, {
+                        body: `${reminder.policy_name} will expire in ${reminder.days_until_expiry} days!`,
+                    });
+                }
+            });
+        });
+    }
+
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+    }
+
+    setInterval(checkReminders, 86400000);
 });
