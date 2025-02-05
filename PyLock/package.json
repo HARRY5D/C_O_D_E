@@ -1,0 +1,20 @@
+{
+  "name": "pylock",
+  "version": "1.0.0",
+  "description": "PyLock - A Secure Password Manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^13.1.7",
+    "electron-store": "^8.0.0",
+    "clerk": "^4.0.0",
+    "flask": "^2.0.1",
+    "flask_sqlalchemy": "^2.5.1",
+    "cryptography": "^3.4.7"
+  },
+  "devDependencies": {},
+  "author": "Harnish Patel",
+  "license": "MIT"
+}
