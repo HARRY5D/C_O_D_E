@@ -714,4 +714,4 @@ def reset_password():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=5502, debug=True)
+    app.run(host='0.0.0.0', port=5503, debug=True)
