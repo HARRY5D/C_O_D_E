@@ -17,34 +17,43 @@ import { Profile } from "./pages/Profile"
 import { Integrations } from "./pages/Integrations"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { FlutterApp } from "flutter"
+import { ClerkProvider } from '@clerk/clerk-react';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { Database } from './config/database';
+
+const supabaseUrl = 'https://xyzcompany.supabase.co';
+const supabaseKey = 'public-anon-key';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider defaultTheme="light" storageKey="ui-theme">
-        <FlutterApp>
-          <Router>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-                <Route index element={<Dashboard />} />
-                <Route path="mental-health" element={<MentalHealth />} />
-                <Route path="fitness" element={<Fitness />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="appointments" element={<Appointments />} />
-                <Route path="meditation" element={<Meditation />} />
-                <Route path="metrics" element={<Metrics />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="integrations" element={<Integrations />} />
-              </Route>
-            </Routes>
-            <Toaster />
-          </Router>
-        </FlutterApp>
-      </ThemeProvider>
-    </AuthProvider>
+    <ClerkProvider>
+      <AuthProvider>
+        <ThemeProvider defaultTheme="blue-and-white" storageKey="ui-theme">
+          <FlutterApp>
+            <Router>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="mental-health" element={<MentalHealth />} />
+                  <Route path="fitness" element={<Fitness />} />
+                  <Route path="contact" element={<Contact />} />
+                  <Route path="appointments" element={<Appointments />} />
+                  <Route path="meditation" element={<Meditation />} />
+                  <Route path="metrics" element={<Metrics />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="integrations" element={<Integrations />} />
+                </Route>
+              </Routes>
+              <Toaster />
+            </Router>
+          </FlutterApp>
+        </ThemeProvider>
+      </AuthProvider>
+    </ClerkProvider>
   )
 }
 

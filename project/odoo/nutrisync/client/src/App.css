@@ -1,9 +1,10 @@
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #f0f4f8; /* Light blue background */
+  color: #333; /* Dark text color for contrast */
 }
 
 .logo {
@@ -36,9 +37,148 @@
 
 .card {
   padding: 2em;
+  background-color: #ffffff; /* White background for cards */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .read-the-docs {
   color: #888;
 }
 
+.button {
+  background-color: #007bff; /* Blue background for buttons */
+  color: #ffffff; /* White text color */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.sidebar {
+  background-color: #007bff; /* Blue background for sidebar */
+  color: #ffffff; /* White text color */
+  padding: 1em;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.sidebar a {
+  color: #ffffff; /* White text color for links */
+  text-decoration: none;
+  display: block;
+  padding: 0.5em 0;
+}
+
+.sidebar a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* New styles for blue and white theme */
+body {
+  background-color: #f0f4f8; /* Light blue background */
+  color: #333; /* Dark text color for contrast */
+}
+
+header {
+  background-color: #007bff; /* Blue background for header */
+  color: #ffffff; /* White text color */
+  padding: 1em;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+footer {
+  background-color: #007bff; /* Blue background for footer */
+  color: #ffffff; /* White text color */
+  padding: 1em;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+nav a {
+  color: #007bff; /* Blue text color for navigation links */
+  text-decoration: none;
+  padding: 0.5em;
+  border-radius: 4px; /* Rounded corners */
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #ffffff; /* White text color on hover */
+}
+
+.card {
+  background-color: #ffffff; /* White background for cards */
+  color: #007bff; /* Blue text color for cards */
+  border: 1px solid #007bff; /* Blue border for cards */
+}
+
+.button {
+  background-color: #007bff; /* Blue background for buttons */
+  color: #ffffff; /* White text color */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.sidebar {
+  background-color: #007bff; /* Blue background for sidebar */
+  color: #ffffff; /* White text color */
+  padding: 1em;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.sidebar a {
+  color: #ffffff; /* White text color for links */
+  text-decoration: none;
+  display: block;
+  padding: 0.5em 0;
+}
+
+.sidebar a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Additional styles for blue and white theme */
+.dashboard {
+  background-color: #ffffff; /* White background for dashboard */
+  color: #007bff; /* Blue text color for dashboard */
+  border: 1px solid #007bff; /* Blue border for dashboard */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 1em;
+}
+
+.metrics {
+  background-color: #ffffff; /* White background for metrics */
+  color: #007bff; /* Blue text color for metrics */
+  border: 1px solid #007bff; /* Blue border for metrics */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 1em;
+}
+
+.appointments {
+  background-color: #ffffff; /* White background for appointments */
+  color: #007bff; /* Blue text color for appointments */
+  border: 1px solid #007bff; /* Blue border for appointments */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 1em;
+}

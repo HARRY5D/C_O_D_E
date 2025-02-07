@@ -1,4 +1,5 @@
 import api from './api';
+import { Clerk } from '@clerk/clerk-sdk-node';
 
 // Description: Login user
 // Endpoint: POST /api/auth/login
@@ -133,4 +134,24 @@ export const validateIndianPhoneNumber = (phoneNumber: string) => {
       ? 'Valid Indian phone number' 
       : 'Please enter a valid Indian phone number starting with +91'
   };
+};
+
+// Description: Clerk authentication
+// Endpoint: POST /api/auth/clerk
+// Request: { email: string, password: string }
+// Response: { accessToken: string, refreshToken: string }
+export const clerkAuth = async (email: string, password: string) => {
+  try {
+    const clerk = new Clerk({ apiKey: 'your-clerk-api-key' });
+    const { session } = await clerk.sessions.create({
+      emailAddress: email,
+      password: password,
+    });
+    return {
+      accessToken: session.accessToken,
+      refreshToken: session.refreshToken,
+    };
+  } catch (error) {
+    throw new Error('Clerk authentication failed');
+  }
 };

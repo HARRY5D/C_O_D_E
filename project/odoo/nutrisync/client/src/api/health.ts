@@ -1,22 +1,27 @@
 import api from './api';
+import { GoogleFit, HealthKit } from 'react-native-health';
 
 // Description: Get user's health metrics
 // Endpoint: GET /api/health/metrics
 // Request: {}
 // Response: { metrics: Array<{ id: string, name: string, value: number, unit: string, trend: 'up' | 'down' | 'stable' }> }
-export const getHealthMetrics = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        metrics: [
-          { _id: '1', name: 'Heart Rate', value: 72, unit: 'bpm', trend: 'stable' },
-          { _id: '2', name: 'Blood Pressure', value: 120, unit: 'mmHg', trend: 'up' },
-          { _id: '3', name: 'Sleep', value: 7.5, unit: 'hours', trend: 'down' },
-          { _id: '4', name: 'Steps', value: 8432, unit: 'steps', trend: 'up' },
-        ],
-      });
-    }, 500);
-  });
+export const getHealthMetrics = async () => {
+  try {
+    const googleFitData = await GoogleFit.getDailySteps();
+    const healthKitData = await HealthKit.getDailySteps();
+
+    const metrics = [
+      { _id: '1', name: 'Heart Rate', value: googleFitData.heartRate, unit: 'bpm', trend: 'stable' },
+      { _id: '2', name: 'Blood Pressure', value: googleFitData.bloodPressure, unit: 'mmHg', trend: 'up' },
+      { _id: '3', name: 'Sleep', value: healthKitData.sleep, unit: 'hours', trend: 'down' },
+      { _id: '4', name: 'Steps', value: googleFitData.steps, unit: 'steps', trend: 'up' },
+    ];
+
+    return { metrics };
+  } catch (error) {
+    console.error('Error fetching health metrics:', error);
+    throw error;
+  }
 };
 
 // Description: Get user's upcoming appointments

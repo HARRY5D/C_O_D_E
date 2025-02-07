@@ -29,10 +29,10 @@ export function Sidebar() {
 
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-r px-6 pb-4">
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-500 text-white backdrop-blur supports-[backdrop-filter]:bg-blue-400 border-r px-6 pb-4">
         <div className="flex h-16 shrink-0 items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <Heart className="h-6 w-6 text-brand-600" />
+            <Heart className="h-6 w-6 text-white" />
             <span className="text-xl font-bold">HealthSync</span>
           </Link>
         </div>
@@ -49,14 +49,14 @@ export function Sidebar() {
                         className={cn(
                           'group flex gap-x-3 rounded-md p-2 text-sm leading-6',
                           isActive
-                            ? 'bg-brand-500/10 text-brand-600 font-semibold'
-                            : 'text-muted-foreground hover:bg-brand-500/10 hover:text-brand-600'
+                            ? 'bg-white text-blue-500 font-semibold'
+                            : 'text-white hover:bg-white hover:text-blue-500'
                         )}
                       >
                         <item.icon
                           className={cn(
                             'h-5 w-5 shrink-0',
-                            isActive ? 'text-brand-600' : 'text-muted-foreground group-hover:text-brand-600'
+                            isActive ? 'text-blue-500' : 'text-white group-hover:text-blue-500'
                           )}
                           aria-hidden="true"
                         />

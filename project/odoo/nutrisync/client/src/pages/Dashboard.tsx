@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getHealthMetrics, getAppointments } from '@/api/health';
 import { Activity, Calendar, Heart, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { GoogleFit, HealthKit } from 'react-native-health';
 
 export function Dashboard() {
   const [metrics, setMetrics] = useState([]);
@@ -40,18 +41,18 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-blue-500">Dashboard</h1>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {metrics.map((metric) => (
-          <Card key={metric._id}>
+          <Card key={metric._id} className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-sm font-medium">{metric.name}</CardTitle>
+              <CardTitle className="text-sm font-medium text-blue-500">{metric.name}</CardTitle>
               {getTrendIcon(metric.trend)}
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-2xl font-bold text-blue-500">
                 {metric.value}
                 <span className="ml-1 text-sm font-normal text-muted-foreground">
                   {metric.unit}
@@ -62,7 +63,7 @@ export function Dashboard() {
         ))}
       </div>
 
-      <Card>
+      <Card className="bg-blue-500 text-white">
         <CardHeader>
           <CardTitle>Upcoming Appointments</CardTitle>
         </CardHeader>
@@ -74,7 +75,7 @@ export function Dashboard() {
                 className="flex items-center justify-between p-4 border rounded-lg"
               >
                 <div className="flex items-center space-x-4">
-                  <Calendar className="h-5 w-5 text-brand-500" />
+                  <Calendar className="h-5 w-5 text-white" />
                   <div>
                     <p className="font-medium">{appointment.doctor.name}</p>
                     <p className="text-sm text-muted-foreground">
