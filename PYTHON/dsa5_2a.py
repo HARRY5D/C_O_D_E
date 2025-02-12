@@ -70,10 +70,12 @@ for query in queries:
 
            '''
 
+from typing import Optional
+
 class Node:
     def __init__(self, data):
         self.data = data
-        self.next = None
+        self.next: Optional[Node] = None
 
 class Queue:
     def __init__(self):
@@ -93,12 +95,14 @@ class Queue:
     def dequeue(self):
         if self.is_empty():
             print("QUEUE IS EMPTY.")
-            return
-        x = self.front.data
-        self.front = self.front.next
-        if self.front is None:
-            self.rear = None
-        return x
+            return None
+        if self.front:
+            x = self.front.data
+            self.front = self.front.next
+            if self.front is None:
+                self.rear = None
+            return x
+        return None
 
     def print_queue(self):
         if self.is_empty():
