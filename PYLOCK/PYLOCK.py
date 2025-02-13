@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+import ttkbootstrap as ttk
+from tkinter import messagebox
 import sqlite3
 #import hashlib
 import os
@@ -10,6 +11,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import base64
+from style import apply_styles
 
 backend = default_backend()
 
@@ -89,52 +91,174 @@ class EncryptionManager:
         return (decryptor.update(ct) + decryptor.finalize()).decode()
 
 
+# class PasswordManagerApp:
+#     def __init__(self):
+#         self.db = DatabaseManager()
+#         self.current_user = None
+#         self.master_key = None
+
+#         # self.root = tk.Tk()
+#         # self.root.title("Password Manager")
+#         # self.create_login_window()
+#         # self.root.mainloop()
+#         self.root = ttk.Window(themename="darkly")
+#         self.root.title("PyLock Password Manager")
+#         self.root.geometry("800x600")
+#         self.create_login_window()
+#         self.root.mainloop()
+
+#     def create_login_window(self):
+#         self.clear_window()
+
+#         ttk.Label(self.root, text="Username:").pack()
+#         self.username_entry = ttk.Entry(self.root)
+#         self.username_entry.pack()
+
+#         ttk.Label(self.root, text="Password:").pack()
+#         self.password_entry = ttk.Entry(self.root, show="*")
+#         self.password_entry.pack()
+
+#         ttk.Button(self.root, text="Login", command=self.login).pack(pady=5)
+#         ttk.Button(self.root, text="Register", command=self.create_registration_window).pack(pady=5)
+
 class PasswordManagerApp:
     def __init__(self):
         self.db = DatabaseManager()
         self.current_user = None
         self.master_key = None
 
-        self.root = tk.Tk()
-        self.root.title("Password Manager")
+        self.root = ttk.Window(themename="darkly")
+        self.root.title("PyLock Password Manager")
+        self.root.geometry("1440x900")
+        self.style = apply_styles(self.root)
         self.create_login_window()
         self.root.mainloop()
 
     def create_login_window(self):
         self.clear_window()
+        #increased y by  20
+        # Title
+        ttk.Label(
+            self.root, 
+            text="PyLock", 
+            style="Title.TLabel"
+        ).place(x=14, y=9)
 
-        ttk.Label(self.root, text="Username:").pack()
-        self.username_entry = ttk.Entry(self.root)
-        self.username_entry.pack()
+        # Username section
+        ttk.Label(
+            self.root, 
+            text="Enter username:", 
+            style="Title.TLabel"
+        ).place(x=602, y=134)
+        
+        self.username_entry = ttk.Entry(self.root, width=30)
+        self.username_entry.place(x=607, y=210, width=248, height=49)
 
-        ttk.Label(self.root, text="Password:").pack()
-        self.password_entry = ttk.Entry(self.root, show="*")
-        self.password_entry.pack()
+        # Password section
+        ttk.Label(
+            self.root, 
+            text="Enter password:", 
+            style="Title.TLabel"
+        ).place(x=610, y=292)
+        
+        self.password_entry = ttk.Entry(self.root,show="•", width=30)
+        self.password_entry.place(x=607, y=370, width=248, height=49)
 
-        ttk.Button(self.root, text="Login", command=self.login).pack(pady=5)
-        ttk.Button(self.root, text="Register", command=self.create_registration_window).pack(pady=5)
+        # Sign in button
+        ttk.Button(
+            self.root,
+            text="Sign In",
+            command=self.login
+        ).place(x=607, y=456, width=248, height=47)
+
+        # Register link
+        ttk.Button(
+            self.root,
+            text="Create Account",
+            style="Link.TButton",
+            command=self.create_registration_window
+        ).place(x=607, y=520)
 
     def create_registration_window(self):
         self.clear_window()
+        
+        # Title
+        ttk.Label(
+            self.root, 
+            text="Create Account", 
+            style="Title.TLabel"
+        ).place(x=602, y=50)
 
-        ttk.Label(self.root, text="Choose a username:").pack()
-        self.reg_username = ttk.Entry(self.root)
-        self.reg_username.pack()
+        # Registration fields with consistent spacing
+        # fields = [
+        #     ("Username", self.reg_username := ttk.Entry(self.root, width=30)),
+        #     ("Password", self.reg_password := ttk.Entry(self.root, width=30, show="•")),
+        #     ("Email", self.reg_email := ttk.Entry(self.root, width=30)),
+        #     ("Phone", self.reg_phone := ttk.Entry(self.root, width=30))
+        # ]
+                # Create entries first
+        self.reg_username = ttk.Entry(self.root, width=30)
+        self.reg_password = ttk.Entry(self.root, width=30, show="•")
+        self.reg_email = ttk.Entry(self.root, width=30)
+        self.reg_phone = ttk.Entry(self.root, width=30)
 
-        ttk.Label(self.root, text="Choose a password:").pack()
-        self.reg_password = ttk.Entry(self.root, show="*")
-        self.reg_password.pack()
+        # Then create fields list
+        fields = [
+            ("Username", self.reg_username),
+            ("Password", self.reg_password),
+            ("Email", self.reg_email),
+            ("Phone", self.reg_phone)
+        ]
+        
 
-        ttk.Label(self.root, text="Email:").pack()
-        self.reg_email = ttk.Entry(self.root)
-        self.reg_email.pack()
+        y_pos = 150
+        for label_text, entry in fields:
+            ttk.Label(
+                self.root, 
+                text=label_text, 
+                style="TLabel"
+            ).place(x=607, y=y_pos)
+            
+            entry.place(x=607, y=y_pos + 40, width=248, height=49)
+            y_pos += 120
 
-        ttk.Label(self.root, text="Phone:").pack()
-        self.reg_phone = ttk.Entry(self.root)
-        self.reg_phone.pack()
+        # Buttons
+        ttk.Button(
+            self.root,
+            text="Register",
+            command=self.register
+        ).place(x=607, y=y_pos, width=248, height=47)
 
-        ttk.Button(self.root, text="Register", command=self.register).pack(pady=5)
-        ttk.Button(self.root, text="Back", command=self.create_login_window).pack(pady=5)
+        ttk.Button(
+            self.root,
+            text="Back to Login",
+            style="Link.TButton",
+            command=self.create_login_window
+        ).place(x=607, y=y_pos + 64)
+
+    # ... rest of the methods remain the same ...
+    
+    # def create_registration_window(self):
+    #     self.clear_window()
+
+    #     ttk.Label(self.root, text="Choose a username:").pack()
+    #     self.reg_username = ttk.Entry(self.root)
+    #     self.reg_username.pack()
+
+    #     ttk.Label(self.root, text="Choose a password:").pack()
+    #     self.reg_password = ttk.Entry(self.root, show="*")
+    #     self.reg_password.pack()
+
+    #     ttk.Label(self.root, text="Email:").pack()
+    #     self.reg_email = ttk.Entry(self.root)
+    #     self.reg_email.pack()
+
+    #     ttk.Label(self.root, text="Phone:").pack()
+    #     self.reg_phone = ttk.Entry(self.root)
+    #     self.reg_phone.pack()
+
+    #     ttk.Button(self.root, text="Register", command=self.register).pack(pady=5)
+    #     ttk.Button(self.root, text="Back", command=self.create_login_window).pack(pady=5)
 
     def create_main_window(self):
         self.clear_window()
