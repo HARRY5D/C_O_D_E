@@ -14,6 +14,8 @@ def infix_to_postfix(infix):
     stack = []
     postfix = ''
 
+
+
     for char in infix:
         if char == ' ':  
             continue
