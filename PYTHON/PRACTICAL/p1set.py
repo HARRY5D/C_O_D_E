@@ -35,3 +35,6 @@ print("Is set1 superset of {1, 2} ?", set1.issuperset(set3))
 set3.clear()
 
 print("After clearing set3:", set3)
+
+
+#assignment 

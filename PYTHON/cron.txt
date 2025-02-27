@@ -1,0 +1,1 @@
+0 22 * * * cd C:\Users\dipes\Desktop\JAVA\CODE && python3 commit_bot.py
