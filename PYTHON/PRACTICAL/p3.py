@@ -411,12 +411,10 @@ Simplified implementation covering all requirements
 
 # ---------- FUNCTION BASICS ----------
 
-# Simple function
 def add(a, b):
     """Add two numbers and return the result."""
     return a + b
 
-# Function with different argument types
 def greet(name, greeting="Hello", *extra_msgs, caps=False, **other_params):
     """Customizable greeting function."""
     result = f"{greeting}, {name}!"
@@ -430,40 +428,34 @@ def greet(name, greeting="Hello", *extra_msgs, caps=False, **other_params):
             
     return result.upper() if caps else result
 
-# Multiple return values
 def calculate_stats(numbers):
     """Return min, max, sum and average of numbers."""
     if not numbers:
-        return 0, 0, 0, 0
+        return 0 
     total = sum(numbers)
     return min(numbers), max(numbers), total, total/len(numbers)
 
-# Lambda function
 square = lambda x: x * x
 
-# Function inside function
 def create_multiplier(factor):
     """Return a function that multiplies by factor."""
     def multiply(x):
         return x * factor
     return multiply
 
-# Decorator
-def log_execution(func):
-    """Log function execution details."""
-    def wrapper(*args, **kwargs):
-        print(f"Executing {func.__name__}")
-        result = func(*args, **kwargs)
-        print(f"Result: {result}")
-        return result
-    return wrapper
+# def log_execution(func):
+#     """Log function execution details."""
+#     def wrapper(*args, **kwargs):
+#         print(f"Executing {func.__name__}")
+#         result = func(*args, **kwargs)
+#         print(f"Result: {result}")
+#         return result
+#     return wrapper
 
-# Recursive function
 def factorial(n):
     """Calculate factorial recursively."""
     return 1 if n <= 1 else n * factorial(n-1)
 
-# ---------- LOOPS BASICS ----------
 
 def demonstrate_loops():
     """Show various loop techniques."""
@@ -488,7 +480,7 @@ def demonstrate_loops():
     # Break and continue
     print("\nBreak and continue:")
     for i in range(5):
-        if i == 1: continue
+        if i == 1: continue #pass
         if i == 4: break
         print(f"Value: {i}")
     
@@ -509,19 +501,15 @@ def demonstrate_loops():
 class Calculator:
     """Simple calculator with basic operations."""
     
-    @staticmethod
     def add(a, b):
         return a + b
     
-    @staticmethod
     def subtract(a, b):
         return a - b
     
-    @staticmethod
     def multiply(a, b):
         return a * b
     
-    @staticmethod
     def divide(a, b):
         if b == 0:
             print("Error: Division by zero")

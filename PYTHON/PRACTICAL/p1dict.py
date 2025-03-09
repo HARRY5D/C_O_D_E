@@ -2,14 +2,17 @@
 std = { 's1' : {'name': 'John', 'age': 20, 'grade': 'A'} }
 
 print("\n1. Original dictionary:")
+
 print(std)
 
 print("\n2. Access and update:")
+
 print("Name: ",std['s1']['name'])
 std['s1']['age'] = 21
 print("Updated age: ",std['s1']['age'])
 
 print("\n3. Dictionary methods:")
+
 print("Keys: ",list(std.keys()))
 print("Values: ",list(std.values()))
 print("Items: ",list(std.items()))

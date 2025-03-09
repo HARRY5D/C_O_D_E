@@ -1,6 +1,6 @@
 
 from datetime import datetime
-import PYTHON.PRACTICAL.arith_module as a
+import arith_module as a
 import geo as b
 
 def main():

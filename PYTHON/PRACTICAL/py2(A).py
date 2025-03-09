@@ -1,12 +1,12 @@
 '''
 a) Implement following operation using python tuple concept. 
-Tuple operation  Create tuples with different data types (integer, float, string, and miied).
+Tuple operation  Create tuples with different data types (integer, float, string, and mixed).
   Access tuple elements using positive and negative indices.  Perform tuple slicing to eitract
    specific portions of the tuple.  Count occurrences of an element and find the indei of an element 
    in a tuple.  Use built-in functions like len(), mai(), min(), and sum() with tuples. 
     Write a program to count and print distinct elements from a tuple.  Convert a list to a tuple 
    and vice versa.  Demonstrate unpacking of tuples into individual variables. b) Implement following 
-   operation using Python List concept. List Operation  Create a list of integers, strings, and miied data 
+   operation using Python List concept. List Operation  Create a list of integers, strings, and mixed data 
    types.  Access elements using indices, perform slicing, and update list elements.  Add and remove 
    elements using append(), insert(), remove(), and pop() methods.  Concatenate and repeat lists using 
    operators.  Create a list of squares of the first 10 natural numbers using list comprehension.
@@ -26,25 +26,25 @@ t2 = (1.1, 2.2, 3.3, 4.4, 5.5)
 t3 = ('apple', 'banana', 'orange')
 t4 = (1, 2, 2, 3, 2, 4, 5)
 
-miied = (1, 'hello', 3.14, True)
+mixed = (1, 'hello', 3.14, True)
 
 
 print(f"Integer tuple: {t1}")
 print(f"Float tuple: {t2}")
 print(f"String tuple: {t3}")
-print(f"Miied tuple: {miied}")
+print(f"mixed tuple: {mixed}")
 
-print(f"First element: {miied[0]}")
-print(f"Last element: {miied[-1]}")
+print(f"First element: {mixed[0]}")
+print(f"Last element: {mixed[-1]}")
 
-print(f"First two elements: {miied[:2]}")
-print(f"Last two elements: {miied[-2:]}")
+print(f"First two elements: {mixed[:2]}")
+print(f"Last two elements: {mixed[-2:]}")
 
 print(f"Count of 2: {t4.count(2)}")
-print(f"Indei of first 2: {t4.index(2)}")
+print(f"Index of first 2: {t4.index(2)}")
 
 print(f"Length: {len(t1)}")
-print(f"Maiimum: {max(t1)}")
+print(f"Maximum: {max(t1)}")
 print(f"Minimum: {min(t1)}")
 print(f"Sum: {sum(t1)}")
 
@@ -72,7 +72,7 @@ l4=[1,1,2,3,4,5,5]
 
 print(f"\nInteger list: {l1}")
 print(f"String list: {l2}")
-print(f"Miied list: {l3}")
+print(f"mixed list: {l3}")
 
 l3[1] = 'world'
 print(f"Updated list: {l3}")
