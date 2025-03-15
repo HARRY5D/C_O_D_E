@@ -26,11 +26,11 @@ def odd_even(numbers):
                 odd_file.write(f"{num}\n")
     
     
-    print("\nOdd numbers:")
+    print("\nOdd numbers from odd.txt:")
     with open("odd_numbers.txt", "r") as file:
         print(file.read())
     
-    print("\nEven numbers:")
+    print("\nEven numbers from even.txt:")
     with open("even_numbers.txt", "r") as file:
         print(file.read())
 
@@ -83,7 +83,7 @@ def create_triangle():
     triangle = []
     for i in range(1, 6):
         for j in range(0,6):
-          line = 'j' * i
+          line = '*' * i
         triangle.append(line)
     
     with open("triangle.txt", "w") as file:
