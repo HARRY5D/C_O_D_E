@@ -1,3 +1,0 @@
-Initial content.
-This line is appended.
-This is another appended line.
