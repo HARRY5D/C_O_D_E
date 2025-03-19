@@ -1,20 +1,21 @@
 
 def basic_exception_demo():
-    print("\n===== Basic Exception Handling =====")
+    print("\n Basic Exception Handling ")
     
     try:
         x = 10 / 0
     except ZeroDivisionError:
-        print("Cannot divide by zero")
+        print("x = 10/0 :Cannot divide by zero")
     
     try:
         num = int("abc")
     except ValueError:
-        print("Invalid conversion")
+        print("int(abc) : Invalid conversion")
     except ZeroDivisionError:
         print("Division by zero")
     
     try:
+        
         num = int("123")
     except ValueError:
         print("Not a valid number")
@@ -42,7 +43,7 @@ def bank_withdraw(balance, amount):
     return balance - amount
 
 def custom_exception_demo():
-    print("\n===== Custom Exception Demo =====")
+    print("\n Custom Exception Demo ")
     
     balance = 500
     try:
@@ -53,7 +54,7 @@ def custom_exception_demo():
 
 
 def access_list_element(my_list):
-    print("\n===== IndexError Handling =====")
+    print("\n IndexError Handling ")
     print(f"List: {my_list}")
     
     while True:
@@ -69,7 +70,7 @@ def access_list_element(my_list):
 
 
 def convert_to_integer():
-    print("\n===== ValueError Handling =====")
+    print("\n ValueError Handling ")
     
     while True:
         try:
