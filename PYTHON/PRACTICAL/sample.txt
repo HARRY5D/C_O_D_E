@@ -1,3 +1,1 @@
 Hello, World!
-This is a demonstration of file operations in Python.
-File handling is an essential skill for any programmer.
