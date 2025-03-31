@@ -1,7 +1,7 @@
 
 from datetime import datetime
-import arith_module as a
-import geo as b
+import PYTHON.PRACTICAL.assignment_practicals.arith_module as a
+import PYTHON.PRACTICAL.assignment_practicals.geo as b
 
 def main():
 

@@ -15,7 +15,6 @@ CRON_JOB_TIME = "0 22 * * *" # Every day at 10:00 pm.
 OUTPUT_FILE = "commit_bot.txt"
 
 # Imports
-from sys import argv
 from pathlib import Path
 from os import system # Executing the Git commands.
 from random import random, randint # Generating a random float between 0 and 1.
