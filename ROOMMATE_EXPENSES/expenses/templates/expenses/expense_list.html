@@ -1,0 +1,55 @@
+{% extends "expenses/base.html" %}
+
+{% block title %}Expense List{% endblock %}
+
+{% block content %}
+<h2>All Expenses</h2>
+
+<div class="card">
+    <div class="card-body">
+        {% if expenses %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Paid By</th>
+                        <th>Shared With</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.date }}</td>
+                        <td>{{ expense.title }}</td>
+                        <td>${{ expense.amount }}</td>
+                        <td>{{ expense.paid_by.username }}</td>
+                        <td>
+                            <small>
+                                {% for user in expense.shared_among.all %}
+                                    {{ user.username }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </small>
+                        </td>
+                        <td>
+                            <a href="{% url 'expense_detail' expense.id %}" class="btn btn-sm btn-info">View</a>
+                            {% if expense.paid_by == user %}
+                                <a href="{% url 'delete_expense' expense.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No expenses recorded yet.</p>
+        {% endif %}
+        
+        <div class="text-end mt-3">
+            <a href="{% url 'add_expense' %}" class="btn btn-primary">Add New Expense</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
