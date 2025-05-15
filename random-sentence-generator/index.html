@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Random Sentence Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Random Sentence Generator</h1>
+            <p class="subtitle">Create, edit and play with random sentences</p>
+        </header>
+
+        <main>
+            <div class="sentence-display">
+                <div id="sentenceBox" class="sentence-box">
+                    <p id="generatedSentence">Your sentence will appear here</p>
+                </div>
+                <div class="actions">
+                    <button id="generateBtn" class="btn primary">Generate Sentence</button>
+                    <button id="editBtn" class="btn secondary">Edit Sentence</button>
+                </div>
+            </div>
+
+            <div id="editorSection" class="editor-section hidden">
+                <h2>Edit Your Sentence</h2>
+                <textarea id="sentenceEditor" rows="4"></textarea>
+                <div class="edit-actions">
+                    <button id="saveBtn" class="btn primary">Save Changes</button>
+                    <button id="cancelBtn" class="btn outline">Cancel</button>
+                </div>
+            </div>
+
+            <div class="word-panel">
+                <div class="panel-header">
+                    <h2>Word Collections</h2>
+                    <button id="toggleWordsBtn" class="btn small">Hide</button>
+                </div>
+                <div id="wordCollections" class="collections-container">
+                    <!-- Word collections will be added here by JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Click on any word to add it to your sentence while editing</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
