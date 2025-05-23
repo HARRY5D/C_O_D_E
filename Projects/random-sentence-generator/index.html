@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Random G**** Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-header">
+        <div class="logo">
+            <i class="fas fa-random"></i>
+            <h1>GAAD-GENERATOR BY HP</h1>
+        </div>
+        <button id="darkModeToggle" class="icon-button"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h2 class="main-title">Random G**** Generator</h2>
+            <p class="subtitle">Create, customize and share unique G****</p>
+        </header>
+
+        <main>
+            <div class="sentence-display">
+                <div id="sentenceBox" class="sentence-box">
+                    <p id="generatedSentence">Your G**** will appear here</p>
+                </div>
+                <div class="actions">
+                    <button id="generateBtn" class="btn primary"><i class="fas fa-bolt"></i> Generate</button>
+                    <button id="editBtn" class="btn secondary"><i class="fas fa-edit"></i> Edit</button>
+                </div>
+            </div>
+
+            <div id="editorSection" class="editor-section hidden">
+                <h2>Edit Your Sentence</h2>
+                <textarea id="sentenceEditor" rows="4"></textarea>
+                <div class="edit-actions">
+                    <button id="saveBtn" class="btn primary">Save Changes</button>
+                    <button id="cancelBtn" class="btn outline">Cancel</button>
+                </div>
+            </div>
+
+            <div class="word-panel">
+                <div class="panel-header">
+                    <h2>Word Collections</h2>
+                    <button id="toggleWordsBtn" class="btn small">Hide</button>
+                </div>
+                <div id="wordCollections" class="collections-container">
+                    <!-- Word collections will be added here by JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <div class="ready-made-section">
+            <h2>Ready-Made Sentences</h2>
+            <button id="toggleReadyMadeBtn" class="action-button">Show Ready-Made Sentences</button>
+            <div id="readyMadeContainer" style="display: none;">
+                <div id="readyMadeSection" class="ready-made-grid"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Click on any word to add it to your sentence while editing</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
