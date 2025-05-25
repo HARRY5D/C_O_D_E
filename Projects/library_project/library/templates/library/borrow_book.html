@@ -1,0 +1,33 @@
+{% extends "library/base.html" %}
+
+{% block title %}Borrow Book - Library Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2>Confirm Borrowing</h2>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+                <p>
+                    <strong>Genre:</strong> {{ book.genre }}<br>
+                    <strong>Publication Date:</strong> {{ book.publication_date }}<br>
+                    <strong>ISBN:</strong> {{ book.ISBN }}
+                </p>
+                <p>Are you sure you want to borrow this book?</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'client_dashboard' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Confirm Borrowing</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "expenses/base.html" %}
+
+{% block title %}Expense Detail{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ expense.title }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>Date:</strong> {{ expense.date }}</p>
+                        <p><strong>Amount:</strong> ${{ expense.amount }}</p>
+                        <p><strong>Paid by:</strong> {{ expense.paid_by.username }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Split Details</div>
+                            <div class="card-body">
+                                <p><strong>Split among:</strong> {{ expense.shared_among.count }} people</p>
+                                <p><strong>Amount per person:</strong> ${{ split_amount|floatformat:2 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4>Shared with:</h4>
+                <ul class="list-group mb-3">
+                    {% for user in expense.shared_among.all %}
+                        <li class="list-group-item">
+                            {{ user.username }}
+                            {% if user == expense.paid_by %}
+                                <span class="badge bg-success">Paid</span>
+                            {% else %}
+                                <span class="badge bg-warning">Owes ${{ split_amount|floatformat:2 }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="text-end">
+                    {% if expense.paid_by == user %}
+                        <a href="{% url 'delete_expense' expense.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                    <a href="{% url 'expense_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

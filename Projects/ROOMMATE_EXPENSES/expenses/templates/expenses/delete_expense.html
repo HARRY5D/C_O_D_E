@@ -1,0 +1,27 @@
+{% extends "expenses/base.html" %}
+
+{% block title %}Delete Expense{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h2>Confirm Deletion</h2>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete the expense "{{ expense.title }}" for ${{ expense.amount }}?</p>
+                <p><strong>This action cannot be undone.</strong></p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'expense_detail' expense.id %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
