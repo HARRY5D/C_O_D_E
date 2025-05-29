@@ -1,5 +1,0 @@
-cryptography>=38.0.0
-Pillow>=9.3.0
-pywin32>=305; platform_system=="Windows"
-winshell==0.6; platform_system=="Windows"
-pyinstaller>=5.7.0
