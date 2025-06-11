@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "export_timestamp": "2025-06-11T11:09:14.945231",
+    "analyzer_version": "1.0.0",
+    "total_files_analyzed": 1
+  },
+  "summary": {
+    "total_files": 1,
+    "total_functions": 14,
+    "total_classes": 2,
+    "total_loc": 300,
+    "average_complexity": 7.64,
+    "average_maintainability": 34.84,
+    "complexity_distribution": {
+      "simple (1-5)": 8,
+      "moderate (6-10)": 1,
+      "complex (11-20)": 4,
+      "very_complex (21+)": 1
+    },
+    "quality_assessment": "Fair",
+    "problematic_files": [
+      {
+        "filepath": "tests/sample_code/complex_sample.py",
+        "maintainability_index": 34.84,
+        "issues": [
+          "Low maintainability",
+          "High complexity functions: 2"
+        ]
+      }
+    ],
+    "file_breakdown": [
+      {
+        "filepath": "tests/sample_code/complex_sample.py",
+        "loc": 300,
+        "functions": 14,
+        "classes": 2,
+        "avg_complexity": 7.64,
+        "maintainability": 34.84
+      }
+    ]
+  },
+  "files": [
+    {
+      "filepath": "tests/sample_code/complex_sample.py",
+      "total_lines": 358,
+      "lines_of_code": 300,
+      "blank_lines": 56,
+      "comment_lines": 2,
+      "maintainability_index": 34.84024473990786,
+      "functions": [
+        {
+          "name": "simple_function",
+          "start_line": 9,
+          "end_line": 11,
+          "lines_of_code": 3,
+          "cyclomatic_complexity": 1,
+          "nesting_depth": 0,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "moderate_complexity_function",
+          "start_line": 14,
+          "end_line": 26,
+          "lines_of_code": 11,
+          "cyclomatic_complexity": 4,
+          "nesting_depth": 3,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "high_complexity_function",
+          "start_line": 29,
+          "end_line": 82,
+          "lines_of_code": 52,
+          "cyclomatic_complexity": 20,
+          "nesting_depth": 7,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "deeply_nested_function",
+          "start_line": 85,
+          "end_line": 116,
+          "lines_of_code": 30,
+          "cyclomatic_complexity": 12,
+          "nesting_depth": 8,
+          "parameters": 1,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "function_with_many_parameters",
+          "start_line": 119,
+          "end_line": 121,
+          "lines_of_code": 3,
+          "cyclomatic_complexity": 1,
+          "nesting_depth": 0,
+          "parameters": 10,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "function_with_exception_handling",
+          "start_line": 124,
+          "end_line": 144,
+          "lines_of_code": 19,
+          "cyclomatic_complexity": 6,
+          "nesting_depth": 3,
+          "parameters": 1,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "__init__",
+          "start_line": 150,
+          "end_line": 154,
+          "lines_of_code": 5,
+          "cyclomatic_complexity": 1,
+          "nesting_depth": 0,
+          "parameters": 3,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "get_name",
+          "start_line": 156,
+          "end_line": 158,
+          "lines_of_code": 3,
+          "cyclomatic_complexity": 1,
+          "nesting_depth": 0,
+          "parameters": 1,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "set_value",
+          "start_line": 160,
+          "end_line": 169,
+          "lines_of_code": 10,
+          "cyclomatic_complexity": 3,
+          "nesting_depth": 2,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "process_complex_data",
+          "start_line": 171,
+          "end_line": 218,
+          "lines_of_code": 44,
+          "cyclomatic_complexity": 12,
+          "nesting_depth": 7,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "__init__",
+          "start_line": 224,
+          "end_line": 227,
+          "lines_of_code": 4,
+          "cyclomatic_complexity": 1,
+          "nesting_depth": 0,
+          "parameters": 3,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "validate_config",
+          "start_line": 229,
+          "end_line": 255,
+          "lines_of_code": 23,
+          "cyclomatic_complexity": 13,
+          "nesting_depth": 6,
+          "parameters": 1,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "process_batch",
+          "start_line": 257,
+          "end_line": 278,
+          "lines_of_code": 19,
+          "cyclomatic_complexity": 5,
+          "nesting_depth": 3,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        },
+        {
+          "name": "_process_single_item",
+          "start_line": 280,
+          "end_line": 343,
+          "lines_of_code": 55,
+          "cyclomatic_complexity": 27,
+          "nesting_depth": 9,
+          "parameters": 2,
+          "halstead_difficulty": 0.0,
+          "halstead_effort": 0.0,
+          "halstead_volume": 0.0
+        }
+      ],
+      "classes": [
+        "SampleClass",
+        "DataProcessor"
+      ]
+    }
+  ]
+}
