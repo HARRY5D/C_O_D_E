@@ -1,0 +1,48 @@
+# Real Estate Price Prediction Platform - Ahmedabad, India
+# GoMaps.pro API Integration for Geographic Analysis
+
+# Core Data Science Libraries
+pandas==2.1.4
+numpy==1.24.3
+scikit-learn==1.3.2
+
+# Visualization Libraries
+matplotlib==3.8.2
+seaborn==0.13.0
+plotly==5.17.0
+folium==0.15.1
+ipywidgets==8.1.1
+
+# Geographic and Mapping Libraries
+# Note: Using GoMaps.pro API instead of Google Maps
+geopy==2.4.1
+requests==2.31.0
+
+# NLP Libraries
+nltk==3.8.1
+textblob==0.17.1
+wordcloud==1.9.2
+
+# Jupyter Environment
+jupyter==1.0.0
+notebook==7.0.6
+
+# Machine Learning Libraries
+xgboost==2.0.2
+lightgbm==4.1.0
+catboost==1.2.2
+
+# Model Interpretation
+shap==0.43.0
+lime==0.2.0.1
+
+# Web Framework (optional for deployment)
+streamlit==1.29.0
+flask==2.3.3
+
+# Model Persistence
+joblib==1.3.2
+
+# Enhanced Geographic Libraries (optional)
+geopandas==0.14.1
+contextily==1.4.0

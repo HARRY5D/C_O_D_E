@@ -1,0 +1,12 @@
+{
+  "best_model": "Gradient Boosting",
+  "test_r2": 0.7129850547195553,
+  "test_mae": 900067.6510338386,
+  "test_mape": 19.42649932054375,
+  "training_samples": 2552,
+  "test_samples": 284,
+  "features_count": 17,
+  "dataset_size": 2836,
+  "price_range_min": 700000.0,
+  "price_range_max": 10000000.0
+}

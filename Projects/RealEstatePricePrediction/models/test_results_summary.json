@@ -1,0 +1,46 @@
+{
+  "test_date": "2025-06-10T19:37:50.108545",
+  "model_performance": {
+    "Model Information": {
+      "Model Type": "Gradient Boosting Regressor",
+      "Training Date": "2025-06-10 19:37:50",
+      "Test Data Size": 284,
+      "Feature Count": 30
+    },
+    "Performance Metrics": {
+      "R\u00b2 Score": "0.9932",
+      "MAE": "\u20b9136,082",
+      "RMSE": "\u20b9179,942",
+      "MAPE": "2.74%",
+      "Predictions within 20%": "99.6%"
+    },
+    "Speed Benchmarks": {
+      "Single Prediction": "1.39 ms",
+      "Batch Processing": "72,994 predictions/sec",
+      "Model Size": "0.00 MB"
+    },
+    "Quality Assessments": {
+      "Cross-Validation R\u00b2": "0.9142 (\u00b10.0725)",
+      "Consistency Score": "High",
+      "Robustness Score": "High",
+      "Production Readiness": "100/100"
+    }
+  },
+  "recommendations": [
+    "\u2705 Model shows excellent accuracy - ready for deployment",
+    "\u2705 Prediction speed excellent for real-time applications",
+    "\u2705 Model is robust to data variations",
+    "\u2705 High prediction accuracy for most properties",
+    "\u2705 Consistent performance across all price segments"
+  ],
+  "final_verdict": "\ud83c\udf89 EXCELLENT - Model exceeds requirements and is production-ready",
+  "deployment_status": "APPROVED FOR PRODUCTION",
+  "detailed_metrics": {
+    "r2_score": 0.9932138855288759,
+    "mae": 136082.22161019908,
+    "rmse": 179941.89792246008,
+    "mape": 2.737882225345631,
+    "within_20_percent": 99.64788732394366,
+    "readiness_score": 100
+  }
+}

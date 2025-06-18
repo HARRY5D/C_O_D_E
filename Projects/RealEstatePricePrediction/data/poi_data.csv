@@ -1,0 +1,31 @@
+poi_id,name,type,latitude,longitude,rating
+1,Delhi Public School Bopal,school,23.0726,72.5431,4.6
+2,Zydus Hospital,hospital,23.0547,72.5397,4.3
+3,AlphaOne Mall,shopping_mall,23.0225,72.5714,4.4
+4,Vastrapur Lake,park,23.0225,72.5714,4.5
+5,AMTS Bus Stand CG Road,bus_station,23.0238,72.5343,3.9
+6,Kankaria Lake,park,23.0069,72.5905,4.7
+7,Manek Chowk,restaurant,23.0252,72.5859,4.5
+8,HDFC Bank Vastrapur,bank,23.0225,72.5714,4.1
+9,Gold's Gym SG Highway,gym,23.0303,72.5370,4.2
+10,Sabarmati Ashram,tourist_attraction,23.0607,72.5800,4.8
+11,Gujarat University,university,23.0395,72.5066,4.4
+12,Civil Hospital Ahmedabad,hospital,23.0252,72.5859,4.0
+13,Law Garden Night Market,shopping_mall,23.0178,72.5589,4.3
+14,Sardar Vallabhbhai Patel Airport,airport,23.0777,72.6347,4.2
+15,Ahmedabad Railway Station,train_station,23.0252,72.5859,4.1
+16,ISKCON Temple Satellite,temple,23.0395,72.5066,4.6
+17,Sidi Saiyyed Mosque,mosque,23.0252,72.5859,4.5
+18,IIM Ahmedabad,university,23.0395,72.5066,4.7
+19,Navrangpura Metro Station,metro_station,23.0303,72.5370,4.0
+20,Crossword Bookstore Vastrapur,bookstore,23.0225,72.5714,4.2
+21,McDonald's SG Highway,restaurant,23.0303,72.5370,4.1
+22,Big Bazaar Satellite,supermarket,23.0395,72.5066,4.0
+23,Swaminarayan Akshardham,temple,23.0726,72.5431,4.9
+24,Thaltej Metro Station,metro_station,23.0789,72.5245,4.1
+25,Ahmedabad One Mall,shopping_mall,23.0395,72.5066,4.3
+26,Gujarat Science City,museum,23.0361,72.5664,4.6
+27,Lal Darwaja Market,market,23.0252,72.5859,4.2
+28,Himalaya Mall,shopping_mall,23.0223,72.5664,4.1
+29,Satyagraha Chhavani,historical_site,23.0607,72.5800,4.4
+30,Reliance Digital Vastrapur,electronics_store,23.0225,72.5714,4.0
