@@ -6,7 +6,7 @@ LOG_FILE = "commit_bot.log"
 
 # Commit Options
 NO_COMMIT_CHANCE = 0.1 # 10% chance of NOT committing to GitHub.
-MAX_COMMITS = 8 # Maximum number of commits that can be made.
+MAX_COMMITS = 5 # Maximum number of commits that can be made.
 
 # Cron job.
 CRON_JOB_TIME = "0 22 * * *" # Every day at 10:00 pm.
