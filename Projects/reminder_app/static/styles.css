@@ -1,0 +1,154 @@
+body {
+    background: #181a1b;
+    color: #f1f1f1;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: #23272a;
+    padding: 2.5rem 2rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #00bfae;
+}
+
+.reminder-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: #b0b3b8;
+}
+
+input, textarea {
+    background: #181a1b;
+    color: #f1f1f1;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+input:focus, textarea:focus {
+    border: 1.5px solid #00bfae;
+    outline: none;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    background: linear-gradient(90deg, #00bfae 0%, #007bff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #007bff 0%, #00bfae 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* Notification styles */
+.notification-area {
+    margin-bottom: 1.2rem;
+}
+.notification {
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.7rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background: #23272a;
+    border-left: 4px solid #00bfae;
+    color: #f1f1f1;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
+    transition: background 0.2s;
+}
+.notification.success {
+    border-left-color: #00bfae;
+    background: #1e2427;
+}
+.notification.error {
+    border-left-color: #ff4d4f;
+    background: #2a1e1e;
+}
+
+/* Mail history styles */
+.history-section {
+    margin-top: 2.5rem;
+    background: #23272a;
+    border-radius: 1rem;
+    padding: 1.5rem 1rem 1rem 1rem;
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.22);
+}
+.history-section h2 {
+    color: #00bfae;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.history-list li {
+    background: #181a1b;
+    border-radius: 0.6rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.13);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.history-email {
+    color: #00bfae;
+    font-weight: 500;
+    font-size: 1rem;
+}
+.history-datetime {
+    color: #b0b3b8;
+    font-size: 0.95rem;
+    margin-left: 0.5rem;
+}
+.history-message {
+    color: #f1f1f1;
+    font-size: 1.05rem;
+    margin-top: 0.3rem;
+    word-break: break-word;
+}
+.no-history {
+    color: #b0b3b8;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1rem;
+} 
