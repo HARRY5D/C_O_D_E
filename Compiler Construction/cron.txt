@@ -1,0 +1,1 @@
+0 22 * * * cd D:\JAVA\CODE\Compiler Construction && python3 commit_bot.py
