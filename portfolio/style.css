@@ -13,10 +13,17 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    overflow-x: hidden;
+    min-width: 320px;
 }
 
 nav {
@@ -69,6 +76,20 @@ section {
     -webkit-text-fill-color: transparent;
 }
 
+.hero-subtitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .social-links {
     margin-top: 2rem;
 }
@@ -86,9 +107,18 @@ section {
 
 .skills-grid, .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+}
+
+.skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.project-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1400px;
+    margin: 2rem auto;
 }
 
 .skill-category, .project-card {
@@ -113,16 +143,404 @@ h3 {
     margin-bottom: 1rem;
 }
 
+.skill-category h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.skill-category h3 i {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+}
+
 ul {
     list-style-type: none;
 }
+
+/* Experience Section */
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+}
+
+.experience-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.experience-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.exp-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.exp-date {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.exp-company {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.exp-points {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.exp-points li {
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+
+/* Project Cards */
 
 .project-card {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#contact {
+.project-card.featured {
+    border: 2px solid var(--primary-color);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(255, 51, 102, 0.03));
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card.featured::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+    z-index: -1;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card.featured:hover::before {
+    opacity: 0.3;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+}
+
+.tech-stack {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.project-description {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.project-points {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.project-points li {
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+}
+
+/* Certifications and Achievements */
+.cert-achievements-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+.cert-section,
+.achievements-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-section:hover,
+.achievements-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(0, 255, 136, 0.2);
+}
+
+.cert-section h3,
+.achievements-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.cert-section h3 i,
+.achievements-section h3 i {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.cert-list,
+.achievement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cert-list li,
+.achievement-list li {
+    margin-bottom: 1rem;
+    padding-left: 0;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.cert-list li i,
+.achievement-list li i {
+    color: var(--primary-color);
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Contact Section */
+.contact-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.contact-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.contact-info h3 i {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.info-item i {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    width: 30px;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+}
+
+.info-item div {
+    flex: 1;
+}
+
+.info-item strong {
+    display: block;
+    color: var(--primary-color);
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+}
+
+.info-item p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+}
+
+.info-item a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-item a:hover {
+    color: var(--primary-color);
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.contact-form h3 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.contact-form h3 i {
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 8px;
+    color: var(--background-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#formStatus {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
     text-align: center;
+    font-weight: 600;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#formStatus.success {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    display: block;
+}
+
+#formStatus.error {
+    background: rgba(255, 51, 102, 0.15);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    display: block;
+}
+
+#contact {
+    text-align: left;
 }
 
 footer {
@@ -131,12 +549,83 @@ footer {
     background: rgba(255, 255, 255, 0.05);
 }
 
+@media (max-width: 968px) {
+    .cert-achievements-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .project-grid,
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    nav {
+        padding: 1rem;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
     .nav-links {
         display: none;
     }
     
     .hero h1 {
         font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: 3rem 1.5rem;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cert-section,
+    .achievements-section,
+    .contact-info,
+    .contact-form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .social-links a {
+        font-size: 1.2rem;
+        margin: 0 0.5rem;
+    }
+    
+    section {
+        padding: 2.5rem 1rem;
     }
 }

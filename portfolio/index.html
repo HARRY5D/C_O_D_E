@@ -1,10 +1,11 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HARNISH PATEL-PORTFOLIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Harnish Patel - Applied Machine Learning & Mobile Systems Engineer. Building production ML pipelines and robust FastAPI services.">
+    <meta name="theme-color" content="#00ff88">
+    <title>HARNISH PATEL - PORTFOLIO</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -15,6 +16,7 @@
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
+            <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
@@ -24,10 +26,11 @@
     <section id="home">
         <div class="hero" data-aos="fade-up">
             <h1>Harnish Patel</h1>
-            <p>BTech [CE] Student | Developer | Problem Solver</p>
+            <p class="hero-subtitle">Applied Machine Learning & Mobile Systems Engineer</p>
+            <p class="hero-description">Building production ML pipelines, on-device inference systems, and robust FastAPI services for real-world applications.</p>
             <div class="social-links">
-                <a href="https://github.com/HARRY5D"><i class="fab fa-github"></i></a>
-                <a href="https://bit.ly/HarnishPatel"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/HARRY5D" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://bit.ly/HarnishPatel" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:harnishdpatel@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
@@ -35,11 +38,49 @@
 
     <section id="about" data-aos="fade-up">
         <h2>About Me</h2>
-        <p>Enthusiastic BTech [CE] student at Charotar University of Science and Technology, skilled in multiple programming languages and technologies. Known for strong communication and problem-solving abilities.</p>
+        <p>I'm a Computer Engineering undergraduate focused on applied machine learning deployment and mobile systems. My work centers on building production-style APIs and implementing on-device ML inference for Android applications.</p>
+        <p>I've contributed to real-time analytics systems at Statmize, a sports tech startup, where I worked on high-frequency sensor data pipelines and model deployment. I've also built FastAPI-based ML services during my internship at Satva Solutions.</p>
+        <p>My technical focus is robustness, performance, and practical deployment: making ML systems work reliably in production, not just in notebooks.</p>
         <div class="education">
             <h3>Education</h3>
-            <p>BTech [CE] - Charotar University of Science and Technology</p>
-            <p>Expected June 2027</p>
+            <p><strong>B.Tech Computer Engineering</strong></p>
+            <p>Charotar University of Science and Technology</p>
+            <p>Expected Graduation: June 2027</p>
+            <p>Location: Ahmedabad, India</p>
+        </div>
+    </section>
+
+    <section id="experience" data-aos="fade-up">
+        <h2>Experience</h2>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <div class="exp-header">
+                    <h3>Applied Machine Learning Engineer</h3>
+                    <span class="exp-date">June 2025 – Present</span>
+                </div>
+                <p class="exp-company">Statmize (Startup)</p>
+                <ul class="exp-points">
+                    <li>Building real-time sports analytics platform processing high-frequency IMU sensor data</li>
+                    <li>Designed feature extraction and preprocessing pipelines for time-series sensor data</li>
+                    <li>Implemented LSTM and XGBoost models for movement pattern classification</li>
+                    <li>Integrated ML inference into backend systems with sub-200ms latency requirements</li>
+                    <li>Contributing to production system architecture and deployment planning</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <h3>Machine Learning Intern</h3>
+                    <span class="exp-date">May 2025 – June 2025</span>
+                </div>
+                <p class="exp-company">Satva Solutions</p>
+                <ul class="exp-points">
+                    <li>Developed diabetes disease progression prediction system using regression models</li>
+                    <li>Implemented Lasso regression baseline with feature selection and validation</li>
+                    <li>Deployed model as FastAPI service with input validation and error handling</li>
+                    <li>Documented API endpoints and response schemas for production integration</li>
+                    <li>Gained hands-on experience in practical ML model serving and deployment</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -47,71 +88,240 @@
         <h2>Technical Skills</h2>
         <div class="skills-grid">
             <div class="skill-category">
-                <h3>Languages</h3>
+                <h3><i class="fas fa-code"></i> Core Languages</h3>
                 <ul>
-                    <li>C/C++</li>
-                    <li>Java</li>
                     <li>Python</li>
-                    <li>HTML/CSS</li>
+                    <li>Kotlin</li>
                 </ul>
             </div>
             <div class="skill-category">
-                <h3>Developer Tools</h3>
+                <h3><i class="fas fa-code"></i> Supporting Languages</h3>
                 <ul>
-                    <li>GitHub</li>
-                    <li>Git</li>
-                    <li>VS Code</li>
+                    <li>Java</li>
+                    <li>C / C++</li>
+                    <li>JavaScript</li>
+                    <li>HTML / CSS</li>
                 </ul>
             </div>
             <div class="skill-category">
-                <h3>Technologies</h3>
+                <h3><i class="fas fa-brain"></i> Machine Learning & Deep Learning</h3>
+                <ul>
+                    <li>scikit-learn</li>
+                    <li>TensorFlow</li>
+                    <li>TensorFlow Lite</li>
+                    <li>Hugging Face Transformers</li>
+                    <li>PyTorch (adversarial robustness & attacks)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
+                <ul>
+                    <li>Android Development (Kotlin)</li>
+                    <li>Flutter</li>
+                    <li>On-device ML inference (TFLite)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-server"></i> Backend & APIs</h3>
+                <ul>
+                    <li>FastAPI</li>
+                    <li>REST API design</li>
+                    <li>Model inference services</li>
+                    <li>API validation & documentation</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-database"></i> Databases & Backend Services</h3>
                 <ul>
                     <li>SQLite</li>
+                    <li>Supabase</li>
+                    <li>Firebase</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-chart-line"></i> Data & Analytics</h3>
+                <ul>
+                    <li>Pandas</li>
+                    <li>NumPy</li>
+                    <li>Power BI</li>
+                    <li>Tableau</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                <ul>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Android Studio</li>
+                    <li>VS Code</li>
+                    <li>Jupyter Notebook</li>
+                    <li>Postman</li>
+                    <li>Docker (basics)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-cogs"></i> Operating Systems & Other</h3>
+                <ul>
+                    <li>Linux</li>
                     <li>Prompt Engineering</li>
-                    <li>MS-Office</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section id="projects" data-aos="fade-up">
-        <h2>Projects</h2>
+        <h2>Featured Projects</h2>
         <div class="project-grid">
-            <div class="project-card">
-                <h3>Line Following Car</h3>
-                <p>Developed a robotic car using C++ on Arduino IDE to autonomously follow a predefined path using infrared sensors.</p>
+            <div class="project-card featured">
+                <h3>Secure Chat Lite</h3>
+                <p class="tech-stack">Kotlin • Android • TensorFlow Lite • Cryptography</p>
+                <p class="project-description">Secure Android chat application with privacy-first design and on-device phishing detection.</p>
+                <ul class="project-points">
+                    <li>End-to-end encryption for message security</li>
+                    <li>TinyBERT model running on-device for phishing detection</li>
+                    <li>~96% detection accuracy with ~80ms inference latency</li>
+                    <li>Zero cloud dependency for ML inference</li>
+                </ul>
             </div>
-            <div class="project-card">
+            <div class="project-card featured">
+                <h3>Adversarial Robustness Testing Framework</h3>
+                <p class="tech-stack">Python • PyTorch • FastAPI • SQLite</p>
+                <p class="project-description">Production-ready FastAPI service for evaluating ML model robustness against adversarial attacks.</p>
+                <ul class="project-points">
+                    <li>FGSM and PGD attack implementation</li>
+                    <li>Metrics: clean accuracy, robust accuracy, attack success rate</li>
+                    <li>Evaluation on CIFAR-10 and MNIST models</li>
+                    <li>SQLite-backed result storage and API-driven experimentation</li>
+                </ul>
+            </div>
+            <div class="project-card featured">
+                <h3>VoiceAPI – Multilingual Text-to-Speech System</h3>
+                <p class="tech-stack">Python • FastAPI • Deep Learning Models • Hugging Face Spaces</p>
+                <p class="project-description">Production-ready multilingual text-to-speech inference system designed to improve healthcare accessibility across India by converting medical instructions into natural speech in regional languages.</p>
+                <ul class="project-points">
+                    <li>Supports 11 Indian languages with 21 male and female voice variants</li>
+                    <li>Real-time CPU inference with 0.3–0.9 second latency</li>
+                    <li>Deployed as public FastAPI REST service with auto-generated documentation</li>
+                    <li>Unified inference engine combining VITS, Meta MMS, and Coqui TTS models</li>
+                    <li>Hosted on Hugging Face Spaces for always-on cloud-based access</li>
+                </ul>
+            </div>
+            <div class="project-card featured">
+                <h3>Diabetes Disease Progression Prediction</h3>
+                <p class="tech-stack">Python • Scikit-learn • FastAPI</p>
+                <p class="project-description">End-to-end ML pipeline for predicting diabetes disease progression with model comparison and API deployment.</p>
+                <ul class="project-points">
+                    <li>Multiple regression models with comparative analysis</li>
+                    <li>Feature engineering and RFE-based selection</li>
+                    <li>Lasso regression as best-performing model</li>
+                    <li>REST API for inference with input validation</li>
+                </ul>
+            </div>
+            <div class="project-card featured">
                 <h3>PyLock</h3>
-                <p>Created a Python-based password manager with advanced security features like TOTP, 2FA, and SMS verification.</p>
+                <p class="tech-stack">Python</p>
+                <p class="project-description">Local password manager focused on secure credential storage.</p>
+                <ul class="project-points">
+                    <li>Encryption for secure storage</li>
+                    <li>Local-only storage, no cloud sync</li>
+                    <li>Security-first design principles</li>
+                </ul>
             </div>
-            <div class="project-card">
-                <h3>Word Navigator</h3>
-                <p>Developed a Java application for text analysis and manipulation with features like word frequency analysis.</p>
+            <div class="project-card featured">
+                <h3>Lost & Found System</h3>
+                <p class="tech-stack">Kotlin • Mobile Application</p>
+                <p class="project-description">Campus-focused mobile app for reporting and tracking lost and found items.</p>
+                <ul class="project-points">
+                    <li>User authentication and authorization</li>
+                    <li>Simple workflows for item reporting and claims</li>
+                    <li>Practical mobile backend integration</li>
+                </ul>
             </div>
         </div>
     </section>
 
     <section id="certifications" data-aos="fade-up">
-        <h2>Certifications</h2>
-        <ul>
-            <li>Learn C by CodeChef</li>
-            <li>Java Essentials by Infosys Springboard</li>
-            <li>Foundations of Cybersecurity by Google</li>
-            <li>Prompt Engineering by IBM</li>
-            <li>Cyber Security by Teach nook</li>
-        </ul>
+        <h2>Certifications & Achievements</h2>
+        <div class="cert-achievements-container">
+            <div class="cert-section">
+                <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                <ul class="cert-list">
+                    <li><i class="fas fa-check-circle"></i> Neural Networks and Deep Learning – DeepLearning.ai</li>
+                    <li><i class="fas fa-check-circle"></i> Data Analysis with Python – IBM</li>
+                    <li><i class="fas fa-check-circle"></i> Postman API Fundamentals – Postman</li>
+                    <li><i class="fas fa-check-circle"></i> Java Essentials – Infosys Springboard</li>
+                    <li><i class="fas fa-check-circle"></i> Prompt Engineering – IBM</li>
+                </ul>
+            </div>
+            <div class="achievements-section">
+                <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                <ul class="achievement-list">
+                    <li><i class="fas fa-award"></i> Shortlisted to Smart India Hackathon (SIH) 2024 – Round 2</li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <section id="contact" data-aos="fade-up">
-        <h2>Contact Me</h2>
-        <p>📍 Ahmedabad, India</p>
-        <p>📞 +919537554466</p>
-        <p>📧 harnishdpatel@gmail.com</p>
+        <h2>Get In Touch</h2>
+        <div class="contact-wrapper">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Location</strong>
+                            <p>Ahmedabad, India</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:harnishdpatel@gmail.com">harnishdpatel@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <strong>GitHub</strong>
+                            <p><a href="https://github.com/HARRY5D" target="_blank">github.com/HARRY5D</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <strong>LinkedIn</strong>
+                            <p><a href="https://bit.ly/HarnishPatel" target="_blank">linkedin.com/in/harnish-patel</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="5e876b15-6100-4968-9257-46a73137c1a8">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                    <div id="formStatus"></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Harnish Patel. All rights reserved.</p>
+        <p>&copy; 2026 Harnish Patel. All rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
