@@ -1,0 +1,285 @@
+You are a senior Machine Learning Engineer with a strong systems engineering background.
+
+Design and implement an end-to-end Deep Learning project called “Neural Execution Risk Predictor”.
+
+Problem Statement
+
+Build a Deep Learning system that predicts the runtime execution risk of an autonomous agent before execution.
+
+The model must classify an execution plan into:
+
+LOW_RISK
+
+MEDIUM_RISK
+
+HIGH_RISK
+
+The output will later be consumed by an Agent Runtime Guard to proactively tighten execution limits or block unsafe runs.
+
+Constraints (STRICT)
+
+Do NOT use LLM APIs
+
+Do NOT use Hugging Face or PyTorch
+
+Do NOT perform NLP or text classification
+
+Use structured / tabular execution features only
+
+Architecture must be explainable and production-oriented
+
+Tech Stack (LOCKED)
+
+Language
+
+Python 3.10+
+
+ML / DL
+
+TensorFlow 2.x
+
+NumPy, Pandas
+
+scikit-learn (metrics only)
+
+Backend
+
+FastAPI
+
+Pydantic
+
+Infra
+
+Docker
+
+GitHub Actions (basic CI)
+
+Data
+
+CSV datasets
+
+SQLite optional for logging
+
+Dataset Requirements
+
+Use a hybrid dataset:
+
+Real execution traces
+
+BPI Challenge 2012 event logs
+
+Parse .xes files using pm4py
+
+Synthetic agent execution plans to add:
+
+token budgets
+
+retry limits
+
+planner depth
+
+explicit high-risk tool flags
+
+Feature Schema (MANDATORY)
+
+Each row represents ONE execution plan:
+
+num_steps (int)
+
+num_tools (int)
+
+tool_diversity (int)
+
+has_high_risk_tool (bool)
+
+est_tokens (int)
+
+max_retries (int)
+
+sequential_tool_calls (int)
+
+plan_depth (int)
+
+time_limit_sec (int)
+
+failure_label (int: 0=LOW, 1=MEDIUM, 2=HIGH)
+
+Labeling Logic
+
+Labels must be derived from engineering rules, not random assignment.
+
+Example:
+
+HIGH_RISK if num_steps > 12 OR est_tokens > 9000 OR repeated tool loops
+
+MEDIUM_RISK for borderline thresholds
+
+LOW_RISK otherwise
+
+Clearly document all assumptions.
+
+Preprocessing (MANDATORY)
+
+Convert boolean features to 0 / 1
+
+Normalize all numeric features using StandardScaler
+
+Do not scale labels
+
+Model Architecture (LOCKED)
+Input
+→ Dense(64, ReLU)
+→ Dropout(0.2)
+→ Dense(32, ReLU)
+→ Dense(3, Softmax)
+
+Training Configuration (LOCKED)
+
+Optimizer: Adam
+
+Learning rate: 0.001
+
+Loss: categorical_crossentropy
+
+Batch size: 32
+
+Epochs: 30
+
+Callbacks
+
+EarlyStopping
+
+monitor: val_loss
+
+patience: 5
+
+restore_best_weights: True
+
+Evaluation Requirements
+
+Report:
+
+Accuracy
+
+Precision per class
+
+Recall per class
+
+Confusion matrix
+
+Include a short error analysis explaining false positives vs false negatives.
+
+Plots (REQUIRED)
+
+Generate and save the following using matplotlib:
+
+Training loss vs validation loss
+
+Training accuracy vs validation accuracy
+
+Confusion matrix heatmap (3x3)
+
+Feature importance plot using:
+
+permutation importance OR
+
+sensitivity analysis
+
+Explainability
+
+Clearly explain:
+
+which features most influence HIGH_RISK predictions
+
+why these features make sense from a systems perspective
+
+API Layer
+
+Build a FastAPI service:
+
+Endpoint
+POST /predict-risk
+
+Input
+
+{
+  "num_steps": 8,
+  "num_tools": 3,
+  "tool_diversity": 2,
+  "has_high_risk_tool": true,
+  "est_tokens": 7000,
+  "max_retries": 2,
+  "sequential_tool_calls": 4,
+  "plan_depth": 2,
+  "time_limit_sec": 120
+}
+
+
+Output
+{
+  "risk_level": "HIGH",
+  "risk_score": 0.82
+}
+
+Integration Context
+
+Explain how this model integrates with an Agent Runtime Guard:
+
+execution plan is scored before run
+
+higher risk tightens limits or blocks execution
+
+Focus on predictive safety, not reactive handling.
+
+Repository Structure (LOCKED)
+neural-execution-risk/
+├── data/
+│   └── execution_risk_dataset.csv
+├── scripts/
+│   ├── extract_bpi_features.py
+│   └── generate_synthetic_plans.py
+├── model/
+│   ├── train.py
+│   ├── evaluate.py
+│   └── risk_model.h5
+├── api/
+│   ├── main.py
+│   └── schemas.py
+├── reports/
+│   ├── loss_curve.png
+│   ├── accuracy_curve.png
+│   ├── confusion_matrix.png
+│   └── feature_importance.png
+├── Dockerfile
+├── requirements.txt
+└── README.md
+
+README Must Cover
+
+problem motivation
+
+dataset justification
+
+feature engineering
+
+preprocessing and scaling
+
+model design
+
+evaluation results
+
+plots interpretation
+
+limitations
+
+future integration with runtime guard
+
+Output Expectations
+
+Clean, runnable code
+
+Reproducible training
+
+Clear engineering justification
+
+Internship-ready quality
