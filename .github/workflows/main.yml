@@ -2,19 +2,20 @@ name: Internship AI Agent
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
   run-internship-agent:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Projects/Automation/internship-ai-agent
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
@@ -26,20 +27,21 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r Projects/Automation/internship-ai-agent/requirements.txt
       
       - name: Run Internship AI Agent
+        working-directory: Projects/Automation/internship-ai-agent
         env:
           GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
-          GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+          GOOGLE_SPREADSHEET_ID: ${{ secrets. GOOGLE_SPREADSHEET_ID }}
         run: |
-          python main.py
+          python main. py
       
       - name: Commit state changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add memory/state.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update state after scan [skip ci]"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Update state after scan [skip ci]'
+          file_pattern:  'Projects/Automation/internship-ai-agent/memory/state.json'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users. noreply.github.com'
         continue-on-error: true
