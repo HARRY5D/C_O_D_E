@@ -8,9 +8,6 @@ on:
 jobs:
   run-internship-agent:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Projects/Automation/internship-ai-agent
     
     steps:
       - name: Checkout repository
@@ -27,9 +24,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r Projects/Automation/internship-ai-agent/requirements.txt
-        working-directory: .
       
       - name: Run Internship AI Agent
+        working-directory: Projects/Automation/internship-ai-agent
         env:
           GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
@@ -37,6 +34,7 @@ jobs:
           python main.py
       
       - name: Commit state changes
+        working-directory: Projects/Automation/internship-ai-agent
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
