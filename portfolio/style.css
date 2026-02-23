@@ -1,16 +1,23 @@
 /* style.css */
 :root {
-    --primary-color: #00ff88;
-    --secondary-color: #ff3366;
-    --background-color: #0a0a0a;
-    --text-color: #ffffff;
+    --primary-color: #6366f1;
+    --primary-light: #818cf8;
+    --secondary-color: #a78bfa;
+    --accent: #38bdf8;
+    --background-color: #0b0e18;
+    --surface: #131725;
+    --surface-2: #1a1f33;
+    --border: rgba(99, 102, 241, 0.18);
+    --text-color: #e2e8f0;
+    --text-muted: rgba(226, 232, 240, 0.6);
+    --glow: rgba(99, 102, 241, 0.25);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
 html {
@@ -21,39 +28,51 @@ html {
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
     min-width: 320px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
 }
 
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 1.5rem;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
+    padding: 1.1rem 2rem;
+    background: rgba(11, 14, 24, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    transition: background 0.3s ease;
 }
 
 .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-links a {
-    color: var(--text-color);
+    color: var(--text-muted);
     text-decoration: none;
     margin-left: 2rem;
-    transition: color 0.3s ease;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
-    color: var(--primary-color);
+    color: var(--text-color);
 }
 
 section {
@@ -62,6 +81,17 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+section > p {
+    color: var(--text-muted);
+    max-width: 780px;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
 #home {
@@ -69,25 +99,32 @@ section {
 }
 
 .hero h1 {
-    font-size: 4rem;
+    font-size: 3.8rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #e2e8f0 30%, var(--primary-light) 70%, var(--secondary-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
 }
 
 .hero-subtitle {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--primary-light);
     margin-bottom: 0.8rem;
+    letter-spacing: 0.2px;
 }
 
 .hero-description {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 800px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 680px;
     margin: 0 auto;
+    line-height: 1.8;
+    font-weight: 400;
 }
 
 .social-links {
@@ -95,14 +132,14 @@ section {
 }
 
 .social-links a {
-    color: var(--text-color);
-    font-size: 1.5rem;
-    margin: 0 1rem;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    margin: 0 0.8rem;
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: var(--primary-color);
+    color: var(--primary-light);
 }
 
 .skills-grid, .project-grid {
@@ -122,42 +159,114 @@ section {
 }
 
 .skill-category, .project-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2rem;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+    background: var(--surface);
+    padding: 1.75rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .skill-category:hover, .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 32px var(--glow);
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.8px;
     margin-bottom: 2rem;
-    color: var(--primary-color);
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+    margin-top: 0.4rem;
 }
 
 h3 {
-    color: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: 600;
     margin-bottom: 1rem;
+    letter-spacing: -0.3px;
 }
 
 .skill-category h3 {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    font-size: 1.1rem;
+    gap: 0.6rem;
+    color: var(--primary-light);
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .skill-category h3 i {
     color: var(--secondary-color);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.skill-category ul li {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.skill-category ul li::before {
+    content: '–';
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+    font-weight: 600;
+}
+
+.skill-category:hover ul li {
+    color: var(--text-color);
 }
 
 ul {
     list-style-type: none;
+}
+
+/* About - Education block */
+.education {
+    margin-top: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--secondary-color);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    max-width: 520px;
+}
+
+.education h3 {
+    color: var(--primary-light);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.education p {
+    color: var(--text-muted);
+    font-size: 0.93rem;
+    line-height: 1.7;
+    margin-bottom: 0.15rem;
+}
+
+.education p strong {
+    color: var(--text-color);
+    font-weight: 600;
 }
 
 /* Experience Section */
@@ -170,16 +279,17 @@ ul {
 }
 
 .experience-item {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
     border-left: 3px solid var(--primary-color);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .experience-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px var(--glow);
 }
 
 .exp-header {
@@ -192,18 +302,26 @@ ul {
 
 .exp-header h3 {
     margin: 0;
-    color: var(--primary-color);
+    color: var(--primary-light);
+    font-weight: 600;
 }
 
 .exp-date {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+    background: var(--surface-2);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
 }
 
 .exp-company {
     color: var(--secondary-color);
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.95rem;
     margin-bottom: 1rem;
+    letter-spacing: 0.2px;
 }
 
 .exp-points {
@@ -213,20 +331,20 @@ ul {
 
 .exp-points li {
     margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 /* Project Cards */
 
 .project-card {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
 }
 
 .project-card.featured {
-    border: 2px solid var(--primary-color);
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(255, 51, 102, 0.03));
-    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.07) 0%, var(--surface) 60%);
     position: relative;
     overflow: hidden;
 }
@@ -234,49 +352,51 @@ ul {
 .project-card.featured::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--primary-color));
-    z-index: -1;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.project-card.featured:hover::before {
-    opacity: 0.3;
-    animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.5; }
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 14px 14px 0 0;
+    opacity: 0.8;
 }
 
 .tech-stack {
-    color: var(--secondary-color);
-    font-size: 0.9rem;
+    color: var(--primary-light);
+    font-size: 0.82rem;
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    opacity: 0.85;
 }
 
 .project-description {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-muted);
     margin-bottom: 1rem;
-    line-height: 1.6;
+    line-height: 1.75;
+    font-size: 0.95rem;
 }
 
 .project-points {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    list-style-type: none;
+    padding-left: 0;
+    color: var(--text-muted);
 }
 
 .project-points li {
     margin-bottom: 0.4rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 0.92rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.project-points li::before {
+    content: '›';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
 }
 
 /* Certifications and Achievements */
@@ -290,33 +410,35 @@ ul {
 
 .cert-section,
 .achievements-section {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface);
     padding: 2rem;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 136, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .cert-section:hover,
 .achievements-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 25px rgba(0, 255, 136, 0.2);
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 32px var(--glow);
 }
 
 .cert-section h3,
 .achievements-section h3 {
-    color: var(--primary-color);
+    color: var(--primary-light);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .cert-section h3 i,
 .achievements-section h3 i {
     color: var(--secondary-color);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .cert-list,
@@ -328,10 +450,11 @@ ul {
 
 .cert-list li,
 .achievement-list li {
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     padding-left: 0;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.8;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
     display: flex;
     align-items: flex-start;
     gap: 0.8rem;
@@ -341,7 +464,7 @@ ul {
 .achievement-list li i {
     color: var(--primary-color);
     margin-top: 0.3rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     flex-shrink: 0;
 }
 
@@ -359,24 +482,25 @@ ul {
 }
 
 .contact-info {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface);
     padding: 2.5rem;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 14px;
+    border: 1px solid var(--border);
 }
 
 .contact-info h3 {
-    color: var(--primary-color);
+    color: var(--primary-light);
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .contact-info h3 i {
     color: var(--secondary-color);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .info-item {
@@ -387,9 +511,9 @@ ul {
 }
 
 .info-item i {
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    width: 30px;
+    color: var(--primary-light);
+    font-size: 1.2rem;
+    width: 28px;
     flex-shrink: 0;
     margin-top: 0.3rem;
 }
@@ -400,46 +524,51 @@ ul {
 
 .info-item strong {
     display: block;
-    color: var(--primary-color);
-    margin-bottom: 0.3rem;
-    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
 }
 
 .info-item p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-muted);
     line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .info-item a {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-muted);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.25s ease;
 }
 
 .info-item a:hover {
-    color: var(--primary-color);
+    color: var(--primary-light);
 }
 
 .contact-form {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface);
     padding: 2.5rem;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 14px;
+    border: 1px solid var(--border);
 }
 
 .contact-form h3 {
-    color: var(--primary-color);
+    color: var(--primary-light);
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .contact-form h3 i {
     color: var(--secondary-color);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .form-group {
@@ -449,40 +578,42 @@ ul {
 .contact-form input,
 .contact-form textarea {
     width: 100%;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
     color: var(--text-color);
     font-family: inherit;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(226, 232, 240, 0.35);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+    background: rgba(99, 102, 241, 0.06);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .submit-btn {
     width: 100%;
-    padding: 1.2rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    padding: 1rem;
+    background: var(--primary-color);
     border: none;
-    border-radius: 8px;
-    color: var(--background-color);
-    font-weight: 700;
-    font-size: 1.1rem;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -490,8 +621,9 @@ ul {
 }
 
 .submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+    transform: translateY(-2px);
+    background: var(--primary-light);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
 }
 
 .submit-btn:active {
@@ -526,16 +658,16 @@ ul {
 }
 
 #formStatus.success {
-    background: rgba(0, 255, 136, 0.15);
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--primary-light);
+    border: 1px solid rgba(99, 102, 241, 0.4);
     display: block;
 }
 
 #formStatus.error {
-    background: rgba(255, 51, 102, 0.15);
-    color: var(--secondary-color);
-    border: 2px solid var(--secondary-color);
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.35);
     display: block;
 }
 
@@ -546,7 +678,10 @@ ul {
 footer {
     text-align: center;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
 @media (max-width: 968px) {
@@ -568,11 +703,11 @@ footer {
 
 @media (max-width: 768px) {
     nav {
-        padding: 1rem;
+        padding: 0.9rem 1.2rem;
     }
     
     .logo {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
     
     .nav-links {
@@ -580,19 +715,20 @@ footer {
     }
     
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
+        letter-spacing: -1px;
     }
     
     .hero-subtitle {
-        font-size: 1.3rem;
-    }
-    
-    .hero-description {
         font-size: 1rem;
     }
     
+    .hero-description {
+        font-size: 0.97rem;
+    }
+    
     h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     section {
@@ -613,16 +749,17 @@ footer {
 
 @media (max-width: 480px) {
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.9rem;
+        letter-spacing: -0.5px;
     }
     
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
     
     .social-links a {
-        font-size: 1.2rem;
-        margin: 0 0.5rem;
+        font-size: 1.1rem;
+        margin: 0 0.6rem;
     }
     
     section {
