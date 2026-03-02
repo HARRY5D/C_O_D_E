@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GATE Prep — Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ── Top Navigation ─────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">📚</span>
+        <span class="brand-text">GATE<strong>Prep</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="subjects.html">Subjects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero Section ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>GATE CS &amp; IT Preparation</h1>
+      <p class="hero-sub">
+        All exam papers, notes, and PYQs — searchable offline.<br />
+        No internet required after setup.
+      </p>
+
+      <!-- Global search box -->
+      <div class="search-wrap" id="heroSearch">
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search topics, questions, algorithms…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="search-btn" onclick="triggerSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Status indicator (hidden after index loads) -->
+      <p class="search-status" id="searchStatus">Loading search index…</p>
+    </div>
+  </section>
+
+  <!-- ── Search Results Panel ───────────────────────────────────────── -->
+  <section class="search-results-section hidden" id="searchResultsSection">
+    <div class="container">
+      <div class="results-header">
+        <span id="resultsCount"></span>
+        <button class="clear-btn" onclick="clearSearch()">✕ Clear</button>
+      </div>
+      <div id="resultsGrid" class="results-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── Subject Cards ──────────────────────────────────────────────── -->
+  <section class="subjects-section" id="subjectsSection">
+    <div class="container">
+      <h2 class="section-title">Browse by Subject</h2>
+      <div id="subjectCards" class="subjects-grid">
+        <!-- Populated dynamically from index.json -->
+        <div class="card-placeholder">Loading subjects…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Paper View Modal ───────────────────────────────────────────── -->
+  <div id="paperModal" class="modal-overlay hidden" onclick="closePaperModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <span class="modal-badge" id="modalBadge"></span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+        </div>
+        <button class="modal-close" onclick="closePaperModal()">✕</button>
+      </div>
+      <pre class="modal-content" id="modalContent"></pre>
+    </div>
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        Fully offline static site. Run <code>python scripts/build_index.py</code>
+        after adding new papers.
+      </p>
+    </div>
+  </footer>
+
+  <!--
+    MiniSearch.js — pure-JavaScript full-text search engine.
+    For offline use, download from:
+    https://cdn.jsdelivr.net/npm/minisearch@6.3.0/dist/umd/index.min.js
+    and save as site/minisearch.min.js, then change the src below.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/minisearch@6.3.0/dist/umd/index.min.js"></script>
+  <!-- Fallback: if CDN fails, try local copy -->
+  <script>
+    if (typeof MiniSearch === "undefined") {
+      var s = document.createElement("script");
+      s.src = "minisearch.min.js";
+      document.head.appendChild(s);
+    }
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>

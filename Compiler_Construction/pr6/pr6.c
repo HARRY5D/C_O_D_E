@@ -5,16 +5,18 @@
 #define MAX 20
 
 char grammar[MAX][MAX], first[MAX][MAX], follow[MAX][MAX];
-char table[MAX][MAX][MAX];  // Parsing table [non-terminal][terminal]
+char table[MAX][MAX][MAX]; 
 char terminals[MAX], nonTerminals[MAX];
 int n, conflict = 0;
 
-int contains(char *s, char c) {
+int contains(char *s, char c) 
+{
     for (int i = 0; s[i]; i++) if (s[i] == c) return 1;
     return 0;
 }
 
-void add(char *s, char c) {
+void add(char *s, char c) 
+{
     if (!contains(s, c)) { int l = strlen(s); s[l] = c; s[l+1] = '\0'; }
 }
 

@@ -1,0 +1,170 @@
+Subject: Algorithms
+Topic: Sorting and Graph Algorithms
+Year: 2023
+Source: GATE CS 2023
+
+SORTING AND GRAPH ALGORITHMS
+
+1. SORTING ALGORITHMS
+
+Comparison-Based Sorting (Lower bound: Ω(n log n)):
+
+Merge Sort:
+- Divide: Split array in half.
+- Conquer: Recursively sort each half.
+- Combine: Merge the two sorted halves.
+- Time: O(n log n) in all cases.
+- Space: O(n) auxiliary space.
+- Stable sort.
+
+Quick Sort:
+- Pick a pivot element, partition array around pivot.
+- Recursively sort left and right partitions.
+- Time: O(n log n) average, O(n^2) worst case (when pivot is always smallest or largest).
+- Space: O(log n) average for stack.
+- Not stable (standard implementation).
+- In-place algorithm.
+
+Heap Sort:
+- Build a max-heap from the array.
+- Repeatedly extract max element and place at end.
+- Time: O(n log n) in all cases.
+- Space: O(1) - in-place.
+- Not stable.
+
+Insertion Sort:
+- Time: O(n^2) worst/average, O(n) best (already sorted).
+- Space: O(1).
+- Stable.
+- Efficient for small or nearly sorted arrays.
+
+Non-Comparison Sorting:
+
+Counting Sort:
+- Works when elements are in range [0, k].
+- Time: O(n + k), Space: O(k).
+- Stable.
+
+Radix Sort:
+- Sort by individual digits from least significant to most significant.
+- Time: O(d(n+k)) where d=digits, k=range per digit.
+- Stable.
+
+Bucket Sort:
+- Distribute elements into buckets, sort each bucket.
+- Time: O(n) average (uniform distribution), O(n^2) worst.
+
+2. GRAPH ALGORITHMS
+
+Graph Representation:
+- Adjacency Matrix: O(V^2) space. O(1) edge check.
+- Adjacency List: O(V+E) space. O(degree) edge check.
+
+Breadth-First Search (BFS):
+- Uses a queue.
+- Visits all vertices at distance d before any at d+1.
+- Time: O(V+E).
+- Applications: Shortest path in unweighted graphs, level-order traversal, detecting bipartite graphs.
+
+Depth-First Search (DFS):
+- Uses a stack (or recursion).
+- Time: O(V+E).
+- Applications: Topological sort, detecting cycles, connected components, SCCs.
+
+DFS Edge Classification (for directed graphs):
+- Tree edge: Edge in DFS tree.
+- Back edge: From descendant to ancestor (indicates cycle).
+- Forward edge: From ancestor to descendant (non-tree).
+- Cross edge: Between different DFS trees.
+
+3. SHORTEST PATH ALGORITHMS
+
+Dijkstra's Algorithm:
+- Single-source shortest path for graphs with non-negative weights.
+- Uses a min-priority queue.
+- Greedy approach: Always expand the nearest unvisited vertex.
+- Time: O((V+E) log V) with binary heap, O(E + V log V) with Fibonacci heap.
+- Does NOT work with negative edges.
+
+Bellman-Ford Algorithm:
+- Single-source shortest path, handles negative weights.
+- Detects negative-weight cycles.
+- Time: O(VE).
+- Relax all edges V-1 times.
+
+Floyd-Warshall Algorithm:
+- All-pairs shortest path.
+- Dynamic programming approach.
+- Time: O(V^3), Space: O(V^2).
+- Handles negative edges (but not negative cycles).
+- d[i][j][k] = min(d[i][j][k-1], d[i][k][k-1] + d[k][j][k-1])
+
+4. GATE PREVIOUS YEAR QUESTIONS
+
+Q1. (GATE 2023) What is the time complexity of building a heap from an array of n elements?
+(A) O(n log n)  (B) O(n)  (C) O(log n)  (D) O(n^2)
+Answer: (B) O(n)
+Explanation: Using the bottom-up heap construction, time is O(n) not O(n log n).
+Sum of heights: n/2*0 + n/4*1 + n/8*2 + ... = O(n).
+
+Q2. (GATE 2022) In an undirected graph G=(V,E), DFS starting from vertex s results in a tree.
+The number of back edges in an undirected DFS tree:
+(A) Indicates the number of cycles
+(B) Is always 0
+(C) Equals the number of cross edges
+(D) Is at most |E|-|V|+1
+Answer: (A) Back edges in DFS of undirected graph each correspond to exactly one cycle.
+
+Q3. (GATE 2021) Consider a graph with 5 vertices. The minimum number of edges to make it connected is:
+(A) 4  (B) 5  (C) 6  (D) 10
+Answer: (A) 4
+Explanation: A tree with n vertices has n-1 edges and is connected. So minimum is 5-1=4.
+
+Q4. (GATE 2020) Dijkstra's algorithm fails when:
+(A) The graph is disconnected
+(B) There are negative weight edges
+(C) The graph is directed
+(D) The graph is dense
+Answer: (B) Negative weight edges cause incorrect results.
+
+5. MINIMUM SPANNING TREE
+
+Kruskal's Algorithm:
+- Sort all edges by weight.
+- Add edge if it doesn't form a cycle (use Union-Find).
+- Time: O(E log E) = O(E log V).
+- Greedy, works on disconnected graphs.
+
+Prim's Algorithm:
+- Start from any vertex, grow the MST one edge at a time.
+- Always pick the minimum weight edge connecting MST to non-MST vertex.
+- Time: O(E log V) with binary heap, O(E + V log V) with Fibonacci heap.
+- Better for dense graphs.
+
+6. DYNAMIC PROGRAMMING
+
+Overlapping subproblems + Optimal substructure → DP applicable.
+
+Common DP Problems:
+- 0/1 Knapsack: O(nW) time and space.
+  dp[i][w] = max(dp[i-1][w], val[i] + dp[i-1][w-wt[i]])
+- Longest Common Subsequence: O(mn)
+  dp[i][j] = dp[i-1][j-1]+1 if X[i]==Y[j] else max(dp[i-1][j], dp[i][j-1])
+- Matrix Chain Multiplication: O(n^3)
+  dp[i][j] = min over k of dp[i][k] + dp[k+1][j] + p[i-1]*p[k]*p[j]
+
+7. NP-COMPLETENESS
+- P: Problems solvable in polynomial time.
+- NP: Problems verifiable in polynomial time.
+- NP-Hard: At least as hard as hardest NP problems.
+- NP-Complete: In NP and NP-Hard.
+
+Known NP-Complete Problems:
+- SAT (Boolean satisfiability) - First NP-Complete problem (Cook's theorem).
+- 3-SAT
+- Vertex Cover
+- Clique
+- Hamiltonian Path/Cycle
+- Travelling Salesman Problem (decision version)
+- Graph Coloring (k >= 3)
+- Subset Sum

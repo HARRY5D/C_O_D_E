@@ -1,0 +1,113 @@
+Subject: Database Management Systems
+Topic: Indexing and Query Optimization
+Year: 2022
+Source: GATE CS 2022
+
+INDEXING AND QUERY OPTIMIZATION IN DBMS
+
+1. FILE ORGANIZATION
+Methods of organizing records in a file:
+- Heap File: Records stored in no particular order. Insert is fast, search requires full scan.
+- Sequential File: Records sorted on a key attribute. Binary search possible.
+- Hash File: Hash function maps key to bucket. O(1) average access.
+
+2. INDEXING
+An index is a data structure that improves the speed of data retrieval.
+
+Dense Index: An index entry for every search key value in the data file.
+Sparse Index: Index entries only for some search key values (e.g., one per block/page).
+
+Primary Index: Built on ordered key field of ordered file.
+Clustering Index (Secondary index): Built on non-key ordered field.
+Secondary Index: Built on unordered field.
+
+B-Tree:
+- Balanced search tree. All leaves at same depth.
+- Order m: Each node has at most m children.
+- Each internal node has between ⌈m/2⌉ and m children (except root).
+- Search, Insert, Delete: O(log n).
+
+B+ Tree:
+- All records (or pointers to records) stored at leaf level.
+- Internal nodes contain only keys (no data pointers).
+- Leaves linked in a linked list for sequential access.
+- Most commonly used index structure in databases.
+- Height h ≈ log_⌈m/2⌉(n).
+
+3. GATE PREVIOUS YEAR QUESTIONS
+
+Q1. (GATE 2022) A B+ tree of order 5 (max 4 keys per node) has 100 leaf-level entries.
+The minimum number of levels in the tree is:
+(A) 2  (B) 3  (C) 4  (D) 1
+Answer: (B) 3
+Explanation: Min keys in leaf = ⌈4/2⌉ = 2. Min internal node children = ⌈5/2⌉ = 3.
+Level 1 (root): min 2 children. Level 2: min 2*3=6 children. Level 3 (leaves): 6 leaves × 2 entries = 12 < 100.
+Need more levels. Actually at level 3 with 18 nodes × 2 = 36. At level 4 (with 3 levels of internal + 1 leaf) = 54. 
+
+Q2. (GATE 2021) Consider a B+ tree of order 3 (max 3 children per node).
+Minimum number of keys in a non-root internal node:
+(A) 1  (B) 2  (C) 3  (D) 4
+Answer: (A) 1
+Explanation: Min children = ⌈3/2⌉ = 2, so min keys = 2-1 = 1.
+
+Q3. (GATE 2020) In a relation with n tuples and an attribute with k distinct values,
+the number of I/O operations for a linear scan is proportional to:
+(A) n  (B) n/k  (C) k  (D) n*k
+Answer: (A) n - the full relation must be scanned.
+
+4. QUERY PROCESSING AND OPTIMIZATION
+
+Steps in Query Processing:
+1. Parsing and Translation: SQL → Relational Algebra expression.
+2. Optimization: Choose the most efficient evaluation plan.
+3. Evaluation: Execute the chosen plan.
+
+Cost Estimation:
+- I/O cost (most dominant)
+- CPU cost
+- Network cost (distributed systems)
+
+Heuristics for Query Optimization:
+1. Apply selections as early as possible (reduce tuple count).
+2. Apply projections early (reduce attribute count).
+3. Perform most restrictive selection first.
+4. Avoid cross products.
+
+Join Algorithms:
+- Nested Loop Join: O(n*m) I/Os. Simple but expensive.
+- Block Nested Loop Join: O(n/B * m) where B = buffer blocks. Better.
+- Sort-Merge Join: O(n log n + m log m) for sorting, then O(n+m) for merge. Good when data sorted.
+- Hash Join: O(n+m) average for equi-joins. Partition phase + probe phase.
+
+5. CONCURRENCY CONTROL
+
+Two-Phase Locking (2PL):
+- Growing phase: Locks acquired, none released.
+- Shrinking phase: Locks released, none acquired.
+- Guarantees serializability.
+- May cause deadlocks.
+
+Strict 2PL: All exclusive locks held until commit/abort.
+Rigorous 2PL: All locks held until commit/abort.
+
+Timestamp Ordering Protocol:
+- Each transaction has a timestamp TS(Ti).
+- For read(Q): If TS(Ti) < W-timestamp(Q), reject and rollback Ti.
+- For write(Q): If TS(Ti) < R-timestamp(Q) or TS(Ti) < W-timestamp(Q), reject and rollback Ti.
+
+6. RECOVERY
+
+Log-Based Recovery:
+- Write-ahead log (WAL): Log record written before data item written to disk.
+- Undo (< Ti, Q, old value >): Restore Q to old_value.
+- Redo (< Ti, Q, new value >): Set Q to new_value.
+
+Checkpoints:
+- Periodically write checkpoint to log.
+- On recovery, only need to redo/undo transactions since last checkpoint.
+
+ARIES (Algorithm for Recovery and Isolation Exploiting Semantics):
+- Three passes: Analysis, Redo, Undo.
+- Analysis: Determine dirty pages and active transactions at crash.
+- Redo: Redo all operations (ensure durability).
+- Undo: Undo incomplete transactions (ensure atomicity).

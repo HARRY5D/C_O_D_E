@@ -1,0 +1,123 @@
+Subject: Computer Networks
+Topic: Network Layer and Routing
+Year: 2023
+Source: GATE CS 2023
+
+NETWORK LAYER AND ROUTING PROTOCOLS
+
+1. NETWORK LAYER OVERVIEW
+The Network Layer (Layer 3 in OSI model) is responsible for:
+- Logical addressing (IP addresses)
+- Routing packets from source to destination
+- Forwarding based on routing tables
+- Fragmentation and reassembly
+- Error reporting (ICMP)
+
+2. IP ADDRESSING
+
+IPv4 Addressing:
+- 32-bit address written in dotted-decimal notation (e.g., 192.168.1.1)
+- Divided into network portion and host portion
+- Subnet mask determines the boundary
+
+Classful Addressing (historical):
+- Class A: 0.0.0.0 to 127.255.255.255 (/8) - 2^24 hosts per network
+- Class B: 128.0.0.0 to 191.255.255.255 (/16) - 2^16 hosts per network
+- Class C: 192.0.0.0 to 223.255.255.255 (/24) - 2^8 hosts per network
+- Class D: 224.0.0.0 to 239.255.255.255 - Multicast
+- Class E: 240.0.0.0 to 255.255.255.255 - Reserved
+
+CIDR (Classless Inter-Domain Routing):
+- Notation: 192.168.10.0/24 (24 bits for network, 8 bits for host)
+- Allows flexible allocation; reduces wasted addresses
+- Supports route aggregation (supernetting)
+
+Subnetting Example:
+Given: 192.168.1.0/24
+Divide into 4 subnets:
+- Need 2 bits for 4 subnets (2^2=4)
+- New prefix: /26
+- Subnets: 192.168.1.0/26, 192.168.1.64/26, 192.168.1.128/26, 192.168.1.192/26
+- Each subnet has 64-2=62 usable hosts (subtract network and broadcast)
+
+3. ROUTING ALGORITHMS
+
+Distance Vector Routing (Bellman-Ford):
+- Each router maintains a routing table with distances to all destinations.
+- Routers periodically exchange tables with neighbors.
+- Count-to-infinity problem: Slow convergence when a link goes down.
+- Used in RIP (Routing Information Protocol): max 15 hops.
+
+Link State Routing (Dijkstra's Algorithm):
+- Each router floods the network with information about its neighbors.
+- Each router builds a complete topology map.
+- Dijkstra's algorithm computes shortest paths.
+- Used in OSPF (Open Shortest Path First).
+
+4. GATE PREVIOUS YEAR QUESTIONS
+
+Q1. (GATE 2023) A router has the following routing table:
+Network          Gateway       Interface
+192.168.1.0/24   -             eth0
+10.0.0.0/8       192.168.1.2   eth0
+0.0.0.0/0        192.168.1.1   eth0
+For a packet with destination 10.5.6.7, which route is used?
+(A) Default route via 192.168.1.1
+(B) Route via 192.168.1.2
+(C) Direct delivery on eth0
+(D) Packet is dropped
+Answer: (B) Route via 192.168.1.2
+Explanation: Longest prefix match: 10.0.0.0/8 matches 10.5.6.7 better than 0.0.0.0/0.
+
+Q2. (GATE 2022) In distance vector routing, a router sends its routing table to:
+(A) All routers in the network
+(B) Its neighbors only
+(C) The designated router
+(D) Routers in its subnet only
+Answer: (B) Its neighbors only
+
+Q3. (GATE 2021) Which of the following is true about OSPF?
+(A) Uses Bellman-Ford algorithm
+(B) Uses link-state information
+(C) Maximum hop count is 15
+(D) Uses UDP for communication
+Answer: (B) Uses link-state information
+Explanation: OSPF uses Dijkstra's (link-state) algorithm. RIP uses Bellman-Ford and has 15-hop limit.
+
+5. TRANSPORT LAYER PROTOCOLS
+
+TCP (Transmission Control Protocol):
+- Connection-oriented: Three-way handshake (SYN, SYN-ACK, ACK)
+- Reliable: Acknowledgments, retransmission, sequence numbers
+- Flow control: Sliding window protocol
+- Congestion control: Slow start, congestion avoidance, fast retransmit, fast recovery
+- Full duplex
+
+TCP Header (20 bytes minimum):
+- Source Port (16 bits), Destination Port (16 bits)
+- Sequence Number (32 bits)
+- Acknowledgment Number (32 bits)
+- Data Offset (4 bits), Flags (9 bits), Window Size (16 bits)
+- Checksum (16 bits), Urgent Pointer (16 bits)
+
+UDP (User Datagram Protocol):
+- Connectionless, unreliable
+- No flow control or congestion control
+- Small header: Source port, Dest port, Length, Checksum (8 bytes)
+- Used where speed matters: DNS, Video streaming, VoIP, Gaming
+
+6. ERROR DETECTION AND CORRECTION
+
+CRC (Cyclic Redundancy Check):
+- Generator polynomial divides the message.
+- Remainder appended to message as CRC bits.
+- Receiver divides received frame by generator; remainder should be 0.
+
+Hamming Distance:
+- Minimum Hamming distance d_min for a code:
+  - To detect t errors: d_min >= t + 1
+  - To correct t errors: d_min >= 2t + 1
+
+Hamming Code:
+- For m data bits, r parity bits needed where 2^r >= m + r + 1.
+- Parity bits at positions 1, 2, 4, 8, ... (powers of 2).

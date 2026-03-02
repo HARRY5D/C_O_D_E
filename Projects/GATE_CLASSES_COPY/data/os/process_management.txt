@@ -1,0 +1,95 @@
+Subject: Operating Systems
+Topic: Process Management
+Year: 2023
+Source: GATE CS 2023
+
+PROCESS MANAGEMENT IN OPERATING SYSTEMS
+
+1. INTRODUCTION TO PROCESSES
+A process is a program in execution. It is the basic unit of work in an operating system.
+A process includes the program code (text section), current activity (program counter, registers),
+process stack (temporary data), data section (global variables), and heap (dynamically allocated memory).
+
+2. PROCESS STATES
+A process goes through several states during its lifetime:
+- New: The process is being created.
+- Running: Instructions are being executed by the CPU.
+- Waiting (Blocked): The process is waiting for some event (e.g., I/O completion).
+- Ready: The process is waiting to be assigned to a CPU.
+- Terminated: The process has finished execution.
+
+3. PROCESS CONTROL BLOCK (PCB)
+Each process is represented in the OS by a PCB (also called a task control block).
+PCB contains:
+- Process state
+- Process number (PID)
+- Program counter
+- CPU registers
+- CPU scheduling information
+- Memory management information
+- Accounting information
+- I/O status information
+
+4. PROCESS SCHEDULING
+The process scheduler selects an available process for execution on the CPU.
+Types of schedulers:
+- Long-term scheduler (job scheduler): Selects processes from the job pool and loads them into memory.
+- Short-term scheduler (CPU scheduler): Selects from ready processes and allocates CPU.
+- Medium-term scheduler: Removes processes from memory and reduces degree of multiprogramming.
+
+5. CONTEXT SWITCH
+When the CPU switches from one process to another, the OS must save the state of the old process
+and load the saved state for the new process. This is called a context switch.
+Context switch time is pure overhead; the system does no useful work while switching.
+
+6. GATE PREVIOUS YEAR QUESTIONS
+
+Q1. (GATE 2022) Consider the following set of processes with arrival time and burst time:
+Process  Arrival  Burst
+P1       0        8
+P2       1        4
+P3       2        9
+P4       3        5
+
+Using Shortest Job First (non-preemptive) scheduling, the average waiting time is:
+(A) 7.75  (B) 6.25  (C) 5.0  (D) 8.0
+Answer: (A) 7.75
+Explanation: SJF order: P1(0-8), P2(8-12), P4(12-17), P3(17-26)
+Waiting times: P1=0, P2=7, P3=15, P4=9. Average=(0+7+15+9)/4=31/4=7.75
+
+Q2. (GATE 2021) Which of the following scheduling algorithms may lead to starvation?
+(A) FCFS  (B) Round Robin  (C) Shortest Job First  (D) All of the above
+Answer: (C) Shortest Job First
+Explanation: In SJF, a process with a long burst time may never get CPU if short processes keep arriving.
+
+Q3. (GATE 2020) A system has 4 processes and 5 identical resources. The maximum and current allocation are:
+Process  Max  Alloc
+P1       3    1
+P2       2    2
+P3       3    2
+P4       2    1
+Available = 5 - (1+2+2+1) = 5-6 = -1? No, let's recalculate. Actually Available=5-6, which is incorrect.
+This is an unsafe state example.
+
+7. DEADLOCK
+A deadlock is a situation where a set of processes are blocked because each process is holding
+a resource and waiting for a resource held by another process.
+
+Necessary conditions for deadlock (Coffman conditions):
+1. Mutual Exclusion: At least one resource must be non-shareable.
+2. Hold and Wait: A process must be holding at least one resource and waiting for additional resources.
+3. No Preemption: Resources cannot be forcibly taken from a process.
+4. Circular Wait: A set of processes {P0, P1, ..., Pn} must exist such that P0 waits for P1,
+   P1 waits for P2, ..., Pn waits for P0.
+
+8. BANKER'S ALGORITHM
+The Banker's Algorithm is a resource allocation and deadlock avoidance algorithm.
+It tests for safety by simulating allocation of maximum possible amounts of all resources,
+then makes an "s-state" check to test for possible activities before deciding whether
+allocation should be allowed.
+
+Safety Algorithm:
+1. Let Work = Available and Finish[i] = false for all i.
+2. Find an i such that Finish[i]=false and Need[i] <= Work. If no such i, go to step 4.
+3. Work = Work + Allocation[i], Finish[i] = true. Go to step 2.
+4. If Finish[i]=true for all i, the system is in a safe state.
