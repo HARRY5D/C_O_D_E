@@ -1,17 +1,17 @@
 {
   "scanned_companies": {
-    "TechStar Solutions": "2026-02-19T09:45:21.571990",
-    "AI Innovations Hub": "2026-02-19T09:45:21.939967",
-    "Mobile First Technologies": "2026-02-19T09:45:21.955328",
-    "DataMind Analytics": "2026-02-19T09:45:22.096952",
-    "CloudNine Systems": "2026-02-19T09:45:22.452666",
-    "NextGen Apps": "2026-02-19T09:45:25.399206",
-    "SmartCode Labs": "2026-02-19T09:45:25.964706",
-    "Vision AI Technologies": "2026-02-19T09:45:26.342514",
-    "Quantum Innovations": "2026-02-19T09:45:26.408531",
-    "AppVentures": "2026-02-19T09:45:26.950555"
+    "TechStar Solutions": "2026-03-23T10:03:31.186487",
+    "AI Innovations Hub": "2026-03-23T10:03:41.684256",
+    "Mobile First Technologies": "2026-03-23T10:03:41.845243",
+    "DataMind Analytics": "2026-03-23T10:03:42.164189",
+    "CloudNine Systems": "2026-03-23T10:03:42.989634",
+    "NextGen Apps": "2026-03-23T10:03:53.024651",
+    "SmartCode Labs": "2026-03-23T10:03:53.266894",
+    "Vision AI Technologies": "2026-03-23T10:04:03.288271",
+    "Quantum Innovations": "2026-03-23T10:04:08.302645",
+    "AppVentures": "2026-03-23T10:04:08.644106"
   },
-  "last_run": "2026-02-19T09:45:28.177419",
-  "total_opportunities_found": 20,
+  "last_run": "2026-03-23T10:04:09.690516",
+  "total_opportunities_found": 30,
   "version": "1.0"
 }
