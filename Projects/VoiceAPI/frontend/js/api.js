@@ -234,6 +234,83 @@ class UnifiedAPIClient {
         return new Error(`Request failed: ${detail}`);
     }
   }
+
+  // ── Voice Converter API ──────────────────────────────────────────────────
+
+  async converterHealth() {
+    const response = await fetch(`${this.baseURL}/api/voice-converter/health`, {
+      signal: AbortSignal.timeout(6000),
+    });
+    return response.json();
+  }
+
+  async createVoiceProfile(audioFile, profileName) {
+    const form = new FormData();
+    form.append('reference_audio', audioFile, audioFile.name);
+    form.append('profile_name', profileName);
+    const response = await fetch(`${this.baseURL}/api/voice-converter/create-profile`, {
+      method: 'POST',
+      body: form,
+      signal: AbortSignal.timeout(120_000),
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: response.statusText }));
+      throw new Error(err.detail || 'Failed to create voice profile');
+    }
+    return response.json();
+  }
+
+  async listVoiceProfiles() {
+    const response = await fetch(`${this.baseURL}/api/voice-converter/profiles`);
+    if (!response.ok) throw new Error('Failed to list profiles');
+    return response.json();
+  }
+
+  async deleteVoiceProfile(profileId) {
+    const response = await fetch(
+      `${this.baseURL}/api/voice-converter/profiles/${encodeURIComponent(profileId)}`,
+      { method: 'DELETE' }
+    );
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: response.statusText }));
+      throw new Error(err.detail || 'Failed to delete profile');
+    }
+    return response.json();
+  }
+
+  async convertAudio(sourceFile, targetProfileId, quality = 'balanced') {
+    const form = new FormData();
+    form.append('source_audio', sourceFile, sourceFile.name);
+    form.append('target_profile_id', targetProfileId);
+    form.append('quality', quality);
+    const response = await fetch(`${this.baseURL}/api/voice-converter/convert`, {
+      method: 'POST',
+      body: form,
+      signal: AbortSignal.timeout(180_000),
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: response.statusText }));
+      throw new Error(err.detail || 'Conversion failed');
+    }
+    return response.blob();
+  }
+
+  async convertWithNewVoice(sourceFile, refFile, quality = 'balanced') {
+    const form = new FormData();
+    form.append('source_audio', sourceFile, sourceFile.name);
+    form.append('target_reference_audio', refFile, refFile.name);
+    form.append('quality', quality);
+    const response = await fetch(`${this.baseURL}/api/voice-converter/convert-with-new-voice`, {
+      method: 'POST',
+      body: form,
+      signal: AbortSignal.timeout(180_000),
+    });
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: response.statusText }));
+      throw new Error(err.detail || 'Conversion failed');
+    }
+    return response.blob();
+  }
 }
 
 // Create and export singleton instance

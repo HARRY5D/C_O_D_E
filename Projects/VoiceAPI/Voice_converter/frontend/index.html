@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Converter Pro</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon"></span>
+      <div>
+        <h1>Voice Converter Pro</h1>
+        <p class="tagline">Convert any voice to match your custom voice profile · 22 050 Hz</p>
+      </div>
+    </div>
+    <div class="api-status" id="apiStatus">
+      <span class="status-dot"></span>
+      <span class="status-label">Connecting…</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ TABS ════════════════════════ -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" role="tab" data-tab="create"    aria-selected="true">
+    ➕ Create Profile
+  </button>
+  <button class="tab-btn"        role="tab" data-tab="convert"   aria-selected="false">
+     Convert Audio
+  </button>
+  <button class="tab-btn"        role="tab" data-tab="batch"     aria-selected="false">
+     Batch Convert
+  </button>
+  <button class="tab-btn"        role="tab" data-tab="profiles"  aria-selected="false">
+     Saved Profiles
+  </button>
+</nav>
+
+<main class="main-content">
+
+  <!-- ═══════ TAB 1: CREATE VOICE PROFILE ═══════ -->
+  <section id="tab-create" class="tab-panel active" role="tabpanel">
+    <div class="panel-grid two-col">
+
+      <!-- Left: Upload / Record -->
+      <div class="card">
+        <h2 class="card-title"> Reference Audio</h2>
+        <p class="card-hint">Upload or record at least 3 seconds of clean speech.</p>
+
+        <div class="drop-zone" id="refDropZone" data-element="ref-drop">
+          <input type="file" id="refAudioInput" accept="audio/*" hidden data-element="ref-file" aria-label="Reference audio file" />
+          <div class="drop-icon"></div>
+          <p>Drag &amp; drop audio here</p>
+          <p class="drop-sub">or</p>
+          <button class="btn btn-outline" onclick="document.getElementById('refAudioInput').click()">Browse File</button>
+        </div>
+
+        <div class="divider">— or —</div>
+
+        <div class="record-row">
+          <button class="btn btn-record" id="recordBtn" data-element="record-btn" aria-label="Start recording">
+             Record from Microphone
+          </button>
+          <span class="record-timer" id="recordTimer" hidden>0:00</span>
+        </div>
+
+        <div class="preview-section" id="refPreview" hidden>
+          <label class="preview-label">Preview</label>
+          <audio id="refAudioPlayer" controls class="audio-player" aria-label="Reference audio preview"></audio>
+          <span class="duration-badge" id="refDuration"></span>
+        </div>
+      </div>
+
+      <!-- Right: Profile Info + Characteristics -->
+      <div class="card">
+        <h2 class="card-title"> Profile Details</h2>
+
+        <label class="form-label" for="profileNameInput">Profile Name</label>
+        <input type="text" id="profileNameInput" class="form-input" placeholder="e.g. My Voice" maxlength="80" aria-label="Profile name" />
+
+        <button class="btn btn-primary full-width mt-2" id="analyzeBtn" data-element="analyze-btn" disabled>
+           Analyse &amp; Save Profile
+        </button>
+
+        <div class="characteristics-grid" id="charGrid" hidden>
+          <h3 class="char-title">Voice Characteristics</h3>
+          <div class="char-item">
+            <span class="char-label"> Mean Pitch</span>
+            <span class="char-value" id="charPitch">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label">Gender Est.</span>
+            <span class="char-value" id="charGender">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label"> Speaking Rate</span>
+            <span class="char-value" id="charRate">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label"> Energy</span>
+            <span class="char-value" id="charEnergy">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label">F1 Formant</span>
+            <span class="char-value" id="charF1">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label">F2 Formant</span>
+            <span class="char-value" id="charF2">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label">HNR (Quality)</span>
+            <span class="char-value" id="charHNR">—</span>
+          </div>
+          <div class="char-item">
+            <span class="char-label">Duration</span>
+            <span class="char-value" id="charDuration">—</span>
+          </div>
+        </div>
+
+        <div id="createStatus"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TAB 2: CONVERT AUDIO ═══════ -->
+  <section id="tab-convert" class="tab-panel" role="tabpanel" hidden>
+    <div class="panel-grid two-col">
+
+      <!-- Left: Source Audio -->
+      <div class="card">
+        <h2 class="card-title"> Source Audio</h2>
+        <p class="card-hint">Upload TTS output or any recording to convert.</p>
+
+        <div class="drop-zone" id="srcDropZone" data-element="src-drop">
+          <input type="file" id="srcAudioInput" accept="audio/*" hidden data-element="src-file" aria-label="Source audio file" />
+          <div class="drop-icon"></div>
+          <p>Drag &amp; drop source audio</p>
+          <button class="btn btn-outline mt-1" onclick="document.getElementById('srcAudioInput').click()">Browse File</button>
+        </div>
+
+        <div class="preview-section" id="srcPreview" hidden>
+          <label class="preview-label">Original</label>
+          <audio id="srcAudioPlayer" controls class="audio-player" aria-label="Source audio preview"></audio>
+        </div>
+      </div>
+
+      <!-- Right: Target + Settings -->
+      <div class="card">
+        <h2 class="card-title"> Target Voice &amp; Settings</h2>
+
+        <label class="form-label" for="profileSelect">Select Voice Profile</label>
+        <select id="profileSelect" class="form-select" aria-label="Target voice profile">
+          <option value="">— Select a profile —</option>
+        </select>
+
+        <div class="profile-peek" id="profilePeek" hidden>
+          <div class="peek-row"><span>Pitch</span><strong id="peekPitch">—</strong></div>
+          <div class="peek-row"><span>Rate</span><strong id="peekRate">—</strong></div>
+        </div>
+
+        <div class="divider">— or use a new reference —</div>
+        <div class="drop-zone drop-zone-sm" id="refConvDropZone">
+          <input type="file" id="refConvInput" accept="audio/*" hidden aria-label="Reference audio for one-shot conversion" />
+          <p class="drop-sub">Upload reference audio for one-shot conversion</p>
+          <button class="btn btn-outline btn-sm" onclick="document.getElementById('refConvInput').click()">Browse</button>
+        </div>
+
+        <fieldset class="quality-fieldset">
+          <legend class="form-label">Quality</legend>
+          <div class="radio-row">
+            <label><input type="radio" name="quality" value="fast" /> Fast</label>
+            <label><input type="radio" name="quality" value="balanced" checked /> Balanced</label>
+            <label><input type="radio" name="quality" value="high" /> High</label>
+          </div>
+        </fieldset>
+
+        <details class="advanced-section">
+          <summary> Advanced Settings</summary>
+          <label class="checkbox-label">
+            <input type="checkbox" id="enableFormants" checked />
+            Enable formant matching
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="enableRateMatch" checked />
+            Adjust speaking rate
+          </label>
+        </details>
+
+        <button class="btn btn-primary full-width mt-2" id="convertBtn" data-element="convert-btn" disabled>
+           Convert Voice
+        </button>
+
+        <div class="progress-wrap" id="convertProgress" hidden>
+          <div class="progress-bar" id="convertProgressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <span class="progress-label" id="convertProgressLabel">Converting…</span>
+        </div>
+
+        <div id="convertStatus"></div>
+      </div>
+    </div>
+
+    <!-- Comparison Player -->
+    <div class="card comparison-card" id="comparisonCard" hidden>
+      <h2 class="card-title"> Compare Results</h2>
+      <div class="comparison-grid">
+        <div class="comp-item">
+          <label class="preview-label">Original</label>
+          <audio id="cmpOriginal" controls class="audio-player"></audio>
+        </div>
+        <div class="comp-arrow">→</div>
+        <div class="comp-item">
+          <label class="preview-label">Converted</label>
+          <audio id="cmpConverted" controls class="audio-player"></audio>
+        </div>
+      </div>
+      <button class="btn btn-secondary" id="downloadBtn" data-element="download-btn">
+         Download Converted Audio
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════ TAB 3: BATCH CONVERT ═══════ -->
+  <section id="tab-batch" class="tab-panel" role="tabpanel" hidden>
+    <div class="card">
+      <h2 class="card-title"> Batch Voice Conversion</h2>
+      <p class="card-hint">Convert multiple audio files to the same target voice.</p>
+
+      <div class="drop-zone" id="batchDropZone">
+        <input type="file" id="batchFilesInput" accept="audio/*" multiple hidden aria-label="Batch audio files" />
+        <div class="drop-icon"></div>
+        <p>Drag &amp; drop multiple audio files</p>
+        <button class="btn btn-outline mt-1" onclick="document.getElementById('batchFilesInput').click()">Browse Files</button>
+      </div>
+
+      <div id="batchFileList" class="batch-file-list"></div>
+
+      <label class="form-label mt-2" for="batchProfileSelect">Target Voice Profile</label>
+      <select id="batchProfileSelect" class="form-select">
+        <option value="">— Select a profile —</option>
+      </select>
+
+      <div class="radio-row mt-2">
+        <label><input type="radio" name="batchQuality" value="fast" /> Fast</label>
+        <label><input type="radio" name="batchQuality" value="balanced" checked /> Balanced</label>
+        <label><input type="radio" name="batchQuality" value="high" /> High</label>
+      </div>
+
+      <button class="btn btn-primary mt-2" id="batchConvertBtn" disabled>
+         Convert All
+      </button>
+
+      <div id="batchProgress" class="batch-progress-list"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ TAB 4: SAVED PROFILES ═══════ -->
+  <section id="tab-profiles" class="tab-panel" role="tabpanel" hidden>
+    <div class="profiles-header">
+      <h2> Saved Voice Profiles</h2>
+      <button class="btn btn-outline btn-sm" id="refreshProfilesBtn"> Refresh</button>
+    </div>
+    <div id="profilesList" class="profiles-grid">
+      <p class="empty-state">No profiles found. Create one in the "Create Profile" tab.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- Toast notifications -->
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <span>Voice Converter Pro · 22 050 Hz · 16-bit PCM</span>
+  <!-- <span>Powered by Praat &amp; librosa</span> -->
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

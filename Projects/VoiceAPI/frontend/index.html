@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Multi-lingual Text-to-Speech API - Convert text to natural speech in 15+ Indian languages">
+  <meta name="description" content="Multi-lingual Text-to-Speech API - Convert text to natural speech in 10+ Indian languages">
   <title>VoiceAPI - Multi-lingual Text-to-Speech</title>
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎤</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2272%22>V</text></svg>">
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
@@ -18,7 +18,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <span class="logo-icon">🎤</span>
+          <span class="logo-icon">VA</span>
           <h1 class="logo-text">VoiceAPI</h1>
         </div>
         
@@ -29,6 +29,9 @@
               <div class="status-indicator offline" data-element="health-voiceapi"></div>
             </div>
           </div>
+          <button type="button" class="btn-link theme-toggle" data-element="theme-toggle" aria-label="Toggle theme">
+            Dark Mode
+          </button>
         </div>
       </div>
     </div>
@@ -40,17 +43,17 @@
       <!-- Hero Section -->
       <section class="hero">
         <h2 class="hero-title">Multi-lingual Text-to-Speech</h2>
-        <p class="hero-subtitle">Convert text to natural speech in 15+ Indian languages</p>
+        <p class="hero-subtitle">Convert text to natural speech in 10+ Indian languages</p>
       </section>
       
       <!-- Alert Messages -->
       <div class="alert alert-error" data-element="error-container" style="display: none;">
-        <span class="alert-icon">⚠️</span>
+        <span class="alert-icon">!</span>
         <span class="alert-message" data-element="error-message"></span>
       </div>
       
       <div class="alert alert-success" data-element="success-container" style="display: none;">
-        <span class="alert-icon">✅</span>
+        <span class="alert-icon">OK</span>
         <span class="alert-message" data-element="success-message"></span>
       </div>
       
@@ -95,7 +98,7 @@
         
         <!-- Advanced Settings -->
         <details class="advanced-settings">
-          <summary class="advanced-summary">⚙️ Advanced Settings</summary>
+          <summary class="advanced-summary">Advanced Settings</summary>
           <div class="advanced-content">
             <!-- Pace Control -->
             <div class="form-group">
@@ -114,7 +117,6 @@
               >
               <div class="range-labels">
                 <span>Slower (0.5x)</span>
-                <span>Normal</span>
                 <span>Faster (2.0x)</span>
               </div>
             </div>
@@ -134,7 +136,7 @@
                 step="1"
                 value="0"
               >
-              <div class="range-labels">
+              <div class="range-labels three-labels">
                 <span>Lower (-10)</span>
                 <span>Normal</span>
                 <span>Higher (+10)</span>
@@ -155,7 +157,7 @@
         <!-- Generate Button -->
         <div class="form-actions">
           <button type="button" class="btn btn-primary btn-large" data-element="generate-btn">
-            🎤 Generate Speech
+            Generate Speech
           </button>
         </div>
       </section>
@@ -168,7 +170,7 @@
       
       <!-- Output Section -->
       <section class="card output-section" data-element="output-section" style="display: none;">
-        <h3 class="section-title">🎧 Generated Audio</h3>
+        <h3 class="section-title">Generated Audio</h3>
         
         <div class="audio-player-container">
           <audio controls class="audio-player" data-element="audio-player">
@@ -178,39 +180,331 @@
         
         <div class="output-actions">
           <button type="button" class="btn btn-secondary" data-element="download-btn">
-            💾 Download Audio
+            Download Audio
           </button>
+        </div>
+
+        <!-- ── Convert TTS to My Voice ── -->
+        <div class="tts-vc-panel" id="ttsVcPanel">
+          <div class="tts-vc-divider">
+            <span>Apply Custom Voice</span>
+          </div>
+
+          <p class="tts-vc-hint">Convert the generated speech above to sound like your saved voice profile.</p>
+
+          <div class="tts-vc-controls">
+            <div class="tts-vc-row">
+              <label for="ttsVcProfileSelect" class="form-label">Voice Profile</label>
+              <select id="ttsVcProfileSelect" class="form-select tts-vc-select">
+                <option value="">Select a profile</option>
+              </select>
+              <button type="button" class="btn-icon" id="ttsVcRefreshBtn" title="Refresh profiles">Refresh</button>
+            </div>
+
+            <div class="tts-vc-row">
+              <label class="form-label">Quality</label>
+              <div class="tts-vc-quality-group">
+                <label class="tts-vc-quality-label">
+                  <input type="radio" name="ttsVcQuality" value="fast"> Fast
+                </label>
+                <label class="tts-vc-quality-label">
+                  <input type="radio" name="ttsVcQuality" value="balanced" checked> Balanced
+                </label>
+                <label class="tts-vc-quality-label">
+                  <input type="radio" name="ttsVcQuality" value="high"> High
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="tts-vc-actions">
+            <button type="button" class="btn btn-accent" id="ttsVcConvertBtn" disabled>
+              Convert to My Voice
+            </button>
+          </div>
+
+          <!-- conversion loading -->
+          <div class="tts-vc-loading" id="ttsVcLoading" style="display:none;">
+            <div class="spinner spinner-sm"></div>
+            <span>Converting voice, please wait…</span>
+          </div>
+
+          <!-- conversion result -->
+          <div class="tts-vc-result" id="ttsVcResult" style="display:none;">
+            <div class="tts-vc-result-header">
+              <span class="tts-vc-result-label">Converted Voice Output</span>
+            </div>
+            <audio controls class="audio-player" id="ttsVcResultPlayer"></audio>
+            <div class="output-actions" style="margin-top:0.5rem;">
+              <button type="button" class="btn btn-secondary" id="ttsVcDownloadBtn">
+                Download Converted Audio
+              </button>
+            </div>
+          </div>
         </div>
       </section>
       
+      <!-- ================================================================ -->
+      <!-- Voice Converter Section                                        -->
+      <!-- ================================================================ -->
+      <section class="card voice-converter-section" id="vcSection">
+
+        <!-- Collapsible header -->
+        <div class="vc-header" id="vcToggleHeader">
+          <div class="vc-title">
+            <span class="vc-icon">VC</span>
+            <div>
+              <h3 class="vc-heading">Voice Converter</h3>
+              <p class="vc-subheading">Convert any TTS output to match your custom voice</p>
+            </div>
+          </div>
+          <div class="vc-header-right">
+            <div class="vc-health-status">
+              <div class="status-indicator offline" id="vcHealthDot" title="Converter status"></div>
+              <span class="status-label" id="vcHealthLabel">Converter: checking…</span>
+            </div>
+            <button class="btn-link vc-toggle-btn" id="vcToggleBtn"
+                  aria-expanded="false" aria-controls="vcBody">Expand</button>
+          </div>
+        </div>
+
+        <!-- Body (hidden until expanded) -->
+        <div class="vc-body" id="vcBody" style="display:none;">
+
+          <!-- Sub-tabs -->
+          <div class="vc-tabs" role="tablist">
+            <button class="vc-tab active" role="tab" data-vc-tab="create-profile" aria-selected="true">
+              Create Voice Profile
+            </button>
+            <button class="vc-tab" role="tab" data-vc-tab="convert-audio" aria-selected="false">
+              Convert Audio
+            </button>
+            <button class="vc-tab" role="tab" data-vc-tab="saved-profiles" aria-selected="false">
+              Saved Profiles
+            </button>
+          </div>
+
+          <!-- Inline alerts -->
+          <div class="alert alert-error" id="vcAlertError" style="display:none;">
+            <span class="alert-icon">!</span>
+            <span class="alert-message" id="vcAlertErrorMsg"></span>
+          </div>
+          <div class="alert alert-success" id="vcAlertSuccess" style="display:none;">
+            <span class="alert-icon">OK</span>
+            <span class="alert-message" id="vcAlertSuccessMsg"></span>
+          </div>
+
+          <!-- ─── TAB: CREATE PROFILE ─── -->
+          <div class="vc-panel" id="vcPanel-create-profile">
+            <div class="vc-two-col">
+
+              <div class="vc-col">
+                <p class="form-hint" style="margin-bottom:1rem;">
+                  Upload a WAV/MP3 recording (≥ 3 s) of the voice you want to clone.
+                </p>
+                <div class="vc-drop-zone" id="vcRefDropZone"
+                     data-element="vc-ref-drop" role="button" tabindex="0"
+                     aria-label="Drop reference audio or click to browse">
+                  <input type="file" id="vcRefFileInput" accept="audio/*" hidden
+                         aria-label="Reference audio file" />
+                  <div class="vc-drop-icon">AUDIO</div>
+                  <p>Drag &amp; drop reference audio</p>
+                  <button class="btn btn-secondary" type="button"
+                          onclick="document.getElementById('vcRefFileInput').click()">
+                    Browse File
+                  </button>
+                </div>
+                <div id="vcRefPreview" style="display:none;" class="vc-preview">
+                  <audio id="vcRefPlayer" controls class="audio-player" style="width:100%;"
+                         aria-label="Reference audio preview"></audio>
+                </div>
+              </div>
+
+              <div class="vc-col">
+                <div class="form-group">
+                  <label class="form-label" for="vcProfileNameInput">Profile Name</label>
+                  <input type="text" id="vcProfileNameInput"
+                         class="form-select" placeholder="e.g. My Voice"
+                         maxlength="80" aria-label="Profile name" />
+                </div>
+
+                <button class="btn btn-primary" id="vcSaveProfileBtn"
+                        style="width:100%;" disabled aria-label="Save voice profile">
+                  Save Voice Profile
+                </button>
+
+                <!-- Characteristics grid (shown after save) -->
+                <div class="vc-characteristics" id="vcCharacteristics" style="display:none;">
+                  <h4 class="vc-char-heading">Extracted Characteristics</h4>
+                  <div class="vc-char-grid">
+                    <div class="vc-char-item">
+                      <span>Mean Pitch</span><strong id="vcCharPitch">—</strong>
+                    </div>
+                    <div class="vc-char-item">
+                      <span>Speaking Rate</span><strong id="vcCharRate">—</strong>
+                    </div>
+                    <div class="vc-char-item">
+                      <span>F1 Formant</span><strong id="vcCharF1">—</strong>
+                    </div>
+                    <div class="vc-char-item">
+                      <span>F2 Formant</span><strong id="vcCharF2">—</strong>
+                    </div>
+                    <div class="vc-char-item">
+                      <span>HNR (Quality)</span><strong id="vcCharHNR">—</strong>
+                    </div>
+                    <div class="vc-char-item">
+                      <span>Duration</span><strong id="vcCharDur">—</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ─── TAB: CONVERT AUDIO ─── -->
+          <div class="vc-panel" id="vcPanel-convert-audio" style="display:none;">
+            <div class="vc-two-col">
+
+              <div class="vc-col">
+                <p class="form-hint" style="margin-bottom:1rem;">
+                  Upload TTS output (or any audio) to convert to your custom voice.
+                </p>
+                <div class="vc-drop-zone" id="vcSrcDropZone"
+                     data-element="vc-src-drop" role="button" tabindex="0"
+                     aria-label="Drop source audio or click to browse">
+                  <input type="file" id="vcSrcFileInput" accept="audio/*" hidden
+                         aria-label="Source audio to convert" />
+                  <div class="vc-drop-icon">AUDIO</div>
+                  <p>Drag &amp; drop source audio</p>
+                  <button class="btn btn-secondary" type="button"
+                          onclick="document.getElementById('vcSrcFileInput').click()">
+                    Browse File
+                  </button>
+                </div>
+                <div id="vcSrcPreview" style="display:none;" class="vc-preview">
+                  <span class="form-hint">Original audio:</span>
+                  <audio id="vcSrcPlayer" controls class="audio-player" style="width:100%;"
+                         aria-label="Source audio preview"></audio>
+                </div>
+              </div>
+
+              <div class="vc-col">
+                <div class="form-group">
+                  <label class="form-label" for="vcProfileSelect">
+                    Target Voice Profile
+                  </label>
+                  <select id="vcProfileSelect" class="form-select"
+                          aria-label="Target voice profile">
+                    <option value="">Select saved profile</option>
+                  </select>
+                </div>
+
+                <!-- Quality selector -->
+                <div class="form-group">
+                  <label class="form-label">Conversion Quality</label>
+                  <div class="vc-quality-row">
+                    <label class="vc-quality-opt">
+                      <input type="radio" name="vcQuality" value="fast" />
+                      <span class="vc-quality-badge">Fast</span>
+                    </label>
+                    <label class="vc-quality-opt">
+                      <input type="radio" name="vcQuality" value="balanced" checked />
+                      <span class="vc-quality-badge active">Balanced</span>
+                    </label>
+                    <label class="vc-quality-opt">
+                      <input type="radio" name="vcQuality" value="high" />
+                      <span class="vc-quality-badge">High</span>
+                    </label>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary" id="vcConvertBtn"
+                        style="width:100%;" disabled aria-label="Convert voice">
+                   Convert Voice
+                </button>
+
+                <!-- Progress bar -->
+                <div class="vc-progress" id="vcProgress" style="display:none;">
+                  <div class="vc-progress-track">
+                    <div class="vc-progress-bar" id="vcProgressBar"
+                         role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width:0%;">
+                    </div>
+                  </div>
+                  <span class="form-hint" id="vcProgressLabel">Processing…</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comparison player (shown after conversion) -->
+            <div class="vc-comparison" id="vcComparison" style="display:none;">
+              <h4 class="vc-char-heading">Compare Results</h4>
+              <div class="vc-two-col">
+                <div class="vc-col">
+                  <span class="form-hint">Original</span>
+                  <audio id="vcCmpOriginal" controls class="audio-player"
+                         style="width:100%;" aria-label="Original audio"></audio>
+                </div>
+                <div class="vc-col">
+                  <span class="form-hint">Converted</span>
+                  <audio id="vcCmpConverted" controls class="audio-player"
+                         style="width:100%;" aria-label="Converted audio"></audio>
+                </div>
+              </div>
+              <div style="text-align:center;margin-top:1rem;">
+                <button class="btn btn-secondary" id="vcDownloadBtn">
+                  Download Converted Audio
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ─── TAB: SAVED PROFILES ─── -->
+          <div class="vc-panel" id="vcPanel-saved-profiles" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:center;
+                        margin-bottom:1rem;">
+              <h4 class="vc-char-heading" style="margin:0;">Saved Voice Profiles</h4>
+              <button class="btn-link" id="vcRefreshProfilesBtn">Refresh</button>
+            </div>
+            <div id="vcProfilesList" class="vc-profiles-grid">
+              <p class="form-hint">
+                No profiles yet. Create one in the "Create Voice Profile" tab.
+              </p>
+            </div>
+          </div>
+
+        </div><!-- /vcBody -->
+      </section><!-- /vcSection -->
+
       <!-- Features Section -->
-      <section class="features">
+      <!-- <section class="features">
         <div class="feature-card">
-          <div class="feature-icon">🌏</div>
+          <div class="feature-icon">Languages</div>
           <h3 class="feature-title">10+ Languages</h3>
           <p class="feature-desc">Support for major Indian languages including Hindi, Bengali, Tamil, Telugu, and more</p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-icon">🎭</div>
+          <div class="feature-icon">Voices</div>
           <h3 class="feature-title">Multiple Voices</h3>
           <p class="feature-desc">Choose from 35+ natural-sounding AI voices with different genders and styles</p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon">Speed</div>
           <h3 class="feature-title">Fast & Reliable</h3>
           <p class="feature-desc">Quick synthesis powered by advanced VITS and neural TTS models</p>
         </div>
         
         <div class="feature-card">
-          <div class="feature-icon">🎛️</div>
+          <div class="feature-icon">Control</div>
           <h3 class="feature-title">Customizable</h3>
           <p class="feature-desc">Adjust speech pace, pitch, and other parameters to match your needs</p>
         </div>
       </section>
     </div>
-  </main>
+  </main> -->
   
   <!-- Footer -->
   <footer class="footer">
@@ -219,11 +513,11 @@
         &copy; 2026 VoiceAPI | Multi-lingual Text-to-Speech Platform
       </p>
       <p class="footer-links">
-        <a href="#" class="footer-link">Documentation</a>
+        <a href="https://harshil748-voiceapi.hf.space/docs#/" class="footer-link" target="_blank" rel="noopener noreferrer">Documentation</a>
         <span class="footer-separator">•</span>
-        <a href="#" class="footer-link">API</a>
+        <a href="https://harshil748-voiceapi.hf.space/" class="footer-link" target="_blank" rel="noopener noreferrer">API</a>
         <span class="footer-separator">•</span>
-        <a href="#" class="footer-link">GitHub</a>
+        <a href="https://github.com/harshil748/VoiceAPI.git" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
       </p>
     </div>
   </footer>

@@ -11,7 +11,7 @@ Strategy:
 """
 
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, File, Form, HTTPException, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -21,6 +21,8 @@ import logging
 import os
 import io
 from datetime import datetime
+
+import httpx
 
 from voiceapi_client import VoiceAPIClient, VoiceAPIError
 from sarvam_client import SarvamClient, SarvamAPIError
@@ -42,6 +44,7 @@ CORS_ORIGINS = os.getenv('CORS_ORIGINS', 'http://localhost:3000,http://localhost
 HOST = os.getenv('HOST', '0.0.0.0')
 PORT = int(os.getenv('PORT', '8001'))
 API_TIMEOUT = int(os.getenv('API_TIMEOUT', '60'))
+CONVERTER_BASE_URL = os.getenv('CONVERTER_BASE_URL', 'http://localhost:8002')
 
 # =============================================================================
 # Initialize API clients  (must come before lifespan definition)
@@ -442,6 +445,185 @@ async def synthesize_speech(request: SynthesizeRequest):
     except Exception as exc:
         logger.error(f"Unexpected synthesis error: {exc}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {exc}")
+
+
+# =============================================================================
+# Voice Converter Proxy Endpoints
+# Forwards requests to the converter microservice running on CONVERTER_BASE_URL
+# (default: http://localhost:8002). Start it with:
+#   cd Voice_converter && uvicorn api.main:app --port 8002
+# =============================================================================
+
+_CONVERTER_TIMEOUT = httpx.Timeout(120.0, connect=10.0)
+_CONVERTER_SHORT_TIMEOUT = httpx.Timeout(10.0, connect=5.0)
+
+
+def _converter_unavailable() -> HTTPException:
+    return HTTPException(
+        status_code=503,
+        detail=(
+            "Voice Converter microservice is not running. "
+            "Start it with: cd Voice_converter && uvicorn api.main:app --port 8002"
+        ),
+    )
+
+
+@app.get("/api/voice-converter/health")
+async def proxy_converter_health():
+    """Check whether the Voice Converter microservice is available."""
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_SHORT_TIMEOUT) as client:
+            resp = await client.get(f"{CONVERTER_BASE_URL}/api/health")
+        return Response(content=resp.content, media_type="application/json",
+                        status_code=resp.status_code)
+    except Exception:
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            content={"status": "unavailable",
+                     "message": "Voice Converter is not running"},
+            status_code=503,
+        )
+
+
+@app.post("/api/voice-converter/create-profile")
+async def proxy_create_profile(
+    reference_audio: UploadFile = File(...),
+    profile_name: str = Form(...),
+):
+    """Proxy: upload reference audio and create a voice profile."""
+    content = await reference_audio.read()
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_TIMEOUT) as client:
+            resp = await client.post(
+                f"{CONVERTER_BASE_URL}/api/create-voice-profile",
+                files={
+                    "reference_audio": (
+                        reference_audio.filename or "ref.wav",
+                        content,
+                        reference_audio.content_type or "audio/wav",
+                    )
+                },
+                data={"profile_name": profile_name},
+            )
+        from fastapi.responses import JSONResponse
+        return JSONResponse(content=resp.json(), status_code=resp.status_code)
+    except httpx.ConnectError:
+        raise _converter_unavailable()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Converter error: {exc}")
+
+
+@app.get("/api/voice-converter/profiles")
+async def proxy_list_profiles():
+    """Proxy: list all saved voice profiles."""
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_SHORT_TIMEOUT) as client:
+            resp = await client.get(f"{CONVERTER_BASE_URL}/api/voice-profiles")
+        from fastapi.responses import JSONResponse
+        return JSONResponse(content=resp.json(), status_code=resp.status_code)
+    except httpx.ConnectError:
+        raise _converter_unavailable()
+
+
+@app.delete("/api/voice-converter/profiles/{profile_id}")
+async def proxy_delete_profile(profile_id: str):
+    """Proxy: delete a saved voice profile by UUID."""
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_SHORT_TIMEOUT) as client:
+            resp = await client.delete(
+                f"{CONVERTER_BASE_URL}/api/voice-profiles/{profile_id}"
+            )
+        from fastapi.responses import JSONResponse
+        return JSONResponse(content=resp.json(), status_code=resp.status_code)
+    except httpx.ConnectError:
+        raise _converter_unavailable()
+
+
+@app.post("/api/voice-converter/convert")
+async def proxy_convert(
+    source_audio: UploadFile = File(
+        ..., description="TTS output or any source audio"
+    ),
+    target_profile_id: str = Form(...),
+    quality: str = Form("balanced"),
+):
+    """Proxy: convert source audio to match the target voice profile."""
+    content = await source_audio.read()
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_TIMEOUT) as client:
+            resp = await client.post(
+                f"{CONVERTER_BASE_URL}/api/convert",
+                files={
+                    "source_audio": (
+                        source_audio.filename or "source.wav",
+                        content,
+                        source_audio.content_type or "audio/wav",
+                    )
+                },
+                data={"target_profile_id": target_profile_id, "quality": quality},
+            )
+        if resp.status_code == 200:
+            return Response(
+                content=resp.content,
+                media_type="audio/wav",
+                headers={
+                    "Content-Disposition": "attachment; filename=converted.wav",
+                    "X-Conversion-Method": resp.headers.get(
+                        "X-Conversion-Method", "voice_converter_v1"
+                    ),
+                    "X-Processing-Time": resp.headers.get("X-Processing-Time", ""),
+                    "X-Target-Pitch": resp.headers.get("X-Target-Pitch", ""),
+                },
+            )
+        from fastapi.responses import JSONResponse
+        return JSONResponse(content=resp.json(), status_code=resp.status_code)
+    except httpx.ConnectError:
+        raise _converter_unavailable()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Converter error: {exc}")
+
+
+@app.post("/api/voice-converter/convert-with-new-voice")
+async def proxy_convert_with_new_voice(
+    source_audio: UploadFile = File(...),
+    target_reference_audio: UploadFile = File(...),
+    quality: str = Form("balanced"),
+):
+    """Proxy: one-shot conversion using an uploaded reference (no saved profile)."""
+    src_content = await source_audio.read()
+    ref_content = await target_reference_audio.read()
+    try:
+        async with httpx.AsyncClient(timeout=_CONVERTER_TIMEOUT) as client:
+            resp = await client.post(
+                f"{CONVERTER_BASE_URL}/api/convert-with-new-voice",
+                files={
+                    "source_audio": (
+                        source_audio.filename or "source.wav",
+                        src_content,
+                        source_audio.content_type or "audio/wav",
+                    ),
+                    "target_reference_audio": (
+                        target_reference_audio.filename or "ref.wav",
+                        ref_content,
+                        target_reference_audio.content_type or "audio/wav",
+                    ),
+                },
+                data={"quality": quality},
+            )
+        if resp.status_code == 200:
+            return Response(
+                content=resp.content,
+                media_type="audio/wav",
+                headers={
+                    "Content-Disposition": "attachment; filename=converted.wav",
+                },
+            )
+        from fastapi.responses import JSONResponse
+        return JSONResponse(content=resp.json(), status_code=resp.status_code)
+    except httpx.ConnectError:
+        raise _converter_unavailable()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Converter error: {exc}")
 
 
 # =============================================================================

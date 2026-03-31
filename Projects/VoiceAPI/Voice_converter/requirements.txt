@@ -1,0 +1,38 @@
+# ============================================================
+# Voice Converter Module - Dependencies
+# Python 3.13 compatible (pre-built wheels, no compilation needed)
+# ============================================================
+
+# --- Core audio processing ---
+# numpy 2.x ships Python 3.13 wheels; 1.26.x does not
+numpy>=2.0.0             # Numerical arrays, signal math
+scipy>=1.14.0            # Signal processing: filtering, resampling, LPC
+soundfile>=0.12.1        # Read/write audio files (WAV, FLAC, OGG, etc.)
+librosa>=0.10.2          # Audio analysis: pitch, STFT, MFCCs (requires numpy>=2 from 0.10.2)
+
+# --- Pitch & formant analysis (Praat via Python) ---
+praat-parselmouth>=0.4.3 # Praat speech analysis in Python (formants, pitch, HNR)
+
+# --- Voice similarity embeddings (optional) ---
+# resemblyzer depends on webrtcvad which has no Python 3.13 wheel yet;
+# the converter falls back gracefully when it is absent.
+# Uncomment if you are on Python <= 3.12:
+# resemblyzer==0.1.1
+
+# --- Audio format conversion ---
+pydub>=0.25.1            # Convert MP3/M4A/OGG → WAV, sample-rate changes
+
+# --- API framework ---
+fastapi>=0.115.0         # Async REST API framework
+uvicorn[standard]>=0.30.0 # ASGI server with hot-reload support
+python-multipart>=0.0.9  # Multipart form-data / file uploads
+python-dotenv>=1.0.0     # Load .env environment variables
+
+# --- Async file I/O ---
+aiofiles>=23.2.1         # Non-blocking file reads/writes in async endpoints
+
+# --- Data validation ---
+pydantic>=2.7.0          # Request/response models and runtime validation
+
+# --- HTTP client (for integration with VoiceAPI backend) ---
+httpx>=0.27.0            # Async HTTP client used in /api/convert pipeline
