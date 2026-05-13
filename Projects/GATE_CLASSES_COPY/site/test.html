@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GATE Mock Test — GATEPrep</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="test-body">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN 1 — SETUP
+════════════════════════════════════════════════════════════════ -->
+<div id="setupScreen" class="screen">
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">📚</span>
+        <span class="brand-text">GATE<strong>Prep</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="test.html" class="active nav-test-link">🎯 Mock Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="setup-container">
+    <div class="setup-card">
+      <h1 class="setup-heading">Configure Your Mock Test</h1>
+      <p class="setup-sub">Choose subject, count, and timer — then start your exam.</p>
+
+      <div class="setup-grid">
+        <!-- Subject -->
+        <div class="setup-field">
+          <label class="setup-label" for="subjectSelect">Subject</label>
+          <select id="subjectSelect" class="setup-select">
+            <option value="all">🎯 All Subjects (Mixed)</option>
+            <!-- Populated from questions.json -->
+          </select>
+        </div>
+
+        <!-- Question count -->
+        <div class="setup-field">
+          <label class="setup-label">Number of Questions</label>
+          <div class="count-grid" id="countGrid">
+            <button class="count-btn" data-n="10">10</button>
+            <button class="count-btn" data-n="20">20</button>
+            <button class="count-btn active" data-n="30">30</button>
+            <button class="count-btn" data-n="65">65 (Full)</button>
+          </div>
+          <input type="number" id="customCount" class="setup-input"
+                 placeholder="Custom count…" min="1" max="500" />
+        </div>
+
+        <!-- Question type filter -->
+        <div class="setup-field">
+          <label class="setup-label">Question Type</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="qtype" value="all" checked /> All (MCQ + MSQ)
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="qtype" value="mcq" /> MCQ only
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="qtype" value="msq" /> MSQ only
+            </label>
+          </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="setup-field">
+          <label class="setup-label">Time Limit</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="timer" value="auto" checked /> Auto (2 min / Q)
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="timer" value="60" /> 60 minutes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="timer" value="90" /> 90 minutes
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="timer" value="180" /> 3 hours (GATE full)
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="timer" value="none" /> No timer
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability preview -->
+      <div class="availability-bar" id="availabilityBar">
+        <span id="availText">Loading questions…</span>
+      </div>
+
+      <button id="startTestBtn" class="start-btn" onclick="startTest()" disabled>
+        Start Test →
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN 2 — EXAM
+════════════════════════════════════════════════════════════════ -->
+<div id="examScreen" class="screen hidden">
+
+  <!-- Top header bar (GATE-style navy) -->
+  <header class="exam-header">
+    <div class="exam-header-left">
+      <span class="exam-logo">📚 GATE<strong>Prep</strong></span>
+      <span class="exam-section" id="examSection"></span>
+    </div>
+    <div class="exam-header-center">
+      <span class="exam-counter" id="examCounter"></span>
+    </div>
+    <div class="exam-header-right">
+      <div class="timer-box" id="timerBox">
+        <span class="timer-label">Time Left</span>
+        <span class="timer-digits" id="timerDigits">— : — : —</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Body: question panel + sidebar -->
+  <div class="exam-body">
+
+    <!-- Left: question area -->
+    <main class="exam-main">
+      <!-- Question meta bar -->
+      <div class="q-meta-bar">
+        <span class="q-number-tag" id="qNumberTag"></span>
+        <span class="q-type-tag" id="qTypeTag"></span>
+        <span class="q-marks-tag" id="qMarksTag"></span>
+      </div>
+
+      <!-- Question text -->
+      <div class="q-text-area">
+        <div class="q-text" id="qText"></div>
+      </div>
+
+      <!-- Options -->
+      <div class="q-options" id="qOptions"></div>
+
+      <!-- Action buttons -->
+      <div class="q-actions">
+        <button class="btn-mark-review" onclick="markForReview()">
+          Mark for Review &amp; Next
+        </button>
+        <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+        <div class="q-nav-buttons">
+          <button class="btn-prev" onclick="goToPrev()" id="btnPrev">← Previous</button>
+          <button class="btn-next" onclick="saveAndNext()">Save &amp; Next →</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right: question palette -->
+    <aside class="exam-sidebar">
+      <div class="sidebar-profile">
+        <div class="profile-avatar">👤</div>
+        <div class="profile-name">GATE Aspirant</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="palette-legend">
+        <div class="legend-item"><span class="pal-dot not-visited"></span> Not Visited</div>
+        <div class="legend-item"><span class="pal-dot not-answered"></span> Not Answered</div>
+        <div class="legend-item"><span class="pal-dot answered"></span> Answered</div>
+        <div class="legend-item"><span class="pal-dot marked"></span> Marked for Review</div>
+        <div class="legend-item"><span class="pal-dot answered-marked"></span> Answered &amp; Marked</div>
+      </div>
+
+      <!-- Question number grid -->
+      <div class="palette-title">Questions</div>
+      <div class="palette-grid" id="paletteGrid"></div>
+
+      <!-- Stats row -->
+      <div class="palette-stats" id="paletteStats"></div>
+
+      <button class="btn-submit-test" onclick="confirmSubmit()">End Test</button>
+    </aside>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN 3 — RESULTS
+════════════════════════════════════════════════════════════════ -->
+<div id="resultsScreen" class="screen hidden">
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">📚</span>
+        <span class="brand-text">GATE<strong>Prep</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="test.html" class="active nav-test-link">🎯 Mock Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="results-container">
+
+    <!-- Score card -->
+    <div class="score-card" id="scoreCard"></div>
+
+    <!-- Subject breakdown -->
+    <div class="results-section">
+      <h3 class="results-section-title">Subject-wise Breakdown</h3>
+      <div id="subjectBreakdown" class="breakdown-table-wrap"></div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="results-actions">
+      <button class="btn-review" onclick="showReview()">📋 Review All Questions</button>
+      <button class="btn-retry" onclick="location.reload()">🔁 New Test</button>
+      <a class="btn-home" href="index.html">🏠 Home</a>
+    </div>
+
+    <!-- Review panel -->
+    <div id="reviewPanel" class="review-panel hidden">
+      <h3 class="results-section-title">Question-by-Question Review</h3>
+      <div id="reviewList"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── Submit confirmation modal ────────────────────────────────── -->
+<div id="submitModal" class="modal-overlay hidden" onclick="closeSubmitModal(event)">
+  <div class="modal-box modal-confirm">
+    <h3>Submit Test?</h3>
+    <div id="submitSummary" class="submit-summary"></div>
+    <div class="modal-confirm-btns">
+      <button class="btn-confirm-no"  onclick="closeSubmitModal()">Continue Test</button>
+      <button class="btn-confirm-yes" onclick="submitTest()">Submit Now</button>
+    </div>
+  </div>
+</div>
+
+
+<script src="test.js"></script>
+</body>
+</html>

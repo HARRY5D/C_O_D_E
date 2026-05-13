@@ -144,6 +144,21 @@ function setStatus(msg, type = "ok") {
 function bootHomePage() {
   renderSubjectCards();
   bindSearchInput();
+  // Try to load questions.json to show live count in hero CTA
+  const noteEl = document.getElementById('heroTestNote');
+  if (noteEl) {
+    fetch('questions.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (d && d.totalQ) {
+          const subCount = d.bySubject ? Object.keys(d.bySubject).length : '?';
+          noteEl.textContent = `${d.totalQ.toLocaleString()} questions · ${subCount} subjects · MCQ + MSQ`;
+        } else {
+          noteEl.textContent = 'Full GATE exam interface';
+        }
+      })
+      .catch(() => { noteEl.textContent = 'Full GATE exam interface'; });
+  }
 }
 
 /** Render colored subject cards in the grid */
@@ -164,8 +179,12 @@ function renderSubjectCards() {
            aria-label="Browse ${g.label}">
         <div class="card-icon">${icon}</div>
         <div class="card-title">${g.label}</div>
-        <div class="card-count">${g.docs.length} paper${g.docs.length !== 1 ? "s" : ""}</div>
-      </div>`;
+        <div class="card-count">${g.docs.length} paper${g.docs.length !== 1 ? "s" : ""}</div>        <div class="card-footer">
+          <a href="test.html?subject=${encodeURIComponent(g.label)}" class="card-practice-btn"
+             onclick="event.stopPropagation()" title="Practice ${g.label} questions">
+            🎯 Practice
+          </a>
+        </div>      </div>`;
   }).join("");
 
   // Keyboard support
@@ -317,6 +336,7 @@ function renderSidebar(groups) {
           ${icon} ${escapeHtml(g.label)}
           <span style="float:right;font-size:.78rem;color:var(--text-secondary)">${g.docs.length}</span>
         </button>
+        <a href="test.html?subject=${encodeURIComponent(g.label)}" class="sidebar-practice-link" title="Practice ${g.label}">🎯</a>
       </li>`;
   }).join("");
 }
