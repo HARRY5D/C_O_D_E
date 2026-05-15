@@ -1,0 +1,9 @@
+Name: John Jose
+Username: John__91
+Email: user.test@domain.org
+Mobile: 8123456789
+Password: Test@2026
+DateOfBirth: 29-02-2004
+Pincode: 0312345
+PAN: ABCD12345F
+URL: http://sample-site.net
