@@ -62,9 +62,58 @@ Applicable to resident individuals, HUFs, and partnership firms (excluding LLPs)
 
 ---
 
+## Section 87A Rebate for Freelancers (FY 2025-26)
+
+Under the New Tax Regime (Section 115BAC), Section 87A provides a rebate of up to Rs.60,000
+for any individual whose Net Taxable Income is at or below Rs.12,00,000.
+
+For a freelancer under Section 44ADA:
+  Net Taxable Income = 50% of Gross Receipts (the presumptive profit)
+
+Therefore, any freelancer with Gross Receipts up to Rs.24,00,000 will have a presumptive
+profit of at most Rs.12,00,000 and will pay ZERO tax under the New Tax Regime.
+
+### Worked Example: Gross Receipts = Rs.15,00,000
+
+| Step | Calculation | Amount |
+|---|---|---|
+| Gross Receipts | As received | Rs.15,00,000 |
+| Presumptive Profit (50%) | Section 44ADA | Rs.7,50,000 |
+| Standard Deduction | Not applicable for freelancers | Rs.0 |
+| Chapter VI-A Deductions | Blocked under New Regime | Rs.0 |
+| Net Taxable Income | | Rs.7,50,000 |
+| Slab Tax (New Regime) | 5% of Rs.3,50,000 (4L-7.5L bracket) | Rs.17,500 |
+| Section 87A Rebate | Income below Rs.12L limit | -Rs.17,500 |
+| Health & Education Cess | 4% on Rs.0 | Rs.0 |
+| **Final Tax Payable** | | **Rs.0 (ZERO)** |
+
+**Conclusion:** A freelancer earning Rs.15 Lakh gross pays ZERO tax under the New Regime.
+
+---
+
+## Example Case Study (Gross Receipts: Rs.40 Lakhs Freelancer)
+
+| Item | Old Regime (Sec 44ADA) | New Regime (Sec 44ADA) |
+|---|---|---|
+| Gross Receipts | Rs.40,00,000 | Rs.40,00,000 |
+| Presumptive Profit (50%) | Rs.20,00,000 | Rs.20,00,000 |
+| Standard Deduction | Rs.0 | Rs.0 |
+| Chapter VI-A Deductions | Allowed (e.g. Rs.1.5L 80C + 50k NPS) | Blocked (Rs.0) |
+| Net Taxable Income | Rs.18,00,000 (assuming Rs.2L deductions) | Rs.20,00,000 |
+| Tax Calculated (including 4% Cess) | Rs.4,29,000 (assuming Rs.0 deductions) | Rs.2,08,000 |
+
+*Conclusion:* The New Tax Regime results in Rs.2,08,000 tax, saving Rs.2,21,000 vs Old Regime.
+
+Note: At Rs.40L gross, the presumptive profit (Rs.20L) exceeds Rs.12L, so Section 87A
+rebate does NOT apply. New regime tax is Rs.2,08,000, not zero.
+
+---
+
 ## Related Sections
 - **Section 28** — Chargeability of profits and gains of business or profession (PGBP)
-- **Section 194J** — TDS on fees for professional or technical services (primary TDS section for freelancers, usually 10% or 2%)
-- **Section 194-I** — TDS on Rent (NOT business tax for freelancers)
+- **Section 87A** — Tax rebate (zero tax for net income up to Rs.12L in New Regime)
+- **Section 194J** — TDS on fees for professional or technical services (primary TDS for freelancers, usually 10% or 2%)
+- **Section 194-I** — TDS on Rent (NOT applicable for freelancer professional income)
 - **Section 44AA** — Maintenance of books of accounts (exempted if using Sec 44AD/44ADA)
 - **Section 44AB** — Audit of accounts (exempted if declaring profit at or above presumptive rates)
+

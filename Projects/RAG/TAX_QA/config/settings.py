@@ -30,9 +30,10 @@ class Settings(BaseSettings):
     app_version: str = Field(default="1.0.0")
     debug: bool = Field(default=False)
 
-    # Google / Gemini (commented out — using Ollama locally now)
-    # gemini_api_key: str = Field(default="")
-    # google_api_key: str = Field(default="")
+    # Google / Gemini (Section Verifier — Google AI Studio key)
+    gemini_api_key: str = Field(default="")
+    gemini_model: str = Field(default="gemini-1.5-flash")
+    gemini_verify_enabled: bool = Field(default=True)
 
     # LangSmith
     langsmith_tracing: str = Field(default="true")

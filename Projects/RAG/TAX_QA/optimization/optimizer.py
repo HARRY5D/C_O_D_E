@@ -17,15 +17,32 @@ from tax_engine.slabs import calculate_old_regime_tax, calculate_new_regime_tax
 def find_optimization_opportunities(
     profile: dict,
     tax_result: dict,
+    preferred_regime: str = "auto",
 ) -> dict:
     """
     Given a tax profile and existing tax result, find:
     - Unused deduction capacity
     - Estimated additional savings per suggestion
     - Priority-ranked recommendations
+
+    Args:
+        preferred_regime: "old", "new", or "auto" (use recommendation)
     """
     suggestions = []
     total_potential_savings = 0.0
+
+    # Determine effective regime for optimization
+    effective_regime = preferred_regime
+    if effective_regime == "auto":
+        effective_regime = tax_result.get("recommendation", {}).get("regime", "old").lower()
+        if "new" in effective_regime:
+            effective_regime = "new"
+        else:
+            effective_regime = "old"
+
+    # Under New Regime, Chapter VI-A deductions (80C, 80D, NPS 80CCD1B) are BLOCKED.
+    # Only suggest these if user is on Old Regime.
+    is_old_regime = (effective_regime != "new")
 
     # Current values
     elss = float(profile.get("elss", 0))
@@ -79,7 +96,7 @@ def find_optimization_opportunities(
         suggestions.append({
             "section": "80D",
             "title": "Get Health Insurance for Self/Family",
-            "current_premium": health_self,
+            "current_investment": health_self,
             "limit": self_limit,
             "remaining_capacity": round(remaining_80d_self, 2),
             "instruments": ["Health Insurance Policy"],
@@ -95,7 +112,7 @@ def find_optimization_opportunities(
         suggestions.append({
             "section": "80D",
             "title": "Health Insurance for Parents",
-            "current_premium": health_parents,
+            "current_investment": health_parents,
             "limit": parent_limit,
             "remaining_capacity": round(remaining_80d_parents, 2),
             "instruments": ["Parents Health Insurance Policy"],

@@ -1,19 +1,21 @@
 """
-LangGraph Orchestrator — central workflow graph for FinAssist AI (v3).
+LangGraph Orchestrator — central workflow graph for FinAssist AI (v4).
 
 Fixed flow:
   detect_intent
-      │
-  [form16_parser?]      ← only if form16 uploaded
-      │
-  [tax_engine?]         ← only if tax_profile available
-      │
-  [optimize?]           ← only if optimization intent AND tax_result available
-      │
-  [retrieve_context?]   ← only if needs_retrieval=True (SKIPPED for general_chat etc.)
-      │
-  generate_answer       ← always
-      │
+      |
+  [form16_parser?]      <- only if form16 uploaded
+      |
+  [tax_engine?]         <- only if tax_profile available
+      |
+  [optimize?]           <- only if optimization intent AND tax_result available
+      |
+  [retrieve_context?]   <- only if needs_retrieval=True
+      |
+  generate_answer       <- always (strict regime lock + verified tax data)
+      |
+  gemini_verify         <- always (skips gracefully if Gemini disabled/unavailable)
+      |
   END
 """
 from langgraph.graph import StateGraph, END
@@ -25,6 +27,7 @@ from recommendation_engine.nodes import (
     optimization_node,
     rag_retrieve_node,
     generate_answer_node,
+    gemini_verify_node,
 )
 
 
@@ -79,13 +82,14 @@ def build_finassist_graph():
     """Construct and compile the FinAssist LangGraph workflow (v3)."""
     workflow = StateGraph(GraphState)
 
-    # ─── Processing nodes ──────────────────────────────────────────────────────
+    # Processing nodes
     workflow.add_node("detect_intent",    detect_intent_node)
     workflow.add_node("parse_form16",     form16_parser_node)
     workflow.add_node("calculate_tax",    tax_engine_node)
     workflow.add_node("optimize",         optimization_node)
     workflow.add_node("retrieve_context", rag_retrieve_node)
     workflow.add_node("generate_answer",  generate_answer_node)
+    workflow.add_node("gemini_verify",    gemini_verify_node)
 
     # ─── Passthrough routing nodes ─────────────────────────────────────────────
     workflow.add_node("maybe_calculate", maybe_calculate_node)
@@ -151,11 +155,14 @@ def build_finassist_graph():
         },
     )
 
-    # 8. retrieve_context → generate
+    # 8. retrieve_context -> generate
     workflow.add_edge("retrieve_context", "generate_answer")
 
-    # 9. generate → END
-    workflow.add_edge("generate_answer", END)
+    # 9. generate -> gemini_verify (always; node skips gracefully if disabled)
+    workflow.add_edge("generate_answer", "gemini_verify")
+
+    # 10. gemini_verify -> END
+    workflow.add_edge("gemini_verify", END)
 
     return workflow.compile()
 

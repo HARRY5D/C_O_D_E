@@ -41,6 +41,15 @@ class Form16Result(BaseModel):
     notes: List[str] = Field(default_factory=list)
 
 
+class GeminiVerificationResult(BaseModel):
+    """Result from Gemini post-hoc legal section verification."""
+    verified: bool = False           # True if Gemini confirmed all sections
+    verified_sections: List[str] = Field(default_factory=list)   # correct sections
+    corrections: List[str] = Field(default_factory=list)         # any wrong sections + fixes
+    gemini_raw_response: str = ""    # raw Gemini verification text
+    skipped: bool = False            # True if Gemini was disabled or quota exceeded
+
+
 class GraphState(BaseModel):
     """
     Central state for LangGraph workflow.
@@ -52,6 +61,7 @@ class GraphState(BaseModel):
     tax_profile: Dict[str, Any] = Field(default_factory=dict)
     form16_path: Optional[str] = None
     chat_history: List[UserMessage] = Field(default_factory=list)
+    preferred_regime: Optional[str] = None   # "old", "new", or None (auto-recommend)
 
     # Intent detection
     intent: Literal[
@@ -72,6 +82,7 @@ class GraphState(BaseModel):
     rag_context: Optional[RetrievedContext] = None
     optimization_result: Optional[OptimizationResult] = None
     form16_result: Optional[Form16Result] = None
+    gemini_verification: Optional[GeminiVerificationResult] = None
 
     # Final output
     final_answer: str = ""
